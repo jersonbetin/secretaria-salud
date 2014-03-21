@@ -1,0 +1,51 @@
+extends ../layout
+
+block css
+  link(rel='stylesheet', href='/stylesheets/less/error/error.css')
+  link(rel='stylesheet', href='/stylesheets/less/search/search.css')
+  style.
+    #bs-example-navbar-collapse-1 a{
+      font-family:arial;
+    }
+
+block nav
+  .navbar-header
+    button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
+      span.sr-only toogle navigation
+      span.icon-bar
+      span.icon-bar
+      span.icon-bar
+    a.navbar-brand(href='/') Secretaria de salud
+  #bs-example-navbar-collapse-1.collapse.navbar-collapse
+    a.navbar-brand.navbar-right#session_Close(href="/session/admin")
+      .btn.btn-info CERRAR SESION
+block content
+  .container.general
+    .row
+      .col-md-10.col-md-offset-2
+        p.text-search
+          i.fa.fa-search
+          |  Igrese numero de idenficacion del medico
+          form.form-inline(role="form" method="post" action="/medicos/busqueda")
+            .col-sm-10
+              input.form-control(type="text" id="identificacion" name="identificacion" placeholder="Busqueda rapida")
+            input.btn.btn-primary(type="submit" id="buscar" value="Buscar")
+
+
+
+block js
+  script.
+    $(document).on('ready', function(){
+        $('#session_Close').on('click', function(e){
+          e.preventDefault();
+            $.ajax({
+              url:"/session/admin",
+              method:"delete",
+              success: function(data){
+                if(data=="OK"){
+                  window.location.href = '/';
+                }
+              }
+            });
+        });
+    });

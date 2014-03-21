@@ -1,0 +1,484 @@
+extends ../layout
+
+block css
+  link(rel='stylesheet', href='/stylesheets/less/error/error.css')
+  link(rel='stylesheet', href='/stylesheets/less/ShowMedico/medico.css')
+block nav
+  .navbar-header
+    button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
+      span.sr-only toogle navigation
+      span.icon-bar
+      span.icon-bar
+      span.icon-bar
+    a.navbar-brand(href='/') Secretaria de salud
+  #bs-example-navbar-collapse-1.collapse.navbar-collapse
+    a.navbar-brand.navbar-right#session_Close(href="/session/admin")
+      .btn.btn-info CERRAR SESION
+
+block content
+  .container.general
+    .row
+      .col-lg-12
+        .col-lg-3
+          img.img-rounded(src="/images/userMedico.00_PNG_SRZ", alt="")
+        .col-lg-9
+          ul.nav.nav-tabs
+            li.active
+              a(href="#opcion1" data-toggle="tab") INFORMACION PERSONAL
+            li
+              a(href="#opcion2" data-toggle="tab") TITULOS
+            li
+              a(href="#opcion3" data-toggle="tab") LUGAR DE TRABAJO
+            li
+              a(href="#opcion4" data-toggle="tab") OTROS
+          .tab-content
+            #opcion1.tab-pane.active
+                table.table
+                  .form-group
+                    tr
+                      td
+                        label.control-label.col-sm-12(for="tIdent") Tipo Identificacion:
+                      td
+                        input.form-control.input-formu(type ="text" value="#{datos.medico.tipoIdent}" disabled="disabled")
+                      td
+                        label.control-label.col-sm-12(for="ident") Identificacion:
+                      td
+                        input.form-control.input-formu(type ="text"  value="#{datos.medico.identificacion}" disabled="disabled")
+                  .form-group
+                    tr
+                      td
+                        label.control-label.col-sm-12(for="nombres") Nombres:
+                      td
+                        input.form-control.input-formu(type="text" value="#{datos.medico.nombres}" disabled="disabled")
+                      td
+                        label.control-label.col-sm-12(for="PApellido") Primer apellido:
+                      td
+                        input.form-control.input-formu(type="text" value="#{datos.medico.apellidos.primero}" disabled="disabled")
+                  .form-group
+                    tr
+                      td
+                        label.control-label.col-sm-12(for="SApellido") Segundo apellido:
+                      td
+                        input.form-control.input-formu(type="text" value="#{datos.medico.apellidos.segundo}" disabled="disabled")
+                      td
+                        label.control-label.col-sm-12(for="sexo") Sexo:
+                      td
+                        if (datos.medico.sexo=='M')
+                          input.form-control.input-formu(type="text" value="Masculino" disabled="disabled")
+                        else
+                          input.form-control.input-formu(type="text" value="Femenino" disabled="disabled")
+                  .form-group
+                    tr
+                      td
+                        label.control-label.col-sm-12(for="Celular") Celular:
+                      td
+                        input.form-control.input-formu(type="text" value="#{datos.medico.telefono.celular}" disabled="disabled")
+                      td
+                        label.control-label.col-sm-12(for="telefono") Telefono:
+                      td
+                        input.form-control.input-formu(type="text" value="#{datos.medico.telefono.fijo}" disabled="disabled")
+                  .form-group
+                    tr
+                      td
+                        label.control-label.col-sm-12(for="fecNacim") Fecha de nacimiento:
+                      td
+                        input.form-control.input-formu(type="text" value="#{moment(datos.medico.fehaNaimiento).format('DD-MM-YYYY')}" disabled="disabled")
+                      td
+                        label.control-label.col-sm-12(for="nacionalidad") Nacionalidad:
+                      td
+                        input.form-control.input-formu(type="text" value="#{datos.medico.nacionalidad}" disabled="disabled")
+                  .form-group
+                    tr
+                      td
+                        label.control-label.col-sm-12(for="municipio") Municipio:
+                      td
+                        input.form-control.input-formu(type="text" value="#{datos.medico.residencia.municipio}" disabled="disabled")
+                      td
+                        label.control-label.col-sm-12(for="direccion") Direccion:
+                      td
+                        input.form-control.input-formu(type="text" value="#{datos.medico.residencia.direccion}" disabled="disabled")
+                  .form-group
+                        tr
+                          td
+                          td(colspan="2")
+                            input.btn.btn-primary.input-form(type="button" id="registrar"  data-toggle="modal" data-target="#myModal" value="Editar")
+                          td
+                          td
+            #opcion2.tab-pane
+              table.table.table-hover.table-title
+                tr
+                  th TITULO
+                  th UNIVERSIDAD
+                  th FECHA TITULO
+                  th
+                each val in datos.titulos
+                  tr
+                    td #{val.titulo}
+                    td #{val._universidad.nombre}
+                    td #{moment(val.fechaObtenion).format('DD-MM-YYYY')}
+                    td
+                      a.btn.btn-default.btn-titulos(href="#" data-inf="#{val._id}") Editar 
+            #opcion3.tab-pane
+              table.table
+                    .form-group
+                      tr
+                        td
+                          label.control-label.col-sm-12(for="nit") Nit:
+                        td
+                          input.form-control.input-formu(type="text" name="nit" id="nit" value="#{datos.medico._lugarTrabajo.nit}"  disabled="disabled")
+                        td
+                          label.control-label.col-sm-12(for="NombEmpres") Nombre:
+                        td
+                          input.form-control.input-formu(type="text" name="NombEmpres" id="NombEmpres" value="#{datos.medico._lugarTrabajo.nombreClinica}"  disabled="disabled")
+                    .form-group
+                      tr
+                        td
+                          label.control-label.col-sm-12(for="municTrabajo") Municipio:
+                        td
+                          input.form-control.input-formu(type="text" name="municTrabajo" id="municTrabajo" value="#{datos.CiudadTrabajo.nombre}"  disabled="disabled")
+                        td
+                          label.control-label.col-sm-12(for="dirEmpresa") Direccion:
+                        td
+                          input.form-control.input-formu(type="text" name="dirEmpresa" id="dirEmpresa" value="#{datos.medico._lugarTrabajo.ubicacion.direccion}"  disabled="disabled")
+                    .form-group
+                      tr
+                        td
+                          label.control-label.col-sm-12(for="celTrabajo") Celular:
+                        td
+                          input.form-control.input-formu(type="text" name="celTrabajo" id="celTrabajo" value="#{datos.medico._lugarTrabajo.telefono.celular}"  disabled="disabled")
+                        td
+                          label.control-label.col-sm-12(for="telTrabajo") Telefono:
+                        td
+                          input.form-control.input-formu(type="text" name="telTrabajo" id="telTrabajo" value="#{datos.medico._lugarTrabajo.telefono.fijo}"  disabled="disabled")
+                     .form-group
+                        tr
+                          td
+                          td
+                            input.btn.btn-primary.input-form(type="submit" id="Edit-lugarTrab" value="Editar")
+                          td
+                            input.btn.btn-default.input-form(type="reset" id="borrar" value="Eliminar")
+                          td
+            #opcion4.tab-pane
+              table.table
+                  .form-group
+                    tr
+                      td
+                        label.control-label.col-sm-12(for="NTarjProf") N° profesional:
+                      td
+                        input.form-control.input-formu(type="text" name="NTarjProf" id="NTarjProf" value="#{datos.medico.NtarjetaProf}"  disabled="disabled")
+                      td
+                        label.control-label.col-sm-12(for="tip_prof") Tipo de profesion:
+                      td
+                         input.form-control.input-formu(type="text" name="tip_prof" id="tip_prof" value="#{datos.medico._tipoProfesional.tipo}"  disabled="disabled")
+                  .form-group
+                        tr
+                          td
+                          td
+                            input.btn.btn-primary.input-form(type="submit" id="Edit-otros" value="Editar")
+                          td
+                            input.btn.btn-default.input-form(type="reset" id="borrar" value="Eliminar")
+                          td
+
+          #myModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true")
+            .modal-dialog.modal-lg( style="width: 60%;")
+              .modal-content
+                .modal-header
+                  button(type="button" class="close" data-dismiss="modal" aria-hidden="true")&times;
+                  h4(class="modal-title" id="myModalLabel") Editar Informacion personal personal del medico #{datos.medico.identificacion}
+                .modal-body
+                  form(id="inf-personal" method="get" action="/medicos/inf-personal")
+                    table.table.table-edit-personal
+                      .form-group(style="display: none;")
+                         input.form-control.input-formu(type ="hidden" name="tIdent" id="tIdent" value="#{datos.medico.tipoIdent}")
+                         input.form-control.input-formu(type ="hidden" name="ident" id="ident"  value="#{datos.medico.identificacion}")
+                      .form-group
+                        tr
+                          td
+                            label.control-label.col-sm-12(for="nombres") Nombres:
+                          td
+                            input.form-control.input-formu(type="text" name="nombres" id="nombres" value="#{datos.medico.nombres}" )
+                          td
+                            label.control-label.col-sm-12(for="PApellido") Primer apellido:
+                          td
+                            input.form-control.input-formu(type="text" name="PApellido" id="PApellido" value="#{datos.medico.apellidos.primero}")
+                      .form-group
+                        tr
+                          td
+                            label.control-label.col-sm-12(for="SApellido") Segundo apellido:
+                          td
+                            input.form-control.input-formu(type="text" name="SApellido" id="SApellido" value="#{datos.medico.apellidos.segundo}")
+                          td
+                            label.control-label.col-sm-12(for="sexo") Sexo:
+                          td
+                            select.form-control(name="sexo" id="sexo")
+                              if (datos.medico.sexo=='M')
+                                option(value='M') Masculino
+                                option(value='F' ) Femenino
+                              else
+                                option(value='F' ) Femenino
+                                option(value='M') Masculino
+                      .form-group
+                        tr
+                          td
+                            label.control-label.col-sm-12(for="Celular") Celular:
+                          td
+                            input.form-control(type="text" name="Celular" id="Celular" value="#{datos.medico.telefono.celular}")
+                          td
+                            label.control-label.col-sm-12(for="telefono") Telefono:
+                          td
+                            input.form-control(type="text" name="telefono" id="telefono" value="#{datos.medico.telefono.fijo}")
+                      .form-group
+                        tr
+                          td
+                            label.control-label(for="fecNacim") Fecha de nacimiento:
+                          td
+                            input.form-control(type="text" name="fecNacim" id="fecNacim" value="#{moment(datos.medico.fehaNaimiento).format('DD-MM-YYYY')}")
+                          td
+                            label.control-label.col-sm-12(for="nacionalidad") Nacionalidad:
+                          td
+                           select.form-control(name="nacionalidad" id="nacionalidad")
+                              option(value='Colombiano') Colombiano
+                              option(value='Extranjero') Extranjero
+                              option(value='Nacionalizado') Nacionalizado
+                      .form-group
+                        tr
+                          td
+                            label.control-label.col-sm-12(for="municipio") Municipio:
+                          td
+                            input.form-control(type="text" name="municipio" id="municipio" value="#{datos.medico.residencia.municipio}")
+                          td
+                            label.control-label.col-sm-12(for="direccion") Direccion:
+                          td
+                            input.form-control(type="text" name="direccion" id="residencia" value="#{datos.medico.residencia.direccion}")
+                    .modal-footer
+                      button(type="button" class="btn btn-default" data-dismiss="modal") Cancelar
+                      button(type="submit" id="form-inf-personal" class="btn btn-primary") Guardar Cambios
+
+          #myModal-titulos.modal.fade(tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true")
+            .modal-dialog.modal-lg( style="width: 60%;")
+              .modal-content
+                .modal-header
+                  button(type="button" class="close" data-dismiss="modal" aria-hidden="true")&times;
+                  h4(class="modal-title" id="myModalLabel") Editar titulos del medico #{datos.medico.identificacion}
+                .modal-body
+                   form(id="inf-titulos" method="post" action="/medicos/inf-titulos")
+                    table.table
+                      input.form-control(type="hidden" name="idTitulo" id="idTitulo")
+                      .form-group
+                        tr
+                          td
+                            label.control-label.col-sm-12(for="titulo") Nombres titulo:
+                          td
+                            input.form-control(type="text" name="titulo" id="titulo")
+                          td
+                            label.control-label.col-sm-12(for="fechaObtencion") fecha Obtencion:
+                          td
+                            input.form-control(name="fechaObtencion" id="fechaObtencion")
+                      .form-group
+                          tr
+                            td
+                              label.control-label.col-sm-12(for="universidad") Universidad:
+                            td(colspan="3")
+                              #univer
+                    .modal-footer
+                        button(type="button" class="btn btn-default" data-dismiss="modal") Cancelar
+                        button(type="submit" id="form-titulos" class="btn btn-primary") Guardar Cambios
+
+          #myModal-otros.modal.fade(tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true")
+            .modal-dialog.modal-lg( style="width: 60%;")
+              .modal-content
+                .modal-header
+                  button(type="button" class="close" data-dismiss="modal" aria-hidden="true")&times;
+                  h4(class="modal-title" id="myModalLabel") Editar otros datos del medico #{datos.medico.identificacion}
+                .modal-body
+                  form(name="inf-otros" id="inf-otros" method="post" action="/medicos/inf-otros")
+                    table.table
+                      input.form-control.input-formu(type ="hidden" name="ident" id="ident"  value="#{datos.medico.identificacion}")
+                      .form-group
+                        tr
+                          td
+                            label.control-label.col-sm-12(for="TarjProf") N° profesional:
+                          td
+                            input.form-control(type="text" name="TarjProf" id="TarjProf" value="#{datos.medico.NtarjetaProf}" disabled="disabled")
+                          td
+                            label.control-label.col-sm-12(for="tipoprof") Tipo de profesion:
+                          td
+                            #profe
+                    .modal-footer
+                        button(type="button" class="btn btn-default" data-dismiss="modal") Cancelar
+                        button(type="submit" id="form-otros" class="btn btn-primary") Guardar Cambios
+block js
+  script(src="/javascripts/bootstrap/bootstrap.js")
+  script.
+    //- $(function(){
+    //-     var myDate = new Date('#{datos.medico.fehaNaimiento}');
+    //-     var dateString = (myDate .getMonth() + 1) + "/";
+    //-     dateString += myDate .getDate() + "/";
+    //-     dateString += myDate .getFullYear();
+    //-      $('#fecNacim').val(dateString);
+    //-   });
+    $(document).on('ready', function(){
+        $('#registrar').click(function(){
+            $('#myModal').modal();
+          });
+
+      $('.btn-titulos').click(function(e){
+           var iden=$(this).attr('data-inf');
+            var obj = $(this).parent().parent();
+           var info = obj.find('td');
+           $('#idTitulo').val(iden);
+           $('#titulo').val(info[0].innerHTML);
+           $('#fechaObtencion').val(info[2].innerHTML);
+           $.get("/universidades" ,
+              function(data){
+                if(data!='error'){
+                var select = '<select class="form-control" name="universidad" id="universidad">'
+                  for(var i=0; i<data.universidades.length; i++){
+                    select +="<option value='" +data.universidades[i]._id+"'>" + data.universidades[i].nombre+ " "+ data.universidades[i].ciudad+" "+data.universidades[i].departamento+"</option>"
+                  }
+                    select+='</select>'
+                    document.getElementById("univer").innerHTML=select;
+                    $('#myModal-titulos').modal();
+                }else{
+                alert('error');
+                }
+              }
+            );
+            e.preventDefault();
+        });
+
+      $('#inf-titulos').on('submit', function (e){
+          if(validar('#titulo')){
+            e.preventDefault();
+            alert('Imgrese nombre del titulo');
+          }else if(validar('#fechaObtencion')){
+            e.preventDefault();
+            alert('Imgrese nombre del titulo');
+          }else if(confirm('Actualizar datos de titulos obtenidos')){
+          var datos = $(this).serialize();
+            $.ajax({
+              method:'patch',
+              url:'/medicos/inf-titulos',
+              data:datos,
+              success: function (data){
+                if(data=='OK'){
+                alert('guardado con exito');
+                document.location.reload();
+                }else{
+                  alert('error al guardar');
+                }
+              }
+              });
+            return false;
+          }else{
+          e.preventDefault();
+          }
+        });
+
+        function validar(id){
+          if ($(id).val().trim()===''){
+            return true;
+          }else{
+            return false;
+          }
+        }
+
+        $("#inf-personal").on('submit', function (e){
+            if(validar('#nombres')){
+              e.preventDefault();
+              alert('Imgrese nombres del medico');
+            }else if(validar('#PApellido')){
+                e.preventDefault();
+                alert('Imgrese primer apellido');
+              }else if(validar('#SApellido')){
+                  e.preventDefault();
+                  alert('Imgrese segundo apellido');
+                }else if(validar('#municipio')){
+                    e.preventDefault();
+                    alert('Imgrese municipio de recidencia');
+                  }else if(validar('#telefono')){
+                      e.preventDefault();
+                      alert('Imgrese telefono fijo');
+                    }else if(validar('#Celular')){
+                        e.preventDefault();
+                        alert('Imgrese celular');
+                      }else if(validar('#fecNacim')){
+                          e.preventDefault();
+                          alert('Imgrese Fecha de nacimiento');
+                        }else if(validar('#residencia')){
+                            e.preventDefault();
+                            alert('Imgrese direccion de residencia');
+                          }else if(confirm('Desea actualizar los datos')){
+                              var datos = $('#inf-personal').serialize();
+                              $.ajax({
+                                      method:'patch',
+                                      url:'/medicos/inf-personal',
+                                      data:datos,
+                                      success: function(data){
+                                        if(data==='OK'){
+                                          alert('Datos guardados con exito');
+                                          document.location.reload();
+                                        }else{
+                                          alert('Porblemas al guardar los datos');
+                                        }
+                                      }
+                                });
+                              return false;
+                            }else{
+                              e.preventDefault();
+                            }
+          });
+
+        $('#Edit-otros').click(function(){
+            $.get("/TipoProfesional" ,
+                function(data){
+                  if(data!='error'){
+                  var select = '<select class="form-control" name="tipoprof" id="tipoprof">'
+                    for(var i=0; i<data.profesionales.length; i++){
+                      select +="<option value='" +data.profesionales[i]._id+"'>" + data.profesionales[i].tipo+"</option>"
+                    }
+                      select+='</select>'
+                      document.getElementById("profe").innerHTML=select;
+                      $('#myModal-otros').modal();
+                  }else{
+                  alert('error');
+                  }
+                }
+              );
+          });
+
+        $('#inf-otros').on('submit', function (e){
+            if(confirm('Desea actualizar los datos')){
+                  var datos = $(this).serialize();
+                  $.ajax({
+                          method:'patch',
+                          url:'/medicos/inf-otros',
+                          data:datos,
+                          success: function(data){
+                            if(data==='OK'){
+                              alert('Datos guardados con exito');
+                              document.location.reload();
+                            }else{
+                              alert('Porblemas al guardar los datos');
+                            }
+                          }
+                    });
+                  return false;
+                }else{
+                  e.preventDefault();
+                }
+          });
+
+        $('#session_Close').on('click', function(e){
+          e.preventDefault();
+            $.ajax({
+              url:"/session/admin",
+              method:"delete",
+              success: function(data){
+                if(data=="OK"){
+                  window.location.href = '/';
+                }
+              }
+            });
+        });
+    });

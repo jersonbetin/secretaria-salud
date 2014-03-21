@@ -1,0 +1,31 @@
+@font-face {
+  font-family: 'MotionPicture';
+  src: url('../fonts/MotionPicture.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+.col-md-10.col-md-offset-2 {
+  margin-top: 100px;
+}
+.col-md-10.col-md-offset-2 .text-search {
+  font-family: MotionPicture, algerian;
+  font-size: 35px;
+  letter-spacing: 2px;
+}
+.col-md-10.col-md-offset-2 .text-search i {
+  font-size: 30px;
+}
+#identificacion {
+  box-shadow: inset 2px 2px 2px #d3d3d3, inset -2px -2px 2px #d3d3d3;
+  height: 40px;
+  font-size: 20px;
+}
+#identificacion:focus {
+  box-shadow: 2px 2px 1px #d3d3d3, -2px -2px 1px #d3d3d3;
+  border: 1px solid rgba(0, 0, 255, 0.8);
+}
+#buscar {
+  height: 40px;
+  width: 80px;
+  font-weight: bold;
+}

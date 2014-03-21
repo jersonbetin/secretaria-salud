@@ -1,0 +1,44 @@
+extends ../layout
+
+block css
+	link(rel='stylesheet', href='/stylesheets/less/error/error.css')
+
+block nav
+	.navbar-header
+		button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
+		span.sr-only toogle navigation
+		span.icon-bar
+		span.icon-bar
+		span.icon-bar
+		a.navbar-brand(href='/') Secretaria de salud
+
+block content
+	.container.general
+		.row
+			.col-lg-12
+				.col-lg-4
+					img.img-rounded(src="/images/salud.png", alt="")
+				.col-lg-8
+					h6 Entrar a Secretaria de salud
+					hr
+					if type === '1'
+						.alert.alert-warning
+							p Usuario y contraseña errados por favor intentar nuevamente
+					form.form-horizontal(role="form" id="login_session" method="post" action="/session/admin")
+						.form-group
+							label.col-sm-2.control-label(for="user") Usuario:
+							.col-sm-6
+								input(type="text" class="form-control" id="user" name="user" placeholder="Ingrese usuario" required)
+						.form-group
+							label.col-sm-2.control-label(for="pass") Contraseña:
+							.col-sm-6
+								input(type="password" class="form-control" id="pass" name="pass" placeholder="Ingrese contraseña" required)
+						.form-group
+							.col-lg-offset-2.col-sm-10
+								.checkbox
+									label
+										input(type="checkbox" name="remember_me")
+										| &nbsp Recuerdame
+						.form-group
+							.col-lg-offset-2.col-sm-10
+								button(type="submit" class="btn btn-primary") Ingresar

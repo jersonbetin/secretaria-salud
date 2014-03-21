@@ -1,0 +1,35 @@
+doctype html
+html(lang="es")
+  head
+    block title
+        title= title
+
+    meta(charset='utf-8')
+    meta(name='description', content='')
+    meta(name='viewport', content='width=device-width')
+
+    block meta
+    link(rel='stylesheet', href='/stylesheets/less/bootstrap/bootstrap.css')
+    link(rel='stylesheet', href='/stylesheets/less/style_general/style.css')
+    link(rel='stylesheet', href='/stylesheets/css/font-awesome.css')
+    block css
+
+  body
+    block header
+      .navbar.navbar-default.navbar-fixed-top(role="navigation")
+        .container
+          block nav
+            .navbar-header
+
+
+    block content
+
+
+    block foot
+      .container
+        .modal-footer
+          .text-center Copyright © 2013 consulting Todos los derechos reservados.
+
+  script(src="/javascripts/bootstrap/jquery.js")
+
+  block js

@@ -1,0 +1,54 @@
+extends ../layout
+
+block css
+	link(rel='stylesheet', href='/stylesheets/less/error/error.css')
+	link(rel='stylesheet', href='/stylesheets/less/dashboard/dashboard.css')
+
+block nav
+	.navbar-header
+		button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
+			span.sr-only toogle navigation
+			span.icon-bar
+			span.icon-bar
+			span.icon-bar
+		a.navbar-brand(href='/') Secretaria de salud
+	#bs-example-navbar-collapse-1.collapse.navbar-collapse
+		a.navbar-brand.navbar-right #{session_id}
+block content
+	.container.general
+		.row
+			.col-lg-12
+				.col-lg-4
+					img.img-rounded(src="/images/salud.png", alt="")
+				.col-lg-8
+					h6 Bienvenido al panel de Secretaria de salud
+					hr
+					.col-md-12.contend-board
+						.col-xs-3
+							a#boton(href="/medicos")
+								img(src="images/dashboard/register.png", alt="", data-toggle="tooltip" data-placement="top", title="Registrar Medico")
+						.col-xs-3
+							a.boton(href="/medicos/busqueda")
+								img(src="images/dashboard/actualizar.png", alt="", data-toggle="tooltip" data-placement="top", title="Actualizar Medico")
+						.col-xs-3
+							a.boton(href="#")
+								img(src="images/dashboard/Borrar.png", alt="", data-toggle="tooltip", data-placement="top", title="Borrar Medico")
+						.col-xs-3
+							a#session_Close(href="#")
+								img(src="images/dashboard/logout.png", alt="", data-toggle="tooltip", data-placement="top", title="Cerrar sesion")
+block js
+	script.
+		$(document).on('ready', function(){
+				$('#session_Close').on('click', function(e){
+					e.preventDefault();
+						$.ajax({
+							url:"/session/admin",
+							method:"delete",
+							success: function(data){
+								if(data=="OK"){
+									window.location.href = '/';
+								}
+							}
+						});
+				});
+		});

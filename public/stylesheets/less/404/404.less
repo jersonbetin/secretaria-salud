@@ -1,0 +1,34 @@
+.fontface(@fontname) {
+        font-family: '@{fontname}';
+        src:url('../fonts/@{fontname}.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+}
+
+@font-404:  "Freshman";
+@font-face{
+	.fontface(@font-404);
+}
+body{
+	background-color: lightgray;
+	font-family: @font-404;
+}
+.container{
+	background-color: #ffffff;
+	margin-top: 100px;
+	box-shadow: 2px 2px 3px rgba(200, 200, 200, 1), -2px -2px 3px rgba(200, 200, 200, 1);
+}
+.img_error{
+	width: 20%;
+	margin-left: 40%;
+}
+.cabeza_error{
+	text-align: center;
+	font-family: @font-404;
+	span{
+		color:red;
+	}
+}
+p{
+	font-size: 15px;
+}

@@ -1,0 +1,66 @@
+.fontface(@fontname) {
+        font-family: '@{fontname}';
+        src:url('../fonts/@{fontname}.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+}
+
+@font-new:  "ChelaOne-Regular";
+@activenav: darken(rgb(0, 160, 183, 0.8), 1%);
+
+@font-face{
+	.fontface(@font-new);
+}
+@font-family-general: @font-new, algerian, lucida;
+
+.container{
+	font-family: @font-family-general, arial, lucida;
+	.navbar-brand{
+		font-size: 40px;
+		span{
+		    color: @activenav;
+		  }
+	}
+}
+
+.navbar{
+	margin-bottom: 10px;
+}
+.container{
+  h2{
+    font-family: @font-new;
+    color: @activenav;
+  }
+  p{
+    font-size: 16px;
+    text-align: justify;
+  }
+}
+
+.contactos{
+  width: 60%;
+  border:none;
+  tr{
+    width: 100%;
+    td{
+    	&:nth-child(2n+1){
+	       font-size: 20px;
+    	}
+	  	&:nth-child(2n){
+	       color:@activenav;
+	       font-size: 15px;
+	   	}
+	   	>a{
+	   		font-family: @font-family-general, arial, lucida;
+	   		color:@activenav;
+	   	}
+
+    }
+  }
+}
+.modal-footer{
+	p{
+		font-weight: bold;
+	}
+}
+

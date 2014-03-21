@@ -1,0 +1,582 @@
+extends ../layout
+
+block css
+	link(rel='stylesheet', href='/stylesheets/less/error/error.css')
+	link(rel='stylesheet', href='/stylesheets/less/addMedico/addMedico.css')
+	link(rel='stylesheet', href='/stylesheets/css/jquery-ui.css')
+	style.
+		input[type=number]::-webkit-inner-spin-button,
+		input[type=number]::-webkit-outer-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+		#bs-example-navbar-collapse-1 a{
+			font-family:arial;
+		}
+block nav
+	.navbar-header
+		button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
+			span.sr-only toogle navigation
+			span.icon-bar
+			span.icon-bar
+			span.icon-bar
+		a.navbar-brand(href='/') Secretaria de salud
+	#bs-example-navbar-collapse-1.collapse.navbar-collapse
+		a.navbar-brand.navbar-right#session_Close(href="/session/admin")
+			.btn.btn-info CERRAR SESION
+
+block content
+	.container.general
+		.row
+			.col-lg-12
+				.col-lg-4
+					img.img-rounded(src="/images/registrar medico/Rmedico.png", alt="")
+				.col-lg-8
+					.col-md-12
+						form(role='form' class="stepMe" id="add_medico")
+							fieldset
+								legend Registrar Medico nuevo: Informacion personal
+								.alert.alert-warning#alert-ident
+									p Numero de identificacion ya existe por favor verifiquelo.
+								table.table
+									.form-group
+										tr
+											td
+												label.control-label.col-sm-12(for="tIdent") Tipo Identificacion:
+											td
+												select.form-control(name="Ti" id="Ti")
+													option(value='TI') Tarjeta Identidad
+													option(value='CC') Cedula de ciudadania
+													option(value='Pasaporte') Pasaporte extranjero
+											td
+												label.control-label.col-sm-12(for="ident") Identificacion:
+											td
+												input.form-control(type ="number" name="ident" id="ident" Placeholder="Ingrese documento de identidad")
+									.form-group
+										tr
+											td
+												label.control-label.col-sm-12(for="nombres") Nombres:
+											td
+												input.form-control(type="text" name="nombres" id="nombres" Placeholder="Ingrese nombres")
+											td
+												label.control-label.col-sm-12(for="PApellido") Primer apellido:
+											td
+												input.form-control(type="text" name="PApellido" id="PApellido" Placeholder="Ingrese primer apellido")
+									.form-group
+										tr
+											td
+												label.control-label.col-sm-12(for="SApellido") Segundo apellido:
+											td
+												input.form-control(type="text" name="SApellido" id="SApellido" Placeholder="Ingrese segundo apellido")
+											td
+												label.control-label.col-sm-12(for="sexo") Sexo:
+											td
+												select.form-control(name="sexo" id="sexo")
+													option(value='M') Masculino
+													option(value='F') Femenino
+									.form-group
+										tr
+											td
+												label.control-label.col-sm-12(for="Celular") Celular:
+											td
+												input.form-control(type="text" name="Celular" id="Celular" Placeholder="Ingrese Celular")
+											td
+												label.control-label.col-sm-12(for="telefono") Telefono:
+											td
+												input.form-control(type="text" name="telefono" id="telefono" Placeholder="Ingrese Telefono")
+									.form-group
+										tr
+											td
+												label.control-label.col-sm-12(for="fecNacim") Fecha de nacimiento:
+											td
+												input.form-control(type="text" name="fecNacim" id="fecNacim" readonly="readonly" Placeholder="Ingrese fecha de nacimiento")
+											td
+												label.control-label.col-sm-12(for="nacionalidad") Nacionalidad:
+											td
+												select.form-control(name="nacionalidad" id="nacionalidad")
+													option(value='Colombiano') Colombiano
+													option(value='Extranjero') Extranjero
+													option(value='Nacionalizado') Nacionalizado
+									.form-group
+										tr
+											td
+												label.control-label.col-sm-12(for="municipio") Municipio:
+											td
+												input.form-control(type="text" name="municipio" id="municipio" Placeholder="Ingrese municipio")
+											td
+												label.control-label.col-sm-12(for="direccion") Direccion:
+											td
+												input.form-control(type="text" name="direccion" id="direccion" Placeholder="Ingrese su direccion de resdencia")
+							fieldset
+								legend Informacion titulos
+								table.table
+									.form-group
+										tr
+											td
+												label.control-label.col-sm-12(for="titulo") Nombres titulo:
+											td
+												input.form-control(type="text" name="titulo" id="titulo" Placeholder="Ingrese nombre del titulo")
+											td
+												label.control-label.col-sm-12(for="fechaObtencion") fecha Obtencion:
+											td
+												input.form-control(name="fechaObtencion" id="fechaObtencion" Placeholder="Ingrese fecha de optencion" readonly="readonly")
+									.form-group
+										tr
+											td
+												label.control-label.col-sm-12(for="universidad") Universidad:
+											td(colspan="3")
+												select.form-control(name="universidad" id="universidad")
+													each universidad in universidades
+														option(value='#{universidad._id}') #{universidad.nombre} #{universidad.ciudad} #{universidad.departamento}
+									.form-group
+										tr
+											td
+												label.control-label.col-sm-12(for="descripcion") Descripcion:
+											td(colspan="3")
+												textarea.form-control(name="descripcion" id="descripcion")
+									.form-group
+										.col-sm-offset-2.col-sm-10
+											tr
+												td
+												td
+													button.btn.btn-primary.input-form(type="button" id="add_titulo") Agregar
+												td
+													button.btn.btn-default.input-form(type="button" id="Clear") Borrar
+												td
+								#datos-titulos
+							fieldset
+								legend Informacion lugar de trabajo:
+								p.infor El prestador individual de salud debe informar el lugar o establecimiento en que habitual y predominantemente ejerce sus funciones.
+								#container-labora.col-lg-12
+									.radio
+										table.table
+											tr
+												td
+													label
+														input(type="radio" name="labora" id="silabora" value="si") 
+														b Selección del Si: 
+														|Prestador individual actualmente se encuentra ejerciendo su profesión.
+											tr
+												td
+													label
+														input(type="radio" name="labora" id="nolabora" value="no") 
+														b Selección del No: 
+														|Prestador individual actualmente no se encuentra ejerciendo su profesión.
+								#container-info-lab
+									table.table
+										.form-group
+											tr
+												td
+													label.control-label.col-sm-12(for="nit") Nit:
+												td
+													input.form-control(type="text" name="nit" id="nit" Placeholder="Ingrese Nit del lugar" title="Numero de identificacion tributaria")
+												td
+													label.control-label.col-sm-12(for="NombEmpres") Nombre:
+												td
+													input.form-control(type="text" name="NombEmpres" id="NombEmpres" Placeholder="Ingrese nombre del lugar")
+										.form-group
+											tr
+												td
+													label.control-label.col-sm-12(for="municTrabajo") Municipio:
+												td
+													select.form-control(name="municTrabajo" id="municTrabajo")
+														each municipio in municipios
+															if municipio.nombre!='sin definir'
+																option(value='#{municipio._id}') #{municipio.nombre}
+												td
+													label.control-label.col-sm-12(for="dirEmpresa") Direccion:
+												td
+													input.form-control(type="text" name="dirEmpresa" id="dirEmpresa" Placeholder="Ingrese direccion del lugar")
+										.form-group
+											tr
+												td
+													label.control-label.col-sm-12(for="celTrabajo") Celular:
+												td
+													input.form-control(type="text" name="celTrabajo" id="celTrabajo" Placeholder="Ingrese celular del lugar")
+												td
+													label.control-label.col-sm-12(for="telTrabajo") Telefono:
+												td
+													input.form-control(type="text" name="telTrabajo" id="telTrabajo" Placeholder="Ingrese telefono del lugar")
+							fieldset
+								legend Otros
+								.alert.alert-warning#alert-Ntarj
+									p Numero de tarjeta profesional ya existe por favor verifiquelo.
+								table.table
+									.form-group
+										tr
+											td
+												label.control-label.col-sm-12(for="NTarjProf") N° profesional:
+											td
+												input.form-control(type="text" name="NTarjProf" id="NTarjProf" Placeholder="Ingrese numero de tarjeta profesional")
+											td
+												label.control-label.col-sm-12(for="tip_prof") Tipo de profesion:
+											td
+												select.form-control(name="tip_prof" id="tip_prof")
+													each tipoProfe in tipoProf
+														option(value='#{tipoProfe._id}') #{tipoProfe.tipo}
+									.form-group
+										tr
+											td
+												label.control-label.col-sm-12(for="email") Correo Electronico:
+											td
+												input.form-control(type="email" name="email" id="email" placeholder="Ingrese correo electronico" required)
+											td
+											td
+									.form-group
+										tr
+											td(colspan="4")
+												input.form-control(type="file" name="evidencias" id="evidencias" accept="application/pdf" required)
+											td
+											td
+									.form-group
+										.col-sm-offset-2.col-sm-10
+											tr
+												td
+												td
+													input.btn.btn-primary.input-form(type="submit" id="registrar" value="Registrar")
+												td
+													input.btn.btn-default.input-form(type="reset" id="borrar" value="Limpiar")
+												td
+						//- .modal.fade.bs-modal-sm#myModal(tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
+						//- 	.modal-dialog.modal-sm
+						//- 		.modal-content
+						//- 			.modal-header
+						//- 				button.close(type="button" data-dismiss="modal" aria-hidden="true") &times;
+						//- 				h4.modal-title#myModalLabel Error
+						//- 			.modal-body
+						//- 			.modal-footer
+						//- 				button.btn.btn-default(type="button" data-dismiss="modal") Cerrar
+
+block js
+	script(src="/javascripts/jquery-ui/jquery-ui.js")
+	script(src="/javascripts/jQueryextend/jQueryextend.js")
+	script(src="/javascripts/bootstrap/bootstrap.js")
+	script.
+		$(function () {
+			$.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
+			$("#fechaObtencion, #fecNacim").datepicker({
+				dateFormat: "mm/dd/yy",
+				duration: "medium",
+				changeMonth: true,
+				changeYear: true,
+				showAnim: "clip",
+				yearRange: "1900:2020"
+				});
+			});
+
+		$(document).on('ready', function(){
+				$('#silabora').on('click', function(){
+						$('#container-info-lab').slideDown("slow");
+						//$('input:radio[name=labora]:checked').val();
+					});
+				$('#nolabora').on('click', function(){
+						$('#container-info-lab').slideUp("slow");
+					});
+
+				if(localStorage.titulos!=undefined){
+						show_titles();
+				}
+
+				function show_titles(){
+						var date = JSON.parse(localStorage.titulos);
+						var table = "<table id='list-titulos' class='table table-bordered table-hover'>";
+								table += "<tr>";
+								table += "<th>N°</th>";
+								table += "<th>Nombre</th>";
+								table += "<th>Universidad</th>";
+								table += "<th>Fecha</th>";
+								table += "<th>Descripcion</th>";
+								table += "</tr>";
+								var j=0;
+								for(var i=0; i<date.inf.length; i++){
+									j=i+1;
+									table += "<tr>";
+									table += "<td>"+ j +"</td>";
+									table += "<td>" + date.inf[i].nombre + "</td>";
+									table += "<td>" + date.inf[i].universidad + "</td>";
+									table += "<td>" + date.inf[i].fecha + "</td>";
+									table += "<td>" + date.inf[i].descripcion + "</td>";
+									table += "</tr>";
+								}
+								table += "</table>";
+								document.getElementById("datos-titulos").innerHTML=table;
+				}
+
+				$('#add_medico').on('submit', function (e){
+						if($('#ident').val().trim()===''){
+							e.preventDefault();
+							alert('Imgrese numero de indentificacion');
+						}else{
+							if($('#nombres').val().trim()===''){
+								e.preventDefault();
+								alert('Imgrese nombres del medico');
+							}else{
+								if($('#PApellido').val().trim()===''){
+									e.preventDefault();
+									alert('Imgrese primer apellido');
+								}else{
+									if($('#SApellido').val().trim()===''){
+										e.preventDefault();
+										alert('Imgrese segundo apellido');
+									}else{
+										if($('#municipio').val().trim()===''){
+											e.preventDefault();
+											alert('Imgrese municipio de recidencia');
+										}else{
+											if($('#telefono').val().trim()===''){
+												e.preventDefault();
+												alert('Imgrese telefono fijo');
+											}else{
+												if($('#Celular').val().trim()===''){
+													e.preventDefault();
+													alert('Imgrese celular');
+												}else{
+													if($('#fecNacim').val().trim()===''){
+														e.preventDefault();
+														alert('Imgrese Fecha de nacimiento');
+													}else{
+														if($('#direccion').val().trim()===''){
+															e.preventDefault();
+															alert('Imgrese direccion de residencia');
+														}else{
+																if($('#NTarjProf').val().trim()===''){
+																	e.preventDefault();
+																	alert('Imgrese numero de la tarjeta profesionl');
+																}else{
+																	if(localStorage.titulos===undefined){
+																		e.preventDefault();
+																		alert('No tiene titulos registrados');
+																	}else{
+																		if($('input:radio[name=labora]:checked').val()==undefined){
+																			alert('Ingresa el estado laboral actual');
+																			e.preventDefault();
+																		}else{
+																			var inputFileImage = document.getElementById("evidencias");
+																			var file = inputFileImage.files[0];
+																			var data = new FormData();
+																			data.append('archivo',file);
+																			data.append('tIdent', $('#Ti').val());
+																			data.append('identif', $('#ident').val());
+																			data.append('nombre', $('#nombres').val());
+																			data.append('pApell', $('#PApellido').val());
+																			data.append('sApell', $('#SApellido').val());
+																			data.append('sexo', $('#sexo').val());
+																			data.append('tel', $('#telefono').val());
+																			data.append('cel', $('#Celular').val());
+																			data.append('fechaNac', $('#fecNacim').val());
+																			data.append('nacionalidad', $('#nacionalidad').val());
+																			data.append('muncResid', $('#municipio').val());
+																			data.append('direccion', $('#direccion').val());
+																			data.append('titulos', localStorage.titulos);
+																			data.append('nTarj', $('#NTarjProf').val());
+																			data.append('tipoProfe', $('#tip_prof').val());
+																			data.append('correo', $('#email').val());
+																			data.append('labora', $('input:radio[name=labora]:checked').val());
+																				if($('input:radio[name=labora]:checked').val()=='si'){
+																					if($('#nit').val().trim()===''){
+																						alert('Ingresa nit de la empresa donde labora');
+																						e.preventDefault();
+																					}else{
+																						if($('#NombEmpres').val().trim()===''){
+																							alert('Ingresa nombre de la empresa donde labora');
+																							e.preventDefault();
+																						}else{
+																							if($('#municTrabajo').val().trim()===''){
+																								alert('Ingresa municipio de la empresa donde labora');
+																								e.preventDefault();
+																							}else{
+																								if($('#dirEmpresa').val().trim()===''){
+																									alert('Ingresa direccion de la empresa donde labora');
+																									e.preventDefault();
+																								}else{
+																									if($('#telTrabajo').val().trim()===''){
+																										alert('Ingresa telefono de la empresa donde labora');
+																										e.preventDefault();
+																									}else{
+																										data.append('nit', $('#nit').val());
+																										data.append('nombEmpres', $('#NombEmpres').val());
+																										data.append('municTrab', $('#municTrabajo').val());
+																										data.append('dirEmpr', $('#dirEmpresa').val());
+																										data.append('celTrab', $('#celTrabajo').val());
+																										data.append('telTrab', $('#telTrabajo').val());
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
+																				if(confirm('Registrar nuevo medico?')==true){
+																					$.ajax({
+																								type:'POST',
+																								data:data,
+																								url:"/medicos",
+																								contentType:false,
+																								data:data,
+																								processData:false,
+																								cache:false,
+																								success: function(data){
+																										if(data=="OK"){
+																											alert('guardado con exito');
+																											window.location.reload();
+																											localStorage.removeItem('titulos');
+																										}else{
+																											if(data=="repeat"){
+																												alert('repite identificacion o tarjeta de propiedad');
+																											}else{
+																												if('no OK'){
+																													alert('Faltan datos');
+																												}
+																											}
+																										}
+																									}
+																						});
+																					return false;
+																				}else{
+																					e.preventDefault();
+																				}
+
+																		}
+																	}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					});
+
+
+				$('#add_titulo').on('click', function(e){
+					if($('#titulo').val().trim()===''){
+						alert('Imgrese ingrese Titulo');
+					}else{
+						if($('#fechaObtencion').val().trim()===''){
+							alert('Imgrese fecha de cuando obtuvo el titulo profesional');
+							}else{
+								if(localStorage.titulos===undefined){
+									var titulos = {"inf":[{
+											nombre : $('#titulo').val(),
+											fecha : $('#fechaObtencion').val(),
+											universidad : $('#universidad option:selected').text(),
+											idUniv : $('#universidad').val(),
+											descripcion : $('#descripcion').val()
+										}]};
+										var datos= JSON.stringify(titulos);
+										localStorage.setItem('titulos', datos);
+								}else{
+									var obj = JSON.parse(localStorage.titulos);
+									obj.inf.push({
+											nombre : $('#titulo').val(),
+											fecha : $('#fechaObtencion').val(),
+											universidad : $('#universidad option:selected').text(),
+											idUniv : $('#universidad').val(),
+											descripcion : $('#descripcion').val()
+										});
+									var datos= JSON.stringify(obj);
+									localStorage.setItem('titulos', datos);
+								}
+								show_titles();
+								$('#titulo').val('');
+								$('#fechaObtencion').val('');
+								$('#descripcion').val('');
+								}
+							}
+					});
+
+				$('#Clear').on('click', function(e){
+						localStorage.removeItem('titulos');
+						$('#list-titulos').css('display','none');
+						$('#titulo').val('');
+						$('#fechaObtencion').val('');
+					});
+
+				$('#borrar').on('click', function (e){
+						localStorage.removeItem('titulos');
+						$('#list-titulos').css('display','none');
+					});
+
+				$('#ident').blur(function(){
+					var id =$(this).val();
+						if(id!=''){
+							$.ajax({
+									url: "/api/medicos/identificacion?ident="+id,
+									type: 'get',
+									success: function(data){
+										if(data=='OK'){
+											$('#alert-ident').css('display', 'none');
+										}else if('existe') {
+											$('#alert-ident').css('display', 'block');
+										}else {
+											alert('error');
+										}
+									}
+								});
+						}
+					});
+
+				$('#NTarjProf').blur(function(){
+					var id =$(this).val();
+						if(id!=''){
+							$.ajax({
+								url: "/api/medicos/tarjeta?tarjeta="+id,
+								type: 'get',
+								success: function(data){
+									if(data=='OK'){
+										$('#alert-Ntarj').css('display', 'none');
+									}else if('existe') {
+										$('#alert-Ntarj').css('display', 'block');
+									}else {
+										alert('error');
+									}
+								}
+							});
+						}
+					});
+
+				$('#nit').blur(function(){
+					var nit =$(this).val();
+						if(nit!=''){
+							$.ajax({
+								url: "/api/lugarTrabajo/nit?nit="+nit,
+								type: 'get',
+								success: function(data){
+									if(data.lugar){
+										$('#NombEmpres').val(data.lugar.nombreClinica).attr('readonly', 'readonly');
+										$("#municTrabajo option").filter(function() {
+											return $(this).text() == data.lugar.ubicacion._municipio.nombre;
+										}).prop('selected', true);
+										$("#municTrabajo").attr('disabled', 'disabled');
+										$('#dirEmpresa').val(data.lugar.ubicacion.direccion).attr('readonly', 'readonly');
+										$('#celTrabajo').val(data.lugar.telefono.celular).attr('readonly', 'readonly');
+										$('#telTrabajo').val(data.lugar.telefono.fijo).attr('readonly', 'readonly');
+									}else if(data=="no OK"){
+										$('#NombEmpres').val('').removeAttr('readonly');
+										$('#municTrabajo').removeAttr('disabled');
+										$('#dirEmpresa').val('').removeAttr('readonly');
+										$('#celTrabajo').val('').removeAttr('readonly');
+										$('#telTrabajo').val('').removeAttr('readonly');
+									}else {
+										alert('error');
+									}
+								}
+							});
+						}
+					});
+
+				$('#session_Close').on('click', function(e){
+					e.preventDefault();
+						$.ajax({
+							url:"/session/admin",
+							method:"delete",
+							success: function(data){
+								if(data=="OK"){
+									window.location.href = '/';
+								}
+							}
+						});
+		});
+			});

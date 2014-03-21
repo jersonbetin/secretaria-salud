@@ -1,0 +1,29 @@
+@font-face {
+  font-family: 'Freshman';
+  src: url('../fonts/Freshman.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  background-color: lightgray;
+  font-family: "Freshman";
+}
+.container {
+  background-color: #ffffff;
+  margin-top: 100px;
+  box-shadow: 2px 2px 3px #c8c8c8, -2px -2px 3px #c8c8c8;
+}
+.img_error {
+  width: 20%;
+  margin-left: 40%;
+}
+.cabeza_error {
+  text-align: center;
+  font-family: "Freshman";
+}
+.cabeza_error span {
+  color: red;
+}
+p {
+  font-size: 15px;
+}

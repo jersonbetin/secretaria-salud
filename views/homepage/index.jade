@@ -1,0 +1,125 @@
+extends ../layout
+
+block css
+  link(rel='stylesheet', href='/stylesheets/less/homepage/homepage.css')
+
+block nav
+  .navbar-header
+    button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
+      span.sr-only toogle navigation
+      span.icon-bar
+      span.icon-bar
+      span.icon-bar
+    a.navbar-brand(href='/') Secretaria de salud
+  #bs-example-navbar-collapse-1.collapse.navbar-collapse
+      form.form-inline.nav.navbar-nav.navbar-right(role="form" id="login_session" method="post" action="/session/admin")
+        table
+          tr
+            td
+              .form-group
+                input(type="text" class="form-control" id="user" name="user" placeholder="Ingrese usuario" required)
+            td
+              .form-group
+                input(type="password" class="form-control" id="pass" name="pass" placeholder="Ingrese contraseña" required)
+            td
+               button(type="submit" class="btn btn-default") Ingresar
+          tr
+            td(colspan="3")
+              .checkbox
+                label
+                  input(type="checkbox" name="remember_me")
+                  | &nbsp Recuerdame
+block content
+  .container
+    .row
+      .col-lg-12
+        #myCarousel.carousel.slide(data-ride="carousel")
+          ol.carousel-indicators
+            li.active(data-target="#myCarousel" data-slide-to="0")
+            li.active(data-target="#myCarousel" data-slide-to="1")
+            li.active(data-target="#myCarousel" data-slide-to="2")
+
+          div.carousel-inner
+            div.item.active
+              img(src="/images/slider-3.png" alt="slider-3")
+            div.item
+              img(src="/images/slider-1.png" alt="slider-1")
+            div.item
+              img(src="/images/slider-2.jpg" alt="slider-2")
+          a.left.carousel-control(href="#myCarousel" data-slide="prev")
+            span.glyphicon.glyphicon-chevron-left
+          a.right.carousel-control(href="#myCarousel" data-slide="next")
+            span.glyphicon.glyphicon-chevron-right
+
+    hr
+    .row
+        .col-lg-1
+        .col-lg-10
+          ul.nav.nav-tabs
+            li.active
+              a(href="#opcion1" data-toggle="tab") Mision
+            li
+              a(href="#opcion2" data-toggle="tab") Vision
+            li
+              a(href="#opcion3" data-toggle="tab") Contactenos
+          .tab-content
+            #opcion1.tab-pane.active
+              p.info Dirigir el sistema de salud y protección social en salud, a través de políticas de promoción de la salud, la prevención, el tratamiento y la rehabilitación de la enfermedad y el aseguramiento, así como la coordinación intersectorial para el desarrollo de políticas sobre los determinantes en salud; bajo los principios de eficiencia, universalidad, solidaridad, equidad, sostenibilidad y calidad, con el fin de contribuir al mejoramiento de la salud de los habitantes de Colombia.
+            #opcion2.tab-pane
+              p.info ser ampliamente reconocida como la entidad rectora en el establecimiento de políticas que respondan adecuadamente a las necesidades y expectativas de los ciudadanos en materia de salud y protección social en salud, mediante procesos transparentes, armónicos y participativos.
+                    |El Ministerio reconoce, valora y desarrolla el talento humano, la gestión del conocimiento y los recursos, para que el país cuente con políticas públicas orientadas al goce efectivo del derecho a la salud y protección social en salud.
+            #opcion3.tab-pane
+              h2 información
+              table.table.contactos
+                tr
+                  td Pais:
+                  td Colombia
+                  td Departamento:
+                  td Cordoba
+                tr
+                  td Ciudad:
+                  td Sahagun
+                  td Telefono:
+                  td +018009003412
+                tr
+                  td Google +:
+                  td
+                    a(href="https://plus.google.com/u/0/113453703338000326461/posts" target="_blank")
+                      i.fa.fa-google-plus-square &nbsp;+JersonBetin
+                  td facebook:
+                  td
+                    a(href="https://www.facebook.com/jerson.betin?ref=tn_tnmn" target="_blank")
+                      i.fa.fa-facebook-square &nbsp;Jerson Betin
+                tr
+                  td Twitter:
+                  td
+                    a(href="https://twitter.com/JersonBetin" target="_blank")
+                      i.fa.fa-twitter &nbsp;@JersonBetin
+                  td
+                  td
+        .col-lg-1
+
+
+block js
+  script(src="/javascripts/bootstrap/bootstrap.js")
+  script.
+    var x=$(document);
+    x.ready(inicio);
+    function inicio(){
+      var x;
+      x=$('.carousel');
+      x.Carousel();
+    }
+    $('#login_session').on('submit', function(e){
+        if($('#user').val().trim()===''){
+          alert('faltan datos de usuario');
+          e.preventDefault();
+        }else{
+         if($('#pass').val().trim()===''){
+            alert('Faltan datos de contraseña');
+            e.preventDefault();
+          }else{
+           return true;
+          }
+        }
+      });

@@ -1,0 +1,46 @@
+html(lang="es")
+	head
+		block title
+			title= title
+
+		meta(charset='utf-8')
+	body
+		form(method="post" action="/trabajo")
+			table.table
+				tr
+					td
+						label.control-label.col-sm-12(for="nit") Nit:
+					td
+						input.form-control(type="text" name="nit" id="nit" Placeholder="Ingrese Nit del lugar" title="Numero de identificacion tributaria")
+					td
+						label.control-label.col-sm-12(for="NombEmpres") Nombre:
+					td
+						input.form-control(type="text" name="NombEmpres" id="NombEmpres" Placeholder="Ingrese nombre del lugar")
+				tr
+					td
+						label.control-label.col-sm-12(for="municTrabajo") Municipio:
+					td
+						select.form-control(name="municTrabajo" id="municTrabajo")
+							each municipio in municipios
+								if municipio.nombre!='sin definir'
+									ption(value='#{municipio._id}') #{municipio.nombre}
+					td
+						label.control-label.col-sm-12(for="dirEmpresa") Direccion:
+					td
+						input.form-control(type="text" name="dirEmpresa" id="dirEmpresa" Placeholder="Ingrese direccion del lugar")
+				tr
+					td
+						label.control-label.col-sm-12(for="celTrabajo") Celular:
+					td
+						input.form-control(type="text" name="celTrabajo" id="celTrabajo" Placeholder="Ingrese celular del lugar")
+					td
+						label.control-label.col-sm-12(for="telTrabajo") Telefono:
+					td
+						input.form-control(type="text" name="telTrabajo" id="telTrabajo" Placeholder="Ingrese telefono del lugar")
+				tr
+					td
+					td
+						input.btn.btn-primary.input-form(type="submit" id="registrar" value="Registrar")
+					td
+						input.btn.btn-default.input-form(type="reset" id="borrar" value="Limpiar")
+					td

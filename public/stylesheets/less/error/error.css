@@ -1,0 +1,29 @@
+.general {
+  margin-top: 120px;
+  margin-bottom: 120px;
+  font-family: time new roman;
+  font-size: 16px;
+}
+.general .col-lg-4 img {
+  width: 80%;
+  margin-left: 10%;
+}
+.general .col-lg-8 {
+  box-shadow: 3px 3px 2px #d3d3d3, -3px -3px 2px #d3d3d3;
+  padding: 3%;
+}
+.general .col-lg-8 h6 {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 20px;
+  text-shadow: 3px 3px 0px lightgray;
+}
+.general .col-lg-8 form .form-horizontal {
+  margin: 2% 0% 0% 18%;
+}
+.general .col-lg-8 form .form-horizontal .control-label {
+  text-align: left;
+}
+.general .col-lg-8 form .form-horizontal button {
+  width: 20%;
+}
