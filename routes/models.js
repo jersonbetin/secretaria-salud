@@ -36,6 +36,7 @@ var misTitulosSchema = new Schema({
 var medicoSchema = new Schema({
 	tipoIdent : {type: String, required:true, enum: ['TI', 'CC', 'Pasaporte']},
 	identificacion : {type : String, index : true, required:true, unique:true},
+	correo:{type:String, required:true},
 	nombres : {type: String, required:true},
 	apellidos : {
 		primero : {type: String, required:true},
@@ -57,7 +58,8 @@ var medicoSchema = new Schema({
 	_tipoProfesional: {type:Schema.Types.ObjectId, ref:'tipoProfesional'},
 	_lugarTrabajo: {type:Schema.Types.ObjectId, ref:'lugarTrabajo'},
 	labora:{type:String, required:true, enum:['si', 'no']},
-	evidencias: {type: String, required:true}
+	evidencias: {type: String, required:true},
+	fechaRegistro:{type: Date, required:true}
 });
 
 var lugarTrabajoSchema = new Schema({

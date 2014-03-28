@@ -167,9 +167,17 @@ block content
                       td
                         input.form-control.input-formu(type="text" name="NTarjProf" id="NTarjProf" value="#{datos.medico.NtarjetaProf}"  disabled="disabled")
                       td
-                        label.control-label.col-sm-12(for="tip_prof") Tipo de profesion:
+                        label.control-label.col-sm-12(for="correo") Correo:
                       td
+                         input.form-control.input-formu(type="text" name="correo" id="correo" value="#{datos.medico.correo}"  disabled="disabled")
+                  .form-group
+                    tr
+                      td
+                        label.control-label.col-sm-12(for="tip_prof") Tipo de profesion:
+                      td(colspan="2")
                          input.form-control.input-formu(type="text" name="tip_prof" id="tip_prof" value="#{datos.medico._tipoProfesional.tipo}"  disabled="disabled")
+                      td
+                      td
                   .form-group
                         tr
                           td
@@ -300,10 +308,17 @@ block content
                             label.control-label.col-sm-12(for="TarjProf") N° profesional:
                           td
                             input.form-control(type="text" name="TarjProf" id="TarjProf" value="#{datos.medico.NtarjetaProf}" disabled="disabled")
+                           td
+                            label.control-label.col-sm-12(for="correo") Correo:
+                          td
+                             input.form-control.input-formu(type="text" name="correoedit" id="correoedit" value="#{datos.medico.correo}")
+                      .form-group
+                        tr
                           td
                             label.control-label.col-sm-12(for="tipoprof") Tipo de profesion:
-                          td
+                          td(colspan="2")
                             #profe
+                          td
                     .modal-footer
                         button(type="button" class="btn btn-default" data-dismiss="modal") Cancelar
                         button(type="submit" id="form-otros" class="btn btn-primary") Guardar Cambios

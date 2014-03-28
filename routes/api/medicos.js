@@ -5,7 +5,7 @@ var fs = require('fs');
 var moment = require('moment');
 
 
-function agregar_medico(res, file, TipoIdent,  ident,  nombre, pAp, sAp, NTarjeta, sexo, fechaNac, muncResid, direccion, cel, tel, nacionalidad, tipoProfe, Lugar, labora, titulos){
+function agregar_medico(res, file, TipoIdent,  ident,  nombre, pAp, sAp, NTarjeta, sexo, fechaNac, muncResid, direccion, cel, tel, nacionalidad, tipoProfe, Lugar, labora, titulos,email){
 	//************ Guardar archivo pdf **********************
 		var tmp_path=file.path;//ruta del archivo
 		var tipo=file.type;//tipo del archivo
@@ -17,10 +17,6 @@ function agregar_medico(res, file, TipoIdent,  ident,  nombre, pAp, sAp, NTarjet
 				var target_path='./public/uploads/'+nombrearchivo;// hacia donde subiremos nuestro archivo dentro de nuestro servidor
 				fs.rename(tmp_path,target_path,function (err) {//Escribimos el archivo
 					fs.unlink(tmp_path,function (err) {//borramos el archivo tmp
-						//damos una respuesta al cliente
-						if(err){
-							res.send(err);
-						}
 					});
 				});
 
@@ -30,11 +26,11 @@ function agregar_medico(res, file, TipoIdent,  ident,  nombre, pAp, sAp, NTarjet
 		}
 
 		//************ Guardar medico **********************
-		models.medicos.create({tipoIdent : TipoIdent, identificacion : ident, nombres : nombre,
+		models.medicos.create({tipoIdent : TipoIdent, identificacion : ident, correo:email, nombres : nombre,
 			apellidos : {primero : pAp, segundo : sAp}, NtarjetaProf: NTarjeta,
 			sexo: sexo, fehaNaimiento: fechaNac, residencia : {municipio: muncResid,
 			direccion: direccion},telefono:{celular : cel, fijo: tel}, nacionalidad: nacionalidad,
-			estadoRegistro:'estudio', _tipoProfesional:tipoProfe,  _lugarTrabajo: Lugar, labora: labora , evidencias: nombrearchivo
+			estadoRegistro:'estudio', _tipoProfesional:tipoProfe,  _lugarTrabajo: Lugar, labora: labora, fechaRegistro:new Date() , evidencias: nombrearchivo
 		}, function (err, medico){
 			if(err){
 				if(err.code=="11000"){
@@ -68,6 +64,7 @@ function agregar_medico(res, file, TipoIdent,  ident,  nombre, pAp, sAp, NTarjet
 }
 
 exports.createMedico = function (req, res){
+	debugger;
 	if(req.body.tIdent!='' && req.body.identif!='' && req.body.nombre!='' && req.body.pApell!=''
 		&& req.body.sApell!='' && req.body.sexo!='' && req.body.muncResid!='' && req.body.tel!=''
 		&& req.body.cel!='' && req.body.nacionalidad!='' && req.body.titulos!=undefined && req.body.nTarj!=''
@@ -82,14 +79,14 @@ exports.createMedico = function (req, res){
 							if(err.code=="11000"){
 								 models.lugarTrabajo.findOne({nit:req.body.nit}, function (err, lugarT){
 								 	console.log('pasa por aqui');
-									 agregar_medico(res, req.files.archivo, req.body.tIdent,   req.body.identif,  req.body.nombre, req.body.pApell, req.body.sApell, req.body.nTarj, req.body.sexo, req.body.fechaNac, req.body.muncResid, req.body.direccion, req.body.cel, req.body.tel, req.body.nacionalidad, req.body.tipoProfe, lugarT, req.body.labora, req.body.titulos);
+									 agregar_medico(res, req.files.archivo, req.body.tIdent,   req.body.identif,  req.body.nombre, req.body.pApell, req.body.sApell, req.body.nTarj, req.body.sexo, req.body.fechaNac, req.body.muncResid, req.body.direccion, req.body.cel, req.body.tel, req.body.nacionalidad, req.body.tipoProfe, lugarT, req.body.labora, req.body.titulos, req.body.correo);
 								 });
 							}else{
 								console.log(err);
 								res.send('ERROR: '+ err);
 							}
 						}else{
-							agregar_medico(res, req.files.archivo, req.body.tIdent,   req.body.identif,  req.body.nombre, req.body.pApell, req.body.sApell, req.body.nTarj, req.body.sexo, req.body.fechaNac, req.body.muncResid, req.body.direccion, req.body.cel, req.body.tel, req.body.nacionalidad, req.body.tipoProfe, lugTrab._id, req.body.labora, req.body.titulos);
+							agregar_medico(res, req.files.archivo, req.body.tIdent,   req.body.identif,  req.body.nombre, req.body.pApell, req.body.sApell, req.body.nTarj, req.body.sexo, req.body.fechaNac, req.body.muncResid, req.body.direccion, req.body.cel, req.body.tel, req.body.nacionalidad, req.body.tipoProfe, lugTrab._id, req.body.labora, req.body.titulos, req.body.correo);
 						}
 					});
 			}else{
@@ -98,7 +95,7 @@ exports.createMedico = function (req, res){
 		}else{
 			if (req.body.labora=='no') {
 				var idLugar='53036c9c6b4857b014000001';
-				agregar_medico(res, req.files.archivo, req.body.tIdent,   req.body.identif,  req.body.nombre, req.body.pApell, req.body.sApell, req.body.nTarj, req.body.sexo, req.body.fechaNac, req.body.muncResid, req.body.direccion, req.body.cel, req.body.tel, req.body.nacionalidad, req.body.tipoProfe, idLugar, req.body.labora, req.body.titulos);
+				agregar_medico(res, req.files.archivo, req.body.tIdent,   req.body.identif,  req.body.nombre, req.body.pApell, req.body.sApell, req.body.nTarj, req.body.sexo, req.body.fechaNac, req.body.muncResid, req.body.direccion, req.body.cel, req.body.tel, req.body.nacionalidad, req.body.tipoProfe, idLugar, req.body.labora, req.body.titulos, req.body.correo);
 			}else{
 				res.send('no OK');
 			}
@@ -166,12 +163,12 @@ exports.getMedicoByIdent=function (req, res){
 					models.municipios.findOne({_id:medico._lugarTrabajo.ubicacion._municipio}, function (err, lugar){
 						models.misTitulos.find({_medico:medico._id}).populate('_universidad ').exec(function (err, titulos){
 							var datos = {"medico":medico, "CiudadTrabajo":lugar, "titulos":titulos};
-							//console.log(datos);
+							console.log(datos);
 							res.render('dashboard/medico', {title:ident,datos:datos, moment:moment});
 						});
 					});
 				}else{
-					res.render('dashboard/search', {title:'Busqueda'});
+					res.redirect('medicos/busqueda?error=1');
 				}
 			}
 		});
@@ -239,6 +236,7 @@ exports.updateInfOtros = function (req, res){
 	if(req.body.tipoprof!='' && req.body.ident!=''){
 		var conditions = {identificacion:req.body.ident};
 		var	update = {$set:{
+						correo: req.body.correoedit,
 						_tipoProfesional  : req.body.tipoprof
 					}};
 		var options = {upsert:false};
@@ -270,50 +268,18 @@ exports.servicioMedico = function (req, res){
 									"apellido.segundo":medico.apellidos.segundo,
 									fechaNac:moment(medico.fehaNaimiento).format('DD-MM-YYYY'),
 									sexo:medico.sexo,
+									correo: medico.correo,
 									"tipoProfesional": medico._tipoProfesional.tipo,
 								 	"ciudadTrabajo":lugar.nombre
 									},
-								 "titulos":titulos,
-								 "existe":"si"
+								 "titulos":titulos
 								};
 							res.jsonp(datos);
 						});
 					});
 				}else{
-					res.json({"existe":"si"});
+					res.js(200);
 				}
 			}
 		});
 }
-
-// exports.getAllDoctors = function (req, res) {
-// 	models.medicos.find().populate('_tipoProfesional _lugarTrabajo').exec(function(err, medico){
-			
-// 			if (err) {
-// 				res.send(err);
-// 			}else{
-// 				if(medico){
-// 					models.municipios.findOne({_id:medico._lugarTrabajo.ubicacion._municipio}, function (err, lugar){
-// 						models.misTitulos.find({_medico:medico._id}).populate('_universidad ').exec(function (err, titulos){
-// 							var datos = {
-// 								"medico":{
-// 									nombre:medico.nombres,
-// 									"apellido.primero":medico.apellidos.primero,
-// 									"apellido.segundo":medico.apellidos.segundo,
-// 									fechaNac:moment(medico.fehaNaimiento).format('DD-MM-YYYY'),
-// 									sexo:medico.sexo,
-// 									"tipoProfesional": medico._tipoProfesional.tipo,
-// 								 	"ciudadTrabajo":lugar.nombre
-// 									},
-// 								 "titulos":titulos,
-// 								 "existe":"si"
-// 								};
-// 							res.jsonp(datos);
-// 						});
-// 					});
-// 				}else{
-// 					res.json({"existe":"si"});
-// 				}
-// 			}
-// 		});
-// }

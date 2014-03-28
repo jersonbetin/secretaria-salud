@@ -79,7 +79,7 @@ exports.registerAdmin = function(req, res){
 
 exports.busqueda = function (req, res){
 	if (helpers.isDefined(req.signedCookies.id_session) || helpers.isDefined(req.session.id_session)) {
-		res.render('dashboard/search', {title: 'Search'})
+		res.render('dashboard/search', {title: 'Search', error:req.query.error});
 	 }else{
 	 	res.redirect('/');
 	}

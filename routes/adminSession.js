@@ -23,7 +23,7 @@ exports.NewSession = function(req, res){
 						res.redirect('session/admin/error?type=1');
 					}else{
 						if (req.body.remember_me === 'on') {
-							res.cookie('id_session', admin._id,{ expires: new Date(Date.now() + 900000), httpOnly: true, signed: true });
+							res.cookie('id_session', admin._id,{ expires: new Date(Date.now() + 9000000), httpOnly: true, signed: true });
 						}else{
 							req.session.id_session=admin._id;
 						}
