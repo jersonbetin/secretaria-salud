@@ -31,6 +31,8 @@ block content
               a(href="#opcion3" data-toggle="tab") LUGAR DE TRABAJO
             li
               a(href="#opcion4" data-toggle="tab") OTROS
+             li
+              a(href="#opcion5" data-toggle="tab") ESTADO REGISTRO
           .tab-content
             #opcion1.tab-pane.active
                 table.table
@@ -120,36 +122,40 @@ block content
                       a.btn.btn-default.btn-titulos(href="#" data-inf="#{val._id}") Editar 
             #opcion3.tab-pane
               table.table
-                    .form-group
-                      tr
-                        td
-                          label.control-label.col-sm-12(for="nit") Nit:
-                        td
-                          input.form-control.input-formu(type="text" name="nit" id="nit" value="#{datos.medico._lugarTrabajo.nit}"  disabled="disabled")
-                        td
-                          label.control-label.col-sm-12(for="NombEmpres") Nombre:
-                        td
-                          input.form-control.input-formu(type="text" name="NombEmpres" id="NombEmpres" value="#{datos.medico._lugarTrabajo.nombreClinica}"  disabled="disabled")
-                    .form-group
-                      tr
-                        td
-                          label.control-label.col-sm-12(for="municTrabajo") Municipio:
-                        td
-                          input.form-control.input-formu(type="text" name="municTrabajo" id="municTrabajo" value="#{datos.CiudadTrabajo.nombre}"  disabled="disabled")
-                        td
-                          label.control-label.col-sm-12(for="dirEmpresa") Direccion:
-                        td
-                          input.form-control.input-formu(type="text" name="dirEmpresa" id="dirEmpresa" value="#{datos.medico._lugarTrabajo.ubicacion.direccion}"  disabled="disabled")
-                    .form-group
-                      tr
-                        td
-                          label.control-label.col-sm-12(for="celTrabajo") Celular:
-                        td
-                          input.form-control.input-formu(type="text" name="celTrabajo" id="celTrabajo" value="#{datos.medico._lugarTrabajo.telefono.celular}"  disabled="disabled")
-                        td
-                          label.control-label.col-sm-12(for="telTrabajo") Telefono:
-                        td
-                          input.form-control.input-formu(type="text" name="telTrabajo" id="telTrabajo" value="#{datos.medico._lugarTrabajo.telefono.fijo}"  disabled="disabled")
+                    if (datos.medico.labora=='si')
+                      .form-group
+                        tr
+                          td
+                            label.control-label.col-sm-12(for="nit") Nit:
+                          td
+                            input.form-control.input-formu(type="text" name="nit" id="nit" value="#{datos.medico._lugarTrabajo.nit}"  disabled="disabled")
+                          td
+                            label.control-label.col-sm-12(for="NombEmpres") Nombre:
+                          td
+                            input.form-control.input-formu(type="text" name="NombEmpres" id="NombEmpres" value="#{datos.medico._lugarTrabajo.nombreClinica}"  disabled="disabled")
+                      .form-group
+                        tr
+                          td
+                            label.control-label.col-sm-12(for="municTrabajo") Municipio:
+                          td
+                            input.form-control.input-formu(type="text" name="municTrabajo" id="municTrabajo" value="#{datos.CiudadTrabajo.nombre}"  disabled="disabled")
+                          td
+                            label.control-label.col-sm-12(for="dirEmpresa") Direccion:
+                          td
+                            input.form-control.input-formu(type="text" name="dirEmpresa" id="dirEmpresa" value="#{datos.medico._lugarTrabajo.ubicacion.direccion}"  disabled="disabled")
+                      .form-group
+                        tr
+                          td
+                            label.control-label.col-sm-12(for="celTrabajo") Celular:
+                          td
+                            input.form-control.input-formu(type="text" name="celTrabajo" id="celTrabajo" value="#{datos.medico._lugarTrabajo.telefono.celular}"  disabled="disabled")
+                          td
+                            label.control-label.col-sm-12(for="telTrabajo") Telefono:
+                          td
+                            input.form-control.input-formu(type="text" name="telTrabajo" id="telTrabajo" value="#{datos.medico._lugarTrabajo.telefono.fijo}"  disabled="disabled")
+                    else
+                      p.alert-info#info-labora
+                        | El medico no esta laborando en estos momentos
                      .form-group
                         tr
                           td
@@ -186,6 +192,25 @@ block content
                           td
                             input.btn.btn-default.input-form(type="reset" id="borrar" value="Eliminar")
                           td
+            #opcion5.tab-pane
+              p.estadoTitle(style="font-size: 20px; text-align: center; text-transform: uppercase; font-weight: bold;")  su estado es: 
+                 span(style="color:red") #{datos.medico.estadoRegistro}
+              #divpdf
+                iframe.evidencia(src="/uploads/#{datos.medico.evidencias}" type="application/pdf")
+              table.table-hover
+                form(id="info-estados" method='post' action="/medicos/estados")
+                    input.form-control.input-formu(type ="hidden" name="ident" id="ident"  value="#{datos.medico.identificacion}")
+                    .form-group
+                      tr
+                        td
+                            label.control-label.col-sm-12(for="Estado" style="float: right;") Cambiar estado:
+                        td
+                          select(id="estadoReg" name="estadoReg")
+                            option(value="estudio") Estudio
+                            option(value="aprovado") Aprovado
+                            option(value="desaprovado") Desaprovado
+                        td
+                          input.btn-primary.btn(type="submit" value="Cambiar")
 
           #myModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true")
             .modal-dialog.modal-lg( style="width: 60%;")
@@ -261,7 +286,6 @@ block content
                     .modal-footer
                       button(type="button" class="btn btn-default" data-dismiss="modal") Cancelar
                       button(type="submit" id="form-inf-personal" class="btn btn-primary") Guardar Cambios
-
           #myModal-titulos.modal.fade(tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true")
             .modal-dialog.modal-lg( style="width: 60%;")
               .modal-content
@@ -291,7 +315,73 @@ block content
                     .modal-footer
                         button(type="button" class="btn btn-default" data-dismiss="modal") Cancelar
                         button(type="submit" id="form-titulos" class="btn btn-primary") Guardar Cambios
-
+          #myModal-info-laboral.modal.fade(tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true")
+            .modal-dialog.modal-lg( style="width: 60%;")
+              .modal-content
+                .modal-header
+                  button(type="button" class="close" data-dismiss="modal" aria-hidden="true")&times;
+                  h4(class="modal-title" id="myModalLabel") Editar datos laborales del medico #{datos.medico.identificacion}
+                .modal-body
+                  form(id="form-inf-laboral" method="post" action="/medicos/inf-laboral")
+                    h6.title-datos-laborales El medico labora?
+                    table.table
+                      .form-group(style="display: none;")
+                         input.form-control.input-formu(type ="hidden" name="ident" id="ident"  value="#{datos.medico.identificacion}")
+                      .form-group
+                        tr
+                          if (datos.medico.labora=='si')
+                            td
+                              label(class="form-radio")
+                                input.radio-labora(type="radio" value="si" id="si-labora" name="labora" checked)
+                                | &nbsp; Si
+                            td
+                              label(class="form-radio")
+                                input.radio-labora(type="radio" value="no" id="no-labora" name="labora")
+                                | &nbsp; No
+                            td
+                            td
+                          else
+                            td
+                              label(class="form-radio")
+                                input.radio-labora(type="radio" value="si" id="si-labora" name="labora")
+                                | &nbsp; Si
+                            td
+                              label(class="form-radio")
+                                input.radio-labora(type="radio" value="no" id="no-labora" name="labora" checked)
+                                | &nbsp; No
+                      .form-group
+                        tr
+                          td
+                            label.control-label.col-sm-12(for="nit-edit") Nit:
+                          td
+                            input.form-control(type="text" name="nit_edit" id="nit-edit" Placeholder="Ingrese Nit del lugar" title="Numero de identificacion tributaria")
+                          td
+                            label.control-label.col-sm-12(for="NombEmpres-edit") Nombre:
+                          td
+                            input.form-control(type="text" name="NombEmpres_edit" id="NombEmpres-edit" Placeholder="Ingrese nombre del lugar")
+                      .form-group
+                        tr
+                          td
+                            label.control-label.col-sm-12(for="municTrabajo-edit") Municipio:
+                          td
+                            #municipios-edit
+                          td
+                            label.control-label.col-sm-12(for="dirEmpresa-edit") Direccion:
+                          td
+                            input.form-control(type="text" name="dirEmpresa_edit" id="dirEmpresa-edit" Placeholder="Ingrese direccion del lugar")
+                      .form-group
+                        tr
+                          td
+                            label.control-label.col-sm-12(for="celTrabajo-edit") Celular:
+                          td
+                            input.form-control(type="text" name="celTrabajo_edit" id="celTrabajo-edit" Placeholder="Ingrese celular del lugar")
+                          td
+                            label.control-label.col-sm-12(for="telTrabajo-edit") Telefono:
+                          td
+                            input.form-control(type="text" name="telTrabajo_edit" id="telTrabajo-edit" Placeholder="Ingrese telefono del lugar")
+                    .modal-footer
+                        button(type="button" class="btn btn-default" data-dismiss="modal") Cancelar
+                        button(type="submit" id="inf-laboral-edit" class="btn btn-primary") Guardar Cambios
           #myModal-otros.modal.fade(tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true")
             .modal-dialog.modal-lg( style="width: 60%;")
               .modal-content
@@ -391,7 +481,7 @@ block js
         });
 
         function validar(id){
-          if ($(id).val().trim()===''){
+          if ($(id).val().trim()==='' || $(id).val().trim()==='sin definir'){
             return true;
           }else{
             return false;
@@ -462,6 +552,101 @@ block js
               );
           });
 
+        function disable(id, status){
+          if(status==1){
+           $(id).removeAttr('disabled');
+          }else{
+           $(id).attr('disabled', 'disabled');
+           $(id).val('');
+          }
+        }
+
+        function getMunicipios(datos, atrib){
+          var select = '<select class="form-control" name="municTrabajo_edit" id="municTrabajo-edit" '+atrib+'>'
+              for(var i=0; i<datos.municipios.length; i++){
+                select +="<option value='" +datos.municipios[i]._id+"'>" + datos.municipios[i].nombre+"</option>"
+              }
+                select+='</select>'
+                document.getElementById("municipios-edit").innerHTML=select;
+        }
+
+        $('#Edit-lugarTrab').click(function(e){
+          e.preventDefault();
+          var labora=$('input:radio[name=labora]:checked').val();
+          if(labora=='si'){
+            $('#nit-edit').val('#{datos.medico._lugarTrabajo.nit}');
+            $('#NombEmpres-edit').val('#{datos.medico._lugarTrabajo.nombreClinica}');
+            $('#celTrabajo-edit').val('#{datos.medico._lugarTrabajo.telefono.celular}');
+            $('#dirEmpresa-edit').val('#{datos.medico._lugarTrabajo.ubicacion.direccion}');
+            $('#telTrabajo-edit').val('#{datos.medico._lugarTrabajo.telefono.fijo}');
+            $.get('/municipios',
+                function(data){
+                  if(data!='error'){
+                      getMunicipios(data, '');
+                      $('#myModal-info-laboral').modal();
+                  }else{
+                  alert('error');
+                  }
+                }
+              );
+          }else{
+            disable('#nit-edit',0);
+            disable('#NombEmpres-edit',0);
+            disable('#celTrabajo-edit',0);
+            disable('#dirEmpresa-edit',0);
+            disable('#telTrabajo-edit',0);
+            $.get('/municipios',
+                function(data){
+                  if(data!='error'){
+                  getMunicipios(data, 'disabled="disabled"');
+                      $('#myModal-info-laboral').modal();
+                  }else{
+                  alert('error');
+                  }
+                }
+              );
+          }
+        });
+
+        $('input:radio[name=labora]').click(function(){
+            if($(this).val()=='no'){
+              disable('#nit-edit',0);
+              disable('#NombEmpres-edit',0);
+              disable('#celTrabajo-edit',0);
+              disable('#dirEmpresa-edit',0);
+              disable('#telTrabajo-edit',0);
+              $.get('/municipios',
+                  function(data){
+                    if(data!='error'){
+                    getMunicipios(data, 'disabled="disabled"');
+                    }else{
+                    alert('error');
+                    }
+                  }
+              );
+            }else{
+              disable('#nit-edit',1);
+              disable('#NombEmpres-edit',1);
+              disable('#celTrabajo-edit',1);
+              disable('#dirEmpresa-edit',1);
+              disable('#telTrabajo-edit',1);
+              $('#nit-edit').val('#{datos.medico._lugarTrabajo.nit}');
+              $('#NombEmpres-edit').val('#{datos.medico._lugarTrabajo.nombreClinica}');
+              $('#celTrabajo-edit').val('#{datos.medico._lugarTrabajo.telefono.celular}');
+              $('#dirEmpresa-edit').val('#{datos.medico._lugarTrabajo.ubicacion.direccion}');
+              $('#telTrabajo-edit').val('#{datos.medico._lugarTrabajo.telefono.fijo}');
+              $.get('/municipios',
+                  function(data){
+                    if(data!='error'){
+                    getMunicipios(data, '');
+                    }else{
+                    alert('error');
+                    }
+                  }
+              );
+            }
+          });
+
         $('#inf-otros').on('submit', function (e){
             if(confirm('Desea actualizar los datos')){
                   var datos = $(this).serialize();
@@ -473,7 +658,7 @@ block js
                             if(data==='OK'){
                               alert('Datos guardados con exito');
                               document.location.reload();
-                            }else{
+                            }else{ 
                               alert('Porblemas al guardar los datos');
                             }
                           }
@@ -482,6 +667,115 @@ block js
                 }else{
                   e.preventDefault();
                 }
+          });
+
+        $('#info-estados').on('submit', function (e){
+          if(confirm('Seguro quiere Cambiar el estado del medico?')){
+            var datos= $(this).serialize();
+            $.ajax({
+              method:'patch',
+              url:'/medicos/estados',
+              data:datos,
+              success:function (data){
+                if(data==='OK'){
+                    alert('Datos guardados con exito');
+                    document.location.reload();
+                  }else{ 
+                    alert('Porblemas al guardar los datos');
+                  }
+              }
+            });
+            return false;
+          }else{
+          e.preventDefault();
+          }
+        });
+
+        $('#form-inf-laboral').on('submit', function (e){
+          var labora=$('input:radio[name=labora]:checked').val();
+            if(labora=='si'){
+              if(validar('#nit-edit')){
+                e.preventDefault();
+                alert('falta nit de la empresa');
+              }else if(validar('#NombEmpres-edit')){
+                e.preventDefault();
+                alert('falta nomre de la empresa');
+              }else if(validar('#municTrabajo-edit')){
+                e.preventDefault();
+                alert('falta municipio de la empresa');
+              }else if(validar('#dirEmpresa-edit')){
+                e.preventDefault();
+                alert('falta direccion de la empresa');
+              }else if(validar('#telTrabajo-edit')){
+                e.preventDefault();
+                alert('falta telefono de la empresa');
+              }else if(confirm('¿Seguro quiere actualizar sus datos laborales?')){
+                var datos = $(this).serialize();
+                $.ajax({
+                    method:'patch',
+                    data:datos,
+                    url:'/medicos/info-laboral',
+                    success: function(data){
+                          if(data==='OK'){
+                            alert('Datos guardados con exito');
+                            document.location.reload();
+                          }else{
+                            alert('Porblemas al guardar los datos');
+                          }
+                        }
+                  });
+                return false;
+              }else{
+                e.preventDefault();
+              }
+            }else{
+              if(confirm('¿Seguro quiere actualizar sus datos laborales?')){
+                var datos = $(this).serialize();
+                $.ajax({
+                    method:'patch',
+                    data:datos,
+                    url:'/medicos/info-laboral',
+                    success: function(data){
+                          if(data==='OK'){
+                            alert('Datos guardados con exito');
+                            document.location.reload();
+                          }else{
+                            alert('Porblemas al guardar los datos');
+                          }
+                        }
+                  });
+                return false;
+              }else{
+                e.preventDefault();
+              }
+            }
+          });
+        $('#nit-edit').blur(function(){
+          var nit =$(this).val();
+            if(nit!=''){
+              $.ajax({
+                url: "/api/lugarTrabajo/nit?nit="+nit,
+                type: 'get',
+                success: function(data){
+                  if(data.lugar){
+                    $('#NombEmpres-edit').val(data.lugar.nombreClinica);
+                    $("#municTrabajo-edit option").filter(function() {
+                      return $(this).text() == data.lugar.ubicacion._municipio.nombre;
+                    }).prop('selected', true);
+                    $('#dirEmpresa-edit').val(data.lugar.ubicacion.direccion);
+                    $('#celTrabajo-edit').val(data.lugar.telefono.celular);
+                    $('#telTrabajo-edit').val(data.lugar.telefono.fijo);
+                  }else if(data=="no OK"){
+                    $('#NombEmpres-edit').val('');
+                    $('#dirEmpresa-edit').val('');
+                    $('#celTrabajo-edit').val('');
+                    $('#telTrabajo-edit').val('');
+                  }else {
+                    alert('error');
+                  }
+                }
+              });
+            }
           });
 
         $('#session_Close').on('click', function(e){

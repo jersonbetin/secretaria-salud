@@ -1,6 +1,7 @@
 var config = require('../package');
 var models = require('./models');
 var helpers = require('./helpers');
+var moment = require('moment');
 
 exports.index = function(req, res){
   if (helpers.isDefined(req.signedCookies.id_session)){
@@ -89,4 +90,27 @@ exports.busqueda = function (req, res){
 exports.sessionError = function (req, res){
 	var type = req.query.type;
 	res.render('homepage/sessionError', {title:'error', type:type});
+}
+
+exports.listaMedicosEstudio =  function (req, res){
+	if (helpers.isDefined(req.signedCookies.id_session) || helpers.isDefined(req.session.id_session)) {
+		models.medicos.find()
+		.select('identificacion nombres apellidos.primero apellidos.segundo fechaRegistro')
+		.where('estadoRegistro').equals('estudio')
+		.sort('fechaRegistro fechaRegistro')
+		.exec(function(err, medico){
+				if (err) {
+					res.send(err);
+				}else{
+					console.log(medico);
+					res.render('dashboard/medicosEstudio', {
+						title:'Lista medicos en estudio',
+						medicos:medico,
+						moment:moment
+					});
+				}
+			});
+	 }else{
+	 	res.redirect('/');
+	}
 }

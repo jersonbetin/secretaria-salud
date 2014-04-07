@@ -1,0 +1,83 @@
+extends ../layout
+
+block css
+  link(rel='stylesheet', href='/stylesheets/less/error/error.css')
+  link(rel='stylesheet', href='/stylesheets/less/medicosEstudio/lista.css')
+
+block nav
+  .navbar-header
+    button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
+      span.sr-only toogle navigation
+      span.icon-bar
+      span.icon-bar
+      span.icon-bar
+    a.navbar-brand(href='/dashboard') Secretaria de salud
+  #bs-example-navbar-collapse-1.collapse.navbar-collapse
+    a.navbar-brand.navbar-right#session_Close(href="/session/admin")
+      .btn.btn-info CERRAR SESION
+block content
+  .container.general
+    .row
+      .col-lg-12
+        .col-lg-4
+          img.img-rounded(src="/images/lista.png", alt="")
+        .col-lg-8
+          h4 Lista de medicos en estudio
+          if (medicos)
+            table.table.table-bordered.table-info
+              thead
+                tr
+                  th 
+                  th Identificacion
+                  th Nombre
+                  th Fecha
+                  each val in medicos
+                    tr
+                      td
+                        input(type="radio" name="ident" value="#{val.identificacion}")
+                      td #{val.identificacion}
+                      td #{val.nombres} #{val.apellidos.primero} #{val.apellidos.segundo}
+                      td #{moment(val.fechaRegistro).format('DD-MM-YYYY-HH:mm:ss')}
+            table.table-botones
+                tr
+                  td
+                  td
+                    input.btn.btn-primary(type="button" id="ver" value="Cargar")
+                  td
+                    input.btn.btn-default(type="button" id="atras" value="Atras")
+                  td
+          else
+            .alert-info.info-estudio
+              p No se ecuentran medicos en estado de estudio
+
+
+block js
+  script.
+    $(document).on('ready', function(){
+
+        $('#atras').click(function(){
+            window.location.href="/";
+          });
+
+        $('#ver').click(function(){
+          var ident=$("input[name='ident']:checked").val();
+          if(ident!=undefined){
+            window.location.href='/medicos/'+ident;
+          }else{
+            alert('no se a seleccionado un medico');
+          }
+        });
+
+        $('#session_Close').on('click', function(e){
+          e.preventDefault();
+            $.ajax({
+              url:"/session/admin",
+              method:"delete",
+              success: function(data){
+                if(data=="OK"){
+                  window.location.href = '/';
+                }
+              }
+            });
+        });
+    });

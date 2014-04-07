@@ -6,6 +6,7 @@ var path = require('path');
 var adminSession = require('./routes/adminSession');
 var medicos = require('./routes/api/medicos');
 var univ = require('./routes/api/universidades');
+var munic = require('./routes/api/municipios');
 var profesional = require('./routes/api/tipoProfesional');
 var test = require('./routes/test/test1');
 var models = require('./routes/models');
@@ -86,11 +87,16 @@ app.get('/medicos', routes.addMedico);
 app.post('/medicos', medicos.createMedico);
 app.get('/medicos/:id', medicos.getMedicoByIdent);
 
+app.get('/medicos/listado/estados', routes.listaMedicosEstudio);
+
 app.patch('/medicos/inf-personal', medicos.updateInfPersonal);
 app.patch('/medicos/inf-titulos', medicos.updateInfTitulos);
 app.patch('/medicos/inf-otros', medicos.updateInfOtros);
+app.patch('/medicos/info-laboral', medicos.updateInfLaboral);
+app.patch('/medicos/estados', medicos.updateEstadoRegistro);
 
-app.get('/municipios', test.municipios);
+//app.get('/municipios', test.municipios);
+app.get('/municipios', munic.getMunicipios);
 app.get('/universidades', univ.getUniversidades);
 app.get('/tipoProfesional', profesional.getProfesionales);
 app.post('/user/admin', adminSession.CreateAdmin);

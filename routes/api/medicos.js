@@ -4,6 +4,37 @@ var models = require('../models');
 var fs = require('fs');
 var moment = require('moment');
 
+// var medico = {
+// 	tIdent:'' ,
+// 	identif:'' ,
+// 	nombre:'',
+// 	pApell:'',
+// 	sApell:'',
+// 	correo:'',
+// 	sexo:'',
+// 	muncResid:'',
+// 	tel:'',
+// 	cel:'' ,
+// 	nacionalidad:'',
+// 	titulos:{'inf':[{
+// 			titulo : '',
+// 			descripcion : '',//no es necesaria
+// 			_universidad : '',//identificador
+// 			fechaObtenion : '',
+// 		}]},
+// 	nTarj:'',// tiene que ser unico
+// 	fechaNac:'' ,
+// 	direccion:'',
+// 	evidencias:'',// el pdf que debes enviarme
+// 	tipoProfe:'',//identificador
+// 	labora:enum['si', 'no'],
+// 	//si labora mandas estos datos
+// 	nit:'',
+// 	NombEmpresa:'',
+// 	municTrab:'',//identificador
+// 	dirEmpr:'',
+// 	telTrab:''
+// }
 
 function agregar_medico(res, file, TipoIdent,  ident,  nombre, pAp, sAp, NTarjeta, sexo, fechaNac, muncResid, direccion, cel, tel, nacionalidad, tipoProfe, Lugar, labora, titulos,email){
 	//************ Guardar archivo pdf **********************
@@ -64,7 +95,7 @@ function agregar_medico(res, file, TipoIdent,  ident,  nombre, pAp, sAp, NTarjet
 }
 
 exports.createMedico = function (req, res){
-	debugger;
+	console.log(req.body);
 	if(req.body.tIdent!='' && req.body.identif!='' && req.body.nombre!='' && req.body.pApell!=''
 		&& req.body.sApell!='' && req.body.sexo!='' && req.body.muncResid!='' && req.body.tel!=''
 		&& req.body.cel!='' && req.body.nacionalidad!='' && req.body.titulos!=undefined && req.body.nTarj!=''
@@ -163,7 +194,7 @@ exports.getMedicoByIdent=function (req, res){
 					models.municipios.findOne({_id:medico._lugarTrabajo.ubicacion._municipio}, function (err, lugar){
 						models.misTitulos.find({_medico:medico._id}).populate('_universidad ').exec(function (err, titulos){
 							var datos = {"medico":medico, "CiudadTrabajo":lugar, "titulos":titulos};
-							console.log(datos);
+							//console.log(datos);
 							res.render('dashboard/medico', {title:ident,datos:datos, moment:moment});
 						});
 					});
@@ -252,6 +283,313 @@ exports.updateInfOtros = function (req, res){
 	}
 }
 
+function testDatosLaborales(datosLaboral, next){
+	var data = [];
+	var testAprobado = true;
+	if(helpers.isDefined(datosLaboral)){
+		if(helpers.isDefined(datosLaboral.ident)){
+			data.push({
+				'datosLaboral.ident':{
+					"status":"ok",
+					"value":datosLaboral.ident
+				}
+			});
+		}else{
+			data.push({
+				'datosLaboral.ident':{
+					"status":"error",
+					"info":"Usted debe informacion para este campo"
+				}
+			});
+			testAprobado=false;
+		}
+
+		if(helpers.isDefined(datosLaboral.labora)){
+			data.push({
+				"datosLaboral.labora":{
+					"status":"ok",
+					"value":datosLaboral.labora
+				}
+			});
+		}else{
+			data.push({
+				"datosLaboral.labora":{
+					"status":"error",
+					"info":"Usted debe informacion para este campo"
+				}
+			});
+			testAprobado=false;
+		}
+
+		//si labora  
+		if(datosLaboral.labora=='si'){
+			if(helpers.isDefined(datosLaboral.nit_edit)){
+				data.push({
+					"datosLaboral.nit_edit":{
+						"status":"ok",
+						"value":datosLaboral.nit_edit
+					}
+				});
+			}else{
+				data.push({
+					"datosLaboral.nit_edit":{
+						"status":"error",
+						"info":"Usted debe informacion para este campo"
+					}
+				});
+				testAprobado=false;
+			}
+
+			if(helpers.isDefined(datosLaboral.NombEmpres_edit)){
+				data.push({
+					"datosLaboral.NombEmpres_edit":{
+						"status":"ok",
+						"value":datosLaboral.NombEmpres_edit
+					}
+				});
+			}else{
+				data.push({
+					"datosLaboral.NombEmpres_edit":{
+						"status":"error",
+						"info":"Usted debe informacion para este campo"
+					}
+				});
+				testAprobado=false;
+			}
+
+			if(helpers.isDefined(datosLaboral.municTrabajo_edit)){
+				data.push({
+					"datosLaboral.municTrabajo_edit":{
+						"status":"ok",
+						"value":datosLaboral.municTrabajo_edit
+					}
+				});
+			}else{
+				data.push({
+					"datosLaboral.municTrabajo_edit":{
+						"status":"error",
+						"info":"Usted debe informacion para este campo"
+					}
+				});
+				testAprobado=false;
+			}
+
+			if(helpers.isDefined(datosLaboral.dirEmpresa_edit)){
+				data.push({
+					"datosLaboral.dirEmpresa_edit":{
+						"status":"ok",
+						"value":datosLaboral.dirEmpresa_edit
+					}
+				});
+			}else{
+				data.push({
+					"datosLaboral.dirEmpresa_edit":{
+						"status":"error",
+						"info":"Usted debe informacion para este campo"
+					}
+				});
+				testAprobado=false;
+			}
+
+			if(helpers.isDefined(datosLaboral.dirEmpresa_edit)){
+				data.push({
+					"datosLaboral.dirEmpresa_edit":{
+						"status":"ok",
+						"value":datosLaboral.dirEmpresa_edit
+					}
+				});
+			}else{
+				data.push({
+					"datosLaboral.dirEmpresa_edit":{
+						"status":"error",
+						"info":"Usted debe informacion para este campo"
+					}
+				});
+				testAprobado=false;
+			}
+
+			if(helpers.isDefined(datosLaboral.celTrabajo_edit)){
+				data.push({
+					"datosLaboral.celTrabajo_edit":{
+						"status":"ok",
+						"value":datosLaboral.celTrabajo_edit
+					}
+				});
+			}else{
+				data.push({
+					"datosLaboral.celTrabajo_edit":{
+						"status":"error",
+						"info":"Usted debe informacion para este campo"
+					}
+				});
+				testAprobado=false;
+			}
+
+			data.push({
+				"datosLaboral.tellTrabajo_edit":{
+					"status":"ok",
+					"value":datosLaboral.celTrabajo_edit
+				}
+			});
+		}
+	}else{
+		data.push({
+			"datosLaborales":{
+				"status":"error",
+				"info":"Usted debe enviar un objeto datosLaborales"
+			}
+		});
+		testAprobado=false;
+	}
+	next(testAprobado, data);
+}
+
+exports.updateInfLaboral = function (req, res){
+	debugger;
+	testDatosLaborales(req.body, function (test, datos){
+		 // res.json({"data":datos, 'test':test});
+		if(test!=false){
+			if (req.body.labora=='si') {
+				models.lugarTrabajo.create({nit: req.body.nit_edit, nombreClinica: req.body.NombEmpres_edit, 
+					ubicacion:{_municipio: req.body.municTrabajo_edit, direccion: req.body.dirEmpresa_edit},
+					telefono:{celular : req.body.celTrabajo_edit, fijo: req.body.telTrabajo_edit}}, function (err, lugar){
+						if (err) {
+							if (err.code=="11000") {
+								models.lugarTrabajo.findOne({nit: req.body.nit_edit}, function (err, lugarExite){
+									if (err) {
+										res.send(err);
+									}else{
+										var conditions = {identificacion:req.body.ident};
+										var	update = {$set:{
+														labora:'si',
+														_lugarTrabajo  : lugarExite._id
+													}};
+										var options = {upsert:false};
+										models.medicos.update(conditions, update, options, function (err){
+											if(err){
+												res.send(err);
+											}else{
+												res.send(200);
+											}
+										});
+									}
+								});
+							}else{
+								res.send(err);
+							}
+						}else{
+							var conditions = {identificacion:info.req.body.ident};
+							var	update = {$set:{
+											labora:'si',
+											_lugarTrabajo  : lugar._id
+										}};
+							var options = {upsert:false};
+							models.medicos.update(conditions, update, options, function (err){
+								if(err){
+									res.send(err);
+								}else{
+									res.send(200);
+								}
+							});
+						}
+					});
+			}else{
+				var conditions = {identificacion:req.body.ident};
+				var	update = {$set:{
+								labora:'no',
+								_lugarTrabajo  : '53036c9c6b4857b014000001'
+							}};
+				var options = {upsert:false};
+				models.medicos.update(conditions, update, options, function (err){
+					if(err){
+						res.send(err);
+					}else{
+						res.send(200);
+					}
+				});
+			}
+			// var conditions = {identificacion:info.datosLaboral.ident.value};
+			// var	update = {$set:{
+			// 				correo:info.datosLaboral.labora.value,
+			// 				_tipoProfesional  : info.datosLaboral.ident.value
+			// 			}};
+			// var options = {upsert:false};
+		}else{
+			res.send(500);
+		}
+	});
+	// console.log(req.body);
+	// res.send(200);
+}
+
+function testDatosEstado(datosEstado, next){
+	var data = [];
+	var testAprobado = true;
+	if(helpers.isDefined(datosEstado)){
+		if(helpers.isDefined(datosEstado.ident)){
+			data.push({
+				'datosEstado.ident':{
+					"status":"ok",
+					"value":datosEstado.ident
+				}
+			});
+		}else{
+			data.push({
+				'datosEstado.ident':{
+					"status":"error",
+					"info":"Usted debe informacion para este campo"
+				}
+			});
+			testAprobado=false;
+		}
+
+		if(helpers.isDefined(datosEstado.estadoReg)){
+			data.push({
+				'datosEstado.estadoReg':{
+					"status":"ok",
+					"value":datosEstado.estadoReg
+				}
+			});
+		}else{
+			data.push({
+				'datosEstado.estadoReg':{
+					"status":"error",
+					"info":"Usted debe informacion para este campo"
+				}
+			});
+			testAprobado=false;
+		}
+	}else{
+		data.push({
+			"datosEstado":{
+				"status":"error",
+				"info":"Usted debe enviar un objeto datosEstado"
+			}
+		});
+		testAprobado=false;
+	}
+	next(data, testAprobado);
+}
+exports.updateEstadoRegistro = function (req, res){
+	testDatosEstado(req.body, function (datos, test){
+		if (test==true) {
+			var conditions = {identificacion:req.body.ident};
+					var	update = {$set:{
+									estadoRegistro  :req.body.estadoReg
+								}};
+					var options = {upsert:false};
+					models.medicos.update(conditions, update, options, function (err){
+						if(err){
+							res.send(err);
+						}else{
+							res.send(200);
+						}
+					});
+		}else{
+			res.send(500);
+		}
+	});
+}
 exports.servicioMedico = function (req, res){
 	var ident=req.params.ide;
 	models.medicos.findOne({identificacion:ident}).populate('_tipoProfesional _lugarTrabajo').exec(function(err, medico){
