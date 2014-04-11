@@ -600,23 +600,29 @@ exports.servicioMedico = function (req, res){
 					models.municipios.findOne({_id:medico._lugarTrabajo.ubicacion._municipio}, function (err, lugar){
 						models.misTitulos.find({_medico:medico._id}).populate('_universidad ').exec(function (err, titulos){
 							var datos = {
-								"medico":{
-									nombre:medico.nombres,
-									"apellido.primero":medico.apellidos.primero,
-									"apellido.segundo":medico.apellidos.segundo,
-									fechaNac:moment(medico.fehaNaimiento).format('DD-MM-YYYY'),
-									sexo:medico.sexo,
-									correo: medico.correo,
-									"tipoProfesional": medico._tipoProfesional.tipo,
-								 	"ciudadTrabajo":lugar.nombre
+									"info-personal":{
+										"nombre":medico.nombres,
+										"apellido.primero":medico.apellidos.primero,
+										"apellido.segundo":medico.apellidos.segundo,
+										"fechaNac":medico.fehaNaimiento,
+										"sexo":medico.sexo,
+										"correo": medico.correo,
+										"tipoProfesional": medico._tipoProfesional.tipo,
+									 	"tarjetaPofesional":medico.NtarjetaProf
+										},
+									"inf-titulos":{
+									 "titulos":titulos
 									},
-								 "titulos":titulos
+									"info-estado":{
+									 	"estadoRegistro":medico.estadoRegistro,
+									 	"estado":'registrado'
+									}
 								};
 							res.jsonp(datos);
 						});
 					});
 				}else{
-					res.js(200);
+					res.json({'estado':'no registrado'});
 				}
 			}
 		});

@@ -13,13 +13,6 @@ var models = require('./routes/models');
 
 var app = express();
 
-function perimitirCrossDomain(req, res) {
-  //en vez de * se puede definir SÓLO los orígenes que permitimos
-  res.header('Access-Control-Allow-Origin', 'http://localhost:8282');
-  //metodos http permitidos para CORS
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-}
 
 app.configure(function(){
 	app.set('port', process.env.PORT || 3000);
@@ -58,22 +51,6 @@ app.get('/api/medicos/tarjeta', medicos.verifivarTarjetaBynum);
 app.get('/api/lugarTrabajo/nit', medicos.getNitBynum);
 app.get('/SWMedicos/:ide', medicos.servicioMedico);
 
-app.get('/prueba', function (req, res){
-    perimitirCrossDomain(req, res);
-    //if(req.query.token == "12345"){
-     models.municipios.find(function (err, lugar){
-        
-     if(err){
-            res.send(err);
-          }else{  
-           res.type('application/json');
-           // res.end(JSON.stringify(lugar));} //
-           res.json(lugar);}
-      });
-    //}else{
-     // res.send(401);
-   // }
-});
 
 app.get('/session/admin/error', routes.sessionError);
 app.post('/session/admin', adminSession.NewSession);
