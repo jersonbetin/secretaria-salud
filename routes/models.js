@@ -11,16 +11,19 @@ db.once('open', function callback(){
 });
 
 var universidadSchema = new Schema({
+	_id:{type:String, unique:true},
 	nombre : {type : String, required: true},
 	departamento : {type : String, required: true},// traer de una tabla
 	ciudad: {type : String, required: true}// traer de una tabla
 });
 
 var municipioSchema = new Schema({
+	_id:{type:String, unique:true},
 	nombre : {type: String, required: true}
 });
 
 var tipoProfesionalSchema = new Schema({
+	_id:{type:String, unique:true},
 	tipo : {type : String, required: true},
 	descripcion: {type : String, default:''}
 });
@@ -29,7 +32,7 @@ var misTitulosSchema = new Schema({
 	_medico : {type:Schema.Types.ObjectId, ref:'medicos'},
 	titulo : {type : String, required: true},
 	descripcion : {type: String, defaul:''},
-	_universidad : {type:Schema.Types.ObjectId, ref:'universidades'},
+	_universidad : {type:String, ref:'universidades'},
 	fechaObtenion : {type: Date, required:true}
 });
 
@@ -54,8 +57,8 @@ var medicoSchema = new Schema({
 		fijo: {type: String, required:true}
 	},
 	nacionalidad:{type:String, required:true, enum:['Colombiano', 'Extranjero', 'Nacionalizado']},
-	estadoRegistro:{type:String, required:true, enum:['estudio', 'aprovado', 'desaprovado']},
-	_tipoProfesional: {type:Schema.Types.ObjectId, ref:'tipoProfesional'},
+	estadoRegistro:{type:String, required:true, enum:['estudio', 'aprobado', 'desaprovado']},
+	_tipoProfesional: {type:String, ref:'tipoProfesional'},
 	_lugarTrabajo: {type:Schema.Types.ObjectId, ref:'lugarTrabajo'},
 	labora:{type:String, required:true, enum:['si', 'no']},
 	evidencias: {type: String, required:true},
@@ -66,7 +69,7 @@ var lugarTrabajoSchema = new Schema({
 	nit:{type:String, required:true, unique:true, default:'sin definir'},
 	nombreClinica: {type: String, required:true, default:'sin definir'},
 	ubicacion:{
-		_municipio: {type:Schema.Types.ObjectId, ref:'municipios', default:'53023e1320a96f8faa64d949'},
+		_municipio: {type:String, ref:'municipios', default:'53023e1320a96f8faa64d949'},
 		direccion: {type: String, required:true, default:'sin definir'}
 	},
 	telefono:{

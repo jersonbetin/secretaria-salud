@@ -37,6 +37,7 @@ var moment = require('moment');
 // }
 
 function agregar_medico(res, file, TipoIdent,  ident,  nombre, pAp, sAp, NTarjeta, sexo, fechaNac, muncResid, direccion, cel, tel, nacionalidad, tipoProfe, Lugar, labora, titulos,email){
+	debugger;
 	//************ Guardar archivo pdf **********************
 		var tmp_path=file.path;//ruta del archivo
 		var tipo=file.type;//tipo del archivo
@@ -600,6 +601,7 @@ exports.servicioMedico = function (req, res){
 					models.municipios.findOne({_id:medico._lugarTrabajo.ubicacion._municipio}, function (err, lugar){
 						models.misTitulos.find({_medico:medico._id}).populate('_universidad ').exec(function (err, titulos){
 							var datos = {
+									"registrado":"si",
 									"info-personal":{
 										"nombre":medico.nombres,
 										"apellido.primero":medico.apellidos.primero,
@@ -614,8 +616,7 @@ exports.servicioMedico = function (req, res){
 									 "titulos":titulos
 									},
 									"info-estado":{
-									 	"estadoRegistro":medico.estadoRegistro,
-									 	"estado":'registrado'
+									 	"estadoRegistro":medico.estadoRegistro
 									}
 								};
 							res.jsonp(datos);

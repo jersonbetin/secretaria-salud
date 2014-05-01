@@ -15,7 +15,7 @@ var app = express();
 
 
 app.configure(function(){
-	app.set('port', process.env.PORT || 3000);
+	app.set('port', process.env.PORT || 4000);
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
 	app.set("jsonp callback", true);
@@ -72,8 +72,10 @@ app.patch('/medicos/inf-otros', medicos.updateInfOtros);
 app.patch('/medicos/info-laboral', medicos.updateInfLaboral);
 app.patch('/medicos/estados', medicos.updateEstadoRegistro);
 
-//app.get('/municipios', test.municipios);
-app.get('/municipios', munic.getMunicipios);
+app.get('/municipios', test.municipios);
+app.get('/universidad', test.universidades);
+app.get('/profesional', test.tipoProfesional);
+//app.get('/municipios', munic.getMunicipios);
 app.get('/universidades', univ.getUniversidades);
 app.get('/tipoProfesional', profesional.getProfesionales);
 app.post('/user/admin', adminSession.CreateAdmin);
