@@ -13,6 +13,13 @@ var models = require('./routes/models');
 
 var app = express();
 
+var allowCrossDomain = function (req, res, next) {
+    res.header ('Access-Control-Allow-Origin', '*');
+    res.header ('Access-Control-Allow-Methods', 'GET');
+    res.header ('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+}
+
 
 app.configure(function(){
 	app.set('port', process.env.PORT || 4000);
@@ -25,7 +32,7 @@ app.configure(function(){
 	app.use(express.bodyParser({uploadDir:'./public/uploads'}));
 	app.use(express.cookieParser('1q2w3e4r'));
 	app.use(express.session({secret:'1q2w3e4r'}));
-	//app.use(perimitirCrossDomain);
+	app.use(perimitirCrossDomain);
 	app.use(express.methodOverride());
 	app.use(app.router);
 	//app.use(require('less-middleware')({ src: __dirname + '/public' }));
