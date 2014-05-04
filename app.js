@@ -22,7 +22,7 @@ var allowCrossDomain = function (req, res, next) {
 
 
 app.configure(function(){
-	app.set('port', process.env.PORT || 3000);
+	app.set('port', process.env.PORT || 4000);
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
 	app.set("jsonp callback", true);
@@ -82,6 +82,7 @@ app.patch('/medicos/estados', medicos.updateEstadoRegistro);
 // app.get('/municipios', test.municipios);
 // app.get('/universidad', test.universidades);
 // app.get('/profesional', test.tipoProfesional);
+app.get('/lugarTrabajo', test.addLugarTrabajo);
 app.get('/municipios', munic.getMunicipios);
 app.get('/universidades', univ.getUniversidades);
 app.get('/tipoProfesional', profesional.getProfesionales);

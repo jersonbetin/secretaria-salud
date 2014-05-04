@@ -126,7 +126,7 @@ exports.createMedico = function (req, res){
 			}
 		}else{
 			if (req.body.labora=='no') {
-				var idLugar='53036c9c6b4857b014000001';
+				var idLugar='5366a4f673815808118470ce';
 				agregar_medico(res, req.files.archivo, req.body.tIdent,   req.body.identif,  req.body.nombre, req.body.pApell, req.body.sApell, req.body.nTarj, req.body.sexo, req.body.fechaNac, req.body.muncResid, req.body.direccion, req.body.cel, req.body.tel, req.body.nacionalidad, req.body.tipoProfe, idLugar, req.body.labora, req.body.titulos, req.body.correo);
 			}else{
 				res.send('no OK');
@@ -192,13 +192,13 @@ exports.getMedicoByIdent=function (req, res){
 				res.send(err);
 			}else{
 				if(medico){
-					models.municipios.findOne({_id:medico._lugarTrabajo.ubicacion._municipio}, function (err, lugar){
-						models.misTitulos.find({_medico:medico._id}).populate('_universidad ').exec(function (err, titulos){
-							var datos = {"medico":medico, "CiudadTrabajo":lugar, "titulos":titulos};
-							//console.log(datos);
-							res.render('dashboard/medico', {title:ident,datos:datos, moment:moment});
+						models.municipios.findOne({_id:medico._lugarTrabajo.ubicacion._municipio}, function (err, lugar){
+							models.misTitulos.find({_medico:medico._id}).populate('_universidad ').exec(function (err, titulos){
+								var datos = {"medico":medico, "CiudadTrabajo":lugar, "titulos":titulos};
+								//console.log(datos);
+								res.render('dashboard/medico', {title:ident,datos:datos, moment:moment});
+							});
 						});
-					});
 				}else{
 					res.redirect('medicos/busqueda?error=1');
 				}
