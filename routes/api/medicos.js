@@ -602,7 +602,7 @@ exports.servicioMedico = function (req, res){
 						models.misTitulos.find({_medico:medico._id}).populate('_universidad ').exec(function (err, titulos){
 							var datos = {
 									"registrado":"si",
-									"info-personal":{
+									"infoPersonal":{
 										"nombre":medico.nombres,
 										"apellido.primero":medico.apellidos.primero,
 										"apellido.segundo":medico.apellidos.segundo,
@@ -612,10 +612,10 @@ exports.servicioMedico = function (req, res){
 										"tipoProfesional": medico._tipoProfesional.tipo,
 									 	"tarjetaPofesional":medico.NtarjetaProf
 										},
-									"inf-titulos":{
+									"infoTitulos":{
 									 "titulos":titulos
 									},
-									"info-estado":{
+									"infoEstado":{
 									 	"estadoRegistro":medico.estadoRegistro
 									}
 								};
