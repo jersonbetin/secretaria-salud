@@ -604,8 +604,10 @@ exports.servicioMedico = function (req, res){
 									"registrado":"si",
 									"infoPersonal":{
 										"nombre":medico.nombres,
-										"apellido.primero":medico.apellidos.primero,
-										"apellido.segundo":medico.apellidos.segundo,
+										"apellido":{
+											'primero':medico.apellidos.primero,
+											"segundo":medico.apellidos.segundo
+										},
 										"fechaNac":medico.fehaNaimiento,
 										"sexo":medico.sexo,
 										"correo": medico.correo,
