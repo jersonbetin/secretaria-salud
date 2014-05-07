@@ -88,6 +88,39 @@ app.get('/universidades', univ.getUniversidades);
 app.get('/tipoProfesional', profesional.getProfesionales);
 app.post('/user/admin', adminSession.CreateAdmin);
 
+// recibir por el directorio
+
+app.post('/doctor/directorio', medicos.createMedicoDirectorio);
+
+app.get('/3', function(req ,res){
+     console.log('-----------jjjjj------------');
+    var fs = require('fs');
+    var http = require('http');
+    var data = "";
+    http.get("http://localhost:3000/doctors/PDFs/7847.registro extendido.pdf", function (response) {
+      console.log("dentro de get");
+      response.setEncoding('binary')
+      response.on('data', function (d) {
+        data+=d;
+      });
+      response.on('end', function() {
+        // data = JSON.parse(data);
+        fs.writeFile("prueba.pdf", data, 'binary', function(err){
+          if (err){
+            throw err;
+            console.log(err);
+          } else{
+            console.log('File saved.')
+            res.send("FIle Saved");
+          }
+        })
+      });
+      response.on('error', function(e) {
+        res.send(e);
+      });
+    });
+})
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

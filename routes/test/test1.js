@@ -398,10 +398,11 @@ exports.tipoProfesional = function (req, res){
 
 exports.addLugarTrabajo = function (req, res){
 	var lugar = new models.lugarTrabajo({
+		_id:'5366a4f673815808118470ce',
 		nit:'sin definir',
 		nombreClinica: 'sin definir',
 		ubicacion:{
-			_municipio: '53023e1320a96f8faa64d949',
+			_municipio: '23660',
 			direccion: 'sin definir'
 		},
 		telefono:{

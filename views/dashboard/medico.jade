@@ -244,12 +244,12 @@ block content
                             label.control-label.col-sm-12(for="sexo") Sexo:
                           td
                             select.form-control(name="sexo" id="sexo")
-                              if (datos.medico.sexo=='M')
-                                option(value='M') Masculino
-                                option(value='F' ) Femenino
+                              if (datos.medico.sexo=='m')
+                                option(value='m') Masculino
+                                option(value='f' ) Femenino
                               else
-                                option(value='F' ) Femenino
-                                option(value='M') Masculino
+                                option(value='f' ) Femenino
+                                option(value='m') Masculino
                       .form-group
                         tr
                           td
@@ -270,9 +270,9 @@ block content
                             label.control-label.col-sm-12(for="nacionalidad") Nacionalidad:
                           td
                            select.form-control(name="nacionalidad" id="nacionalidad")
-                              option(value='Colombiano') Colombiano
-                              option(value='Extranjero') Extranjero
-                              option(value='Nacionalizado') Nacionalizado
+                              option(value='colombiano') Colombiano
+                              option(value='extranjero') Extranjero
+                              option(value='nacionalizado') Nacionalizado
                       .form-group
                         tr
                           td

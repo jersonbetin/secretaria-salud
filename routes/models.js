@@ -1,8 +1,7 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
-//mongoose.connect('mongodb://localhost/secretariaSalud');
-// mongoose.connect('mongodb://consulting:1q2w3e4r@ds037737.mongolab.com:37737/secretaria');
-mongoose.connect('mongodb://secretaria:1q2w3e4r@ds033569.mongolab.com:33569/ss-cordoba');
+mongoose.connect('mongodb://localhost/secretariaSalud');
+// mongoose.connect('mongodb://secretaria:1q2w3e4r@ds033569.mongolab.com:33569/ss-cordoba');
 
 var db =	mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -38,7 +37,7 @@ var misTitulosSchema = new Schema({
 });
 
 var medicoSchema = new Schema({
-	tipoIdent : {type: String, required:true, enum: ['TI', 'CC', 'Pasaporte']},
+	tipoIdent : {type: String, required:true, enum: ['ti', 'cc', 'pasaporte']},
 	identificacion : {type : String, index : true, required:true, unique:true},
 	correo:{type:String, required:true},
 	nombres : {type: String, required:true},
@@ -47,7 +46,7 @@ var medicoSchema = new Schema({
 		segundo : {type: String, required:true}
 	},
 	NtarjetaProf: {type: String, required:true, unique:true},
-	sexo: {type: String, enum: ['M', 'F']},
+	sexo: {type: String, enum: ['m', 'f']},
 	fehaNaimiento: {type: Date, required:true},
 	residencia : {
 		municipio: {type: String, required:true},
@@ -57,7 +56,7 @@ var medicoSchema = new Schema({
 		celular : {type: String, required:true},
 		fijo: {type: String, required:true}
 	},
-	nacionalidad:{type:String, required:true, enum:['Colombiano', 'Extranjero', 'Nacionalizado']},
+	nacionalidad:{type:String, required:true, enum:['colombiano', 'extranjero', 'nacionalizado']},
 	estadoRegistro:{type:String, required:true, enum:['estudio', 'aprobado', 'desaprovado']},
 	_tipoProfesional: {type:String, ref:'tipoProfesional'},
 	_lugarTrabajo: {type:Schema.Types.ObjectId, ref:'lugarTrabajo'},
