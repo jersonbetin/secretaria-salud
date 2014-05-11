@@ -57,6 +57,8 @@ app.get('/api/medicos/identificacion', medicos.verifivarIdBynum);
 app.get('/api/medicos/tarjeta', medicos.verifivarTarjetaBynum);
 app.get('/api/lugarTrabajo/nit', medicos.getNitBynum);
 app.get('/SWMedicos/:ide', medicos.servicioMedico);
+app.get('/medicos/idoneidad', medicos.consultaDeIdoneidad);
+app.put('/medicos/:id/estado', medicos.cambiarExtado);
 
 
 app.get('/session/admin/error', routes.sessionError);

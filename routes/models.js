@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
-// mongoose.connect('mongodb://localhost/secretariaSalud');
-mongoose.connect('mongodb://secretaria:1q2w3e4r@ds033569.mongolab.com:33569/ss-cordoba');
+mongoose.connect('mongodb://localhost/secretariaSalud');
+// mongoose.connect('mongodb://secretaria:1q2w3e4r@ds033569.mongolab.com:33569/ss-cordoba');
 
 var db =	mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -58,6 +58,7 @@ var medicoSchema = new Schema({
 	},
 	nacionalidad:{type:String, required:true, enum:['colombiano', 'extranjero', 'nacionalizado']},
 	estadoRegistro:{type:String, required:true, enum:['estudio', 'aprobado', 'desaprovado']},
+	observacionEstado:{type:String, default:''},
 	_tipoProfesional: {type:String, ref:'tipoProfesional'},
 	_lugarTrabajo: {type:Schema.Types.ObjectId, ref:'lugarTrabajo'},
 	labora:{type:String, required:true, enum:['si', 'no']},
