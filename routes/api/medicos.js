@@ -545,18 +545,33 @@ exports.updateEstadoRegistro = function (req, res){
 		if (test==true) {
 			var conditions = {identificacion:req.body.ident};
 					var	update = {$set:{
-									estadoRegistro  :req.body.estadoReg
+									estadoRegistro  :req.body.estadoReg,
+									observacionEstado:req.body.observaciones
 								}};
 					var options = {upsert:false};
 					models.medicos.update(conditions, update, options, function (err){
 						if(err){
 							res.send(err);
 						}else{
-							res.send(200);
+							var datos={
+								cedula:req.body.ident,
+								obs:req.body.observaciones
+							}
+							if(req.body.estadoReg=='aprovado'){
+								datos.estado=2;
+								enviarDirectorio(datos, res);
+							}else if(req.body.estadoReg=='desaprovado'){
+								datos.estado=3;
+								enviarDirectorio(datos, res);
+							}else if(req.body.estadoReg=='estudio'){
+								res.send(200);
+							}else{
+								res.send({error:500});
+							}
 						}
 					});
 		}else{
-			res.send(500);
+			res.send({error:500});
 		}
 	});
 }
@@ -767,7 +782,7 @@ exports.cambiarExtado=function(req, res){
 							var	update = {
 									$set:{
 										estadoRegistro : 'desaprovado',
-										//observacionEstado : req.body.observaciones
+										observacionEstado : req.body.observaciones
 									}
 								};
 							var options = {upsert:false};
@@ -779,10 +794,12 @@ exports.cambiarExtado=function(req, res){
 										info:'paso algun error al actualizar'
 									});
 								}else{
-									res.send({
-										code:200,
-										error:null
-									});
+									var datos={
+										cedula:req.params.id,
+										estado:3,
+										obs:req.body.observaciones
+									}
+									enviarDirectorio(datos, res);
 								}
 							});
 						}else{
@@ -802,10 +819,12 @@ exports.cambiarExtado=function(req, res){
 										info:'paso algun error al actualizar'
 									});
 								}else{
-									res.send({
-										code:200,
-										error:null
-									});
+									var datos={
+										cedula:req.params.id,
+										estado:2,
+										obs:req.body.observaciones
+									}
+									enviarDirectorio(datos, res);
 								}
 							});
 						}
@@ -827,4 +846,39 @@ exports.cambiarExtado=function(req, res){
 			info:'paso los datos vacios'
 		});
 	}
+}
+
+function enviarDirectorio(datos, res){
+	var data = JSON.stringify({
+    'registerState':datos.estado,
+    'observation':datos.obs
+  });
+  var options = {
+        // host: 'secretariadesalud-cordoba.herokuapp.com',
+        host: 'localhost',
+        port: 3000,
+        path: '/api/v1/doctors/'+datos.cedula+'/account_information/register_state',
+        method: 'PUT',
+        headers : {
+          'Content-Type': 'application/json; charset=utf-8',
+          'secretaryToken':'healthSecretrySecretToken'
+        }
+      };
+      var http = require("http");
+      var httpreq = http.request(options, function (response) {
+        response.on('data', function (chunk) {
+          console.log("body: " + chunk);
+        });
+        response.on('end', function(e) {
+          console.log(e);
+          res.send(200);
+        });
+        response.on('error', function(e) {
+          console.log("Ha ocurrido un error");
+          console.log(e);
+          res.send({error:e});
+        });
+      });
+      httpreq.write(data);
+      httpreq.end();
 }

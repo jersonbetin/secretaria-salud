@@ -197,18 +197,20 @@ block content
                  span(style="color:red") #{datos.medico.estadoRegistro}
               #divpdf
                 iframe.evidencia(src="/uploads/#{datos.medico.evidencias}" type="application/pdf")
-              table.table-hover
+              table.table
                 form(id="info-estados" method='post' action="/medicos/estados")
                     input.form-control.input-formu(type ="hidden" name="ident" id="ident"  value="#{datos.medico.identificacion}")
                     .form-group
                       tr
                         td
-                            label.control-label.col-sm-12(for="Estado" style="float: right;") Cambiar estado:
+                            label.control-label.col-sm-10(for="Estado" style="float: right;") Cambiar estado:
                         td
-                          select(id="estadoReg" name="estadoReg")
+                          select.form-control.col-lg-12(id="estadoReg" name="estadoReg")
                             option(value="estudio") Estudio
                             option(value="aprovado") Aprovado
                             option(value="desaprovado") Desaprovado
+                        td
+                          textarea.form-control.col-lg-12(name="observaciones" style="width100%; height:100px;") observaciones
                         td
                           input.btn-primary.btn(type="submit" value="Cambiar")
 
