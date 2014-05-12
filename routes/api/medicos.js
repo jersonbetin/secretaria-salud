@@ -647,44 +647,44 @@ function agregar_medicoDirectorio(res, evidencia, TipoIdent,  ident,  nombre, pA
 
 exports.createMedicoDirectorio = function (req, res){
 	console.log(req.body);
-	// if(req.body.tIdent!='' && req.body.identif!='' && req.body.nombre!='' && req.body.pApell!=''
-	// 	&& req.body.sApell!='' && req.body.sexo!='' && req.body.muncResid!='' && req.body.tel!=''
-	// 	&& req.body.cel!='' && req.body.nacionalidad!='' && req.body.titulos!=undefined && req.body.nTarj!=''
-	// 	&& req.body.fechaNac!='' && req.body.direccion!='' && req.body.tipoProfe!=''){
+	if(req.body.tIdent!='' && req.body.identif!='' && req.body.nombre!='' && req.body.pApell!=''
+		&& req.body.sApell!='' && req.body.sexo!='' && req.body.muncResid!='' && req.body.tel!=''
+		&& req.body.cel!='' && req.body.nacionalidad!='' && req.body.titulos!=undefined && req.body.nTarj!=''
+		&& req.body.fechaNac!='' && req.body.direccion!='' && req.body.tipoProfe!=''){
 
-	// 	if(req.body.labora=='si'){
-	// 		if(req.body.nit!='' && req.body.NombEmpresa!='' && req.body.municTrab!='' && req.body.dirEmpr!=''
-	// 				&& req.body.telTrab!=''){
-	// 			models.lugarTrabajo.create({nit: req.body.nit, nombreClinica: req.body.nombEmpres, ubicacion:{_municipio: req.body.municTrab, direccion: req.body.dirEmpr},
-	// 				telefono:{celular : req.body.celTrab, fijo: req.body.telTrab}}, function (err, lugTrab){
-	// 					if (err) {
-	// 						if(err.code=="11000"){
-	// 							 models.lugarTrabajo.findOne({nit:req.body.nit}, function (err, lugarT){
-	// 							 	console.log('pasa por aqui');
-	// 								 agregar_medicoDirectorio(res, req.body.evidencias, req.body.tIdent,   req.body.identif,  req.body.nombre, req.body.pApell, req.body.sApell, req.body.nTarj, req.body.sexo, req.body.fechaNac, req.body.muncResid, req.body.direccion, req.body.cel, req.body.tel, req.body.nacionalidad, req.body.tipoProfe, lugarT, req.body.labora, req.body.titulos, req.body.correo);
-	// 							 });
-	// 						}else{
-	// 							console.log(err);
-	// 							res.send('ERROR: '+ err);
-	// 						}
-	// 					}else{
-	// 						agregar_medicoDirectorio(res, req.body.evidencias, req.body.tIdent,   req.body.identif,  req.body.nombre, req.body.pApell, req.body.sApell, req.body.nTarj, req.body.sexo, req.body.fechaNac, req.body.muncResid, req.body.direccion, req.body.cel, req.body.tel, req.body.nacionalidad, req.body.tipoProfe, lugTrab._id, req.body.labora, req.body.titulos, req.body.correo);
-	// 					}
-	// 				});
-	// 		}else{
-	// 			res.send('No OK');
-	// 		}
-	// 	}else{
-	// 		if (req.body.labora=='no') {
-	// 			var idLugar='5366a4f673815808118470ce';
-	// 			agregar_medicoDirectorio(res, req.body.evidencias, req.body.tIdent,   req.body.identif,  req.body.nombre, req.body.pApell, req.body.sApell, req.body.nTarj, req.body.sexo, req.body.fechaNac, req.body.muncResid, req.body.direccion, req.body.cel, req.body.tel, req.body.nacionalidad, req.body.tipoProfe, idLugar, req.body.labora, req.body.titulos, req.body.correo);
-	// 		}else{
-	// 			res.send('no OK');
-	// 		}
-	// 	}
-	// }else{
-	// 	res.send('No OK');
-	// }
+		if(req.body.labora=='si'){
+			if(req.body.nit!='' && req.body.NombEmpresa!='' && req.body.municTrab!='' && req.body.dirEmpr!=''
+					&& req.body.telTrab!=''){
+				models.lugarTrabajo.create({nit: req.body.nit, nombreClinica: req.body.nombEmpres, ubicacion:{_municipio: req.body.municTrab, direccion: req.body.dirEmpr},
+					telefono:{celular : req.body.celTrab, fijo: req.body.telTrab}}, function (err, lugTrab){
+						if (err) {
+							if(err.code=="11000"){
+								 models.lugarTrabajo.findOne({nit:req.body.nit}, function (err, lugarT){
+								 	console.log('pasa por aqui');
+									 agregar_medicoDirectorio(res, req.body.evidencias, req.body.tIdent,   req.body.identif,  req.body.nombre, req.body.pApell, req.body.sApell, req.body.nTarj, req.body.sexo, req.body.fechaNac, req.body.muncResid, req.body.direccion, req.body.cel, req.body.tel, req.body.nacionalidad, req.body.tipoProfe, lugarT, req.body.labora, req.body.titulos, req.body.correo);
+								 });
+							}else{
+								console.log(err);
+								res.send('ERROR: '+ err);
+							}
+						}else{
+							agregar_medicoDirectorio(res, req.body.evidencias, req.body.tIdent,   req.body.identif,  req.body.nombre, req.body.pApell, req.body.sApell, req.body.nTarj, req.body.sexo, req.body.fechaNac, req.body.muncResid, req.body.direccion, req.body.cel, req.body.tel, req.body.nacionalidad, req.body.tipoProfe, lugTrab._id, req.body.labora, req.body.titulos, req.body.correo);
+						}
+					});
+			}else{
+				res.send('No OK');
+			}
+		}else{
+			if (req.body.labora=='no') {
+				var idLugar='5366a4f673815808118470ce';
+				agregar_medicoDirectorio(res, req.body.evidencias, req.body.tIdent,   req.body.identif,  req.body.nombre, req.body.pApell, req.body.sApell, req.body.nTarj, req.body.sexo, req.body.fechaNac, req.body.muncResid, req.body.direccion, req.body.cel, req.body.tel, req.body.nacionalidad, req.body.tipoProfe, idLugar, req.body.labora, req.body.titulos, req.body.correo);
+			}else{
+				res.send('no OK');
+			}
+		}
+	}else{
+		res.send('No OK');
+	}
 }
 
 exports.servicioMedico = function (req, res){
