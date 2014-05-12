@@ -581,7 +581,7 @@ function agregar_medicoDirectorio(res, evidencia, TipoIdent,  ident,  nombre, pA
 	    var fs = require('fs');
 	    var http = require('http');
 	    var data = "";
-	    http.get('http://localhost:3000'+evidencia, function (response) {
+	    http.get('http://conlsulting-cordoba.herokuapp.com/'+evidencia, function (response) {
 	      console.log("dentro de get");
 	      response.setEncoding('binary')
 	      response.on('data', function (d) {
@@ -856,8 +856,7 @@ function enviarDirectorio(datos, res){
   });
   var options = {
         // host: 'secretariadesalud-cordoba.herokuapp.com',
-        host: 'localhost',
-        port: 3000,
+        host: 'http://consulting-cordoba.herokuapp.com/',
         path: '/api/v1/doctors/'+datos.cedula+'/account_information/register_state',
         method: 'PUT',
         headers : {
