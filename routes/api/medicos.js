@@ -707,7 +707,8 @@ exports.servicioMedico = function (req, res){
 										"fechaNac":medico.fehaNaimiento,
 										"sexo":medico.sexo,
 										"correo": medico.correo,
-										"tipoProfesional": medico._tipoProfesional.tipo,
+										"tipoProfesional": medico._tipoProfesional._id,
+										"NombreTipoProfesional":medico._tipoProfesional.tipo,
 									 	"tarjetaPofesional":medico.NtarjetaProf
 										},
 									"infoTitulos":{
