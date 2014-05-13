@@ -557,10 +557,10 @@ exports.updateEstadoRegistro = function (req, res){
 								cedula:req.body.ident,
 								obs:req.body.observaciones
 							}
-							if(req.body.estadoReg=='aprovado'){
+							if(req.body.estadoReg=='aprobado'){
 								datos.estado=2;
 								enviarDirectorio(datos, res);
-							}else if(req.body.estadoReg=='desaprovado'){
+							}else if(req.body.estadoReg=='desaprobado'){
 								datos.estado=3;
 								enviarDirectorio(datos, res);
 							}else if(req.body.estadoReg=='estudio'){
