@@ -179,7 +179,7 @@ exports.getMedicoByIdent=function (req, res){
 }
 
 exports.updateInfPersonal =function (req, res){
-	if( req.body.nombres!='' && req.body.PApellido!='' && req.body.PApellido!='' 
+	if( req.body.nombres!='' && req.body.PApellido!='' && req.body.SApellido!='' 
 		&& req.body.sexo!='' && req.body.municipio!='' && req.body.telefono!=''&& req.body.Celular!=''
 		 && req.body.nacionalidad!=''	&& req.body.fecNacim!='' && req.body.direccion!='' ){
 		var conditions = {identificacion: req.body.ident};
@@ -187,7 +187,7 @@ exports.updateInfPersonal =function (req, res){
 				nombres : req.body.nombres,
 				apellidos : {
 					primero : req.body.PApellido,
-					segundo : req.body.PApellido
+					segundo : req.body.SApellido
 				},
 				sexo: req.body.sexo,
 				fehaNaimiento: req.body.fecNacim,
