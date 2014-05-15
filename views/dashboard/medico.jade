@@ -63,9 +63,9 @@ block content
                       td
                         input.form-control.input-formu(type="text" value="#{datos.medico.apellidos.segundo}" disabled="disabled")
                       td
-                        label.control-label.col-sm-12(for="sexo") Sexo:
+                        label.control-label.col-sm-12(for="sexo") Sexo: #{datos.medico.sexo}
                       td
-                        if (datos.medico.sexo=='M')
+                        if (datos.medico.sexo=='m')
                           input.form-control.input-formu(type="text" value="Masculino" disabled="disabled")
                         else
                           input.form-control.input-formu(type="text" value="Femenino" disabled="disabled")
@@ -267,7 +267,7 @@ block content
                           td
                             label.control-label(for="fecNacim") Fecha de nacimiento:
                           td
-                            input.form-control(type="text" name="fecNacim" id="fecNacim" value="#{moment(datos.medico.fehaNaimiento).format('DD-MM-YYYY')}")
+                            input.form-control(type="text" name="fecNacim" id="fecNacim" value="#{moment(datos.medico.fehaNaimiento).format('MM-DD-YYYY')}")
                           td
                             label.control-label.col-sm-12(for="nacionalidad") Nacionalidad:
                           td

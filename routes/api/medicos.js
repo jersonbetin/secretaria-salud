@@ -161,6 +161,7 @@ exports.getMedicoByIdent=function (req, res){
 				res.send(err);
 			}else{
 				if(medico){
+					console.log(medico);
 						models.municipios.findOne({_id:medico._lugarTrabajo.ubicacion._municipio}, function (err, lugar){
 							models.misTitulos.find({_medico:medico._id}).populate('_universidad ').exec(function (err, titulos){
 								var datos = {"medico":medico, "CiudadTrabajo":lugar, "titulos":titulos};
@@ -204,7 +205,7 @@ exports.updateInfPersonal =function (req, res){
 		var options = {upsert:false};
 		models.medicos.update(conditions, update, options, function (err){
 			if(err){
-				res.send('error');
+				res.send('error:'+err);
 			}else{
 				res.send(200);
 			}
