@@ -869,8 +869,7 @@ function enviarDirectorio(datos, res){
     'observation':datos.obs
   });
   var options = {
-        // host: 'secretariadesalud-cordoba.herokuapp.com',
-        host: 'consulting-cordoba.herokuapp.com',
+        host: 'http://consulting-cordoba.herokuapp.com',
         path: '/api/v1/doctors/'+datos.cedula+'/account_information/register_state',
         method: 'PUT',
         headers : {
