@@ -171,6 +171,7 @@ exports.getMedicoByIdent=function (req, res){
 				res.send(err);
 			}else{
 				if(medico){
+					console.log(medico);
 						models.municipios.findOne({_id:medico._lugarTrabajo.ubicacion._municipio}, function (err, lugar){
 							models.misTitulos.find({_medico:medico._id}).populate('_universidad ').exec(function (err, titulos){
 								var datos = {"medico":medico, "CiudadTrabajo":lugar, "titulos":titulos};
@@ -189,7 +190,7 @@ exports.getMedicoByIdent=function (req, res){
 }
 
 exports.updateInfPersonal =function (req, res){
-	if( req.body.nombres!='' && req.body.PApellido!='' && req.body.PApellido!='' 
+	if( req.body.nombres!='' && req.body.PApellido!='' && req.body.SApellido!='' 
 		&& req.body.sexo!='' && req.body.municipio!='' && req.body.telefono!=''&& req.body.Celular!=''
 		 && req.body.nacionalidad!=''	&& req.body.fecNacim!='' && req.body.direccion!='' ){
 		var conditions = {identificacion: req.body.ident};
@@ -197,7 +198,7 @@ exports.updateInfPersonal =function (req, res){
 				nombres : req.body.nombres,
 				apellidos : {
 					primero : req.body.PApellido,
-					segundo : req.body.PApellido
+					segundo : req.body.SApellido
 				},
 				sexo: req.body.sexo,
 				fehaNaimiento: req.body.fecNacim,
@@ -214,7 +215,7 @@ exports.updateInfPersonal =function (req, res){
 		var options = {upsert:false};
 		models.medicos.update(conditions, update, options, function (err){
 			if(err){
-				res.send('error');
+				res.send('error:'+err);
 			}else{
 				res.send(200);
 			}
@@ -567,10 +568,10 @@ exports.updateEstadoRegistro = function (req, res){
 								cedula:req.body.ident,
 								obs:req.body.observaciones
 							}
-							if(req.body.estadoReg=='aprovado'){
+							if(req.body.estadoReg=='aprobado'){
 								datos.estado=2;
 								enviarDirectorio(datos, res);
-							}else if(req.body.estadoReg=='desaprovado'){
+							}else if(req.body.estadoReg=='desaprobado'){
 								datos.estado=3;
 								enviarDirectorio(datos, res);
 							}else if(req.body.estadoReg=='estudio'){
