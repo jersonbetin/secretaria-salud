@@ -94,6 +94,35 @@ app.post('/user/admin', adminSession.CreateAdmin);
 // recibir por el directorio
 
 app.post('/doctor/directorio', medicos.createMedicoDirectorio);
+ app.get("/pdfs/:filename", function (req, res) {
+    var mongo = require('mongodb');
+    var Grid = require('gridfs-stream');
+    var fs  = require("fs");
+
+    // create or use an existing mongodb-native db instance.
+    // for this example we'll just create one:
+    var MongoClient = mongo.MongoClient;
+    MongoClient.connect('mongodb://secretaria:1q2w3e4r@ds033569.mongolab.com:33569/ss-cordoba', function (err, db) {
+      
+      if (err){
+        console.log("############ err #################");
+        console.log(err);
+        console.log("############ err #################");
+      }
+      var gfs = Grid(db, mongo);
+      var readstream = gfs.createReadStream({
+        filename: req.params.filename
+      });
+
+      //error handling, e.g. file does not exist
+      readstream.on('error', function (err) {
+        console.log('An error occurred!', err);
+        throw err;
+      });
+
+      readstream.pipe(res);
+    });
+  })
 
 // app.get('/3', function(req ,res){
 //      console.log('-----------jjjjj------------');

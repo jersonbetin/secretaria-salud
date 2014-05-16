@@ -11,7 +11,8 @@
     "mongoose": "*",
     "crypto": "*",
     "less-middleware":"*",
-    "moment":"*"
+    "moment":"*",
+    "gridfs-stream":"*"
   },
   "engines": {
     "node": "0.10.x",

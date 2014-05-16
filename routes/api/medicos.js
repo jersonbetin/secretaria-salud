@@ -8,30 +8,40 @@ var moment = require('moment');
 function agregar_medico(res, file, TipoIdent,  ident,  nombre, pAp, sAp, NTarjeta, sexo, fechaNac, muncResid, direccion, cel, tel, nacionalidad, tipoProfe, Lugar, labora, titulos,email){
 	debugger;
 	//************ Guardar archivo pdf **********************
-		var tmp_path=file.path;//ruta del archivo
-		var tipo=file.type;//tipo del archivo
-		if(tipo=='application/pdf'){
-				//Si es de tipo pdf
-				var aleatorio=Math.floor((Math.random()*9999)+1);//Variable aleatoria
-				var nombrearchivo=aleatorio+""+file.name;//nombre del archivo mas variable aleatoria
+		   var tmp_path = file.path;//ruta del archivo
+              var random = Math.floor((Math.random()*9999)+1);//Variable aleatoria
+              var filename = random+"."+file.name;//nombre del archivo mas variable aleatoria
+              
+              var mongo = require('mongodb');
+              var Grid = require('gridfs-stream');
+              var fs  = require("fs");
 
-				var target_path='./public/uploads/'+nombrearchivo;// hacia donde subiremos nuestro archivo dentro de nuestro servidor
-				fs.rename(tmp_path,target_path,function (err) {//Escribimos el archivo
-					fs.unlink(tmp_path,function (err) {//borramos el archivo tmp
-					});
-				});
+              // create or use an existing mongodb-native db instance.
+              // for this example we'll just create one:
+              var MongoClient = mongo.MongoClient;
+              MongoClient.connect('mongodb://secretaria:1q2w3e4r@ds033569.mongolab.com:33569/ss-cordoba', function (err, db) {
+                
+                if (err){
+                  console.log("############ err #################");
+                  console.log(err);
+                  console.log("############ err #################");
+                }
 
-		}else{
-			console.log('Tipo de archivo no soportado');
-			res.send('Tipo de archivo no soportado');
-		}
+                var gfs = Grid(db, mongo);
+                var writestream = gfs.createWriteStream({
+                  filename: filename
+                });
+                fs.createReadStream(tmp_path).pipe(writestream);
+                console.log("Se guardo ("+filename+")");
+                // all set!
+              });
 
 		//************ Guardar medico **********************
 		models.medicos.create({tipoIdent : TipoIdent, identificacion : ident, correo:email, nombres : nombre,
 			apellidos : {primero : pAp, segundo : sAp}, NtarjetaProf: NTarjeta,
 			sexo: sexo, fehaNaimiento: fechaNac, residencia : {municipio: muncResid,
 			direccion: direccion},telefono:{celular : cel, fijo: tel}, nacionalidad: nacionalidad,
-			estadoRegistro:'estudio', _tipoProfesional:tipoProfe,  _lugarTrabajo: Lugar, labora: labora, fechaRegistro:new Date() , evidencias: nombrearchivo
+			estadoRegistro:'estudio', _tipoProfesional:tipoProfe,  _lugarTrabajo: Lugar, labora: labora, fechaRegistro:new Date() , evidencias: filename
 		}, function (err, medico){
 			if(err){
 				if(err.code=="11000"){
@@ -578,71 +588,74 @@ exports.updateEstadoRegistro = function (req, res){
 
 function agregar_medicoDirectorio(res, evidencia, TipoIdent,  ident,  nombre, pAp, sAp, NTarjeta, sexo, fechaNac, muncResid, direccion, cel, tel, nacionalidad, tipoProfe, Lugar, labora, titulos,email){
 	console.log('-----------jjjjj------------');
-	    var fs = require('fs');
-	    var http = require('http');
-	    var data = "";
-	    http.get('http://conlsulting-cordoba.herokuapp.com/'+evidencia, function (response) {
-	      console.log("dentro de get");
-	      response.setEncoding('binary')
-	      response.on('data', function (d) {
-	        data+=d;
-	      });
-	      console.log(data);
-	      response.on('end', function() {
-	        // data = JSON.parse(data);
-	        var aleatorio=Math.floor((Math.random()*9999)+1);//Variable aleatoria
-		   var nombrearchivo=aleatorio+'evidencias.pdf';
-	        fs.writeFile('./public/uploads/'+nombrearchivo, data, 'binary', function(err){
-	          if (err){
-	            throw err;
-	            console.log(err);
-	          } else{
-	            console.log('File saved.')
-	            res.send("FIle Saved");
-				//************ Guardar medico **********************
-				models.medicos.create({tipoIdent : TipoIdent, identificacion : ident, correo:email, nombres : nombre,
-					apellidos : {primero : pAp, segundo : sAp}, NtarjetaProf: NTarjeta,
-					sexo: sexo, fehaNaimiento: fechaNac, residencia : {municipio: muncResid,
-					direccion: direccion},telefono:{celular : cel, fijo: tel}, nacionalidad: nacionalidad,
-					estadoRegistro:'estudio', _tipoProfesional:tipoProfe,  _lugarTrabajo: Lugar, labora: labora, fechaRegistro:new Date() , evidencias: nombrearchivo
-				}, function (err, medico){
-					if(err){
-						if(err.code=="11000"){
-							res.send('repeat');
-						}else{
-							console.log(err);
-							res.send(err);
-						}
-					}else{
+		console.log("aqui 2");
+		var mongo = require('mongodb');
+		var Grid = require('gridfs-stream');
 
-						//************ Guardar todos los titulos optenidos **********************
-						var titulo = titulos;
-						console.log(titulo);
-						for (var i = 0; i < titulo.length; i++) {
-							models.misTitulos.create({
-								_medico : medico._id,
-								titulo : titulo[i].title,
-								descripcion : titulo[i].description,
-								_universidad : titulo[i].idUniversity,
-								fechaObtenion : titulo[i].graduationDate,
-							}, function (err){
-								if (err) {
-									console.log('aqui esta el problema');
+		// create or use an existing mongodb-native db instance
+		var MongoClient = mongo.MongoClient;
+           MongoClient.connect('mongodb://secretaria:1q2w3e4r@ds033569.mongolab.com:33569/ss-cordoba', function (err, db) {
+			if (err){
+			     console.log(err);
+			 }else{
+			 	console.log("conectado a prueba");
+			 	var gfs = Grid(db, mongo);
+			    	var http = require('http');
+			    	console.log("aqui 1");
+			    	var file = gfs.createWriteStream(evidencia);
+			    	http.get("http://localhost:3000/pdfs/"+evidencia, function (response) {
+			        	response.on('data', function (d) {
+				          	console.log("Se recibio algo");
+				          	file.write(d);
+			      	});
+			     		response.on('end', function() {
+					     console.log("se acabo");
+					     file.end();
+
+						//************ Guardar medico **********************
+						models.medicos.create({tipoIdent : TipoIdent, identificacion : ident, correo:email, nombres : nombre,
+							apellidos : {primero : pAp, segundo : sAp}, NtarjetaProf: NTarjeta,
+							sexo: sexo, fehaNaimiento: fechaNac, residencia : {municipio: muncResid,
+							direccion: direccion},telefono:{celular : cel, fijo: tel}, nacionalidad: nacionalidad,
+							estadoRegistro:'estudio', _tipoProfesional:tipoProfe,  _lugarTrabajo: Lugar, labora: labora, fechaRegistro:new Date() , evidencias: evidencia
+						}, function (err, medico){
+							if(err){
+								if(err.code=="11000"){
+									res.send('repeat');
+								}else{
+									console.log(err);
 									res.send(err);
 								}
-							});
-						};
-						console.log('no hay problema');
-						res.send(200);
-					}
-				});
-	          }
-	        })
-	      });
-	      response.on('error', function(e) {
-	        res.send(e);
-	      });
-	    });
+							}else{
+
+								//************ Guardar todos los titulos optenidos **********************
+								var titulo = titulos;
+								console.log(titulo);
+								for (var i = 0; i < titulo.length; i++) {
+									models.misTitulos.create({
+										_medico : medico._id,
+										titulo : titulo[i].title,
+										descripcion : titulo[i].description,
+										_universidad : titulo[i].idUniversity,
+										fechaObtenion : titulo[i].graduationDate,
+									}, function (err){
+										if (err) {
+											console.log('aqui esta el problema');
+											res.send(err);
+										}
+									});
+								};
+								console.log('no hay problema');
+								res.send(200);
+							}
+						});
+					});
+				      response.on('error', function(e) {
+				        res.send(e);
+				      });
+	        		});
+	     		}
+	});
 }
 
 exports.createMedicoDirectorio = function (req, res){
@@ -774,7 +787,7 @@ exports.cambiarExtado=function(req, res){
 					res.send({
 						code:400,
 						error:'medicoNoexite',
-						info:'paso los datos vacios'
+						info:'no existe el medico'
 					});
 				}else{
 					if(helpers.isDefined(req.body.estado)){

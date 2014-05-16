@@ -196,7 +196,7 @@ block content
               p.estadoTitle(style="font-size: 20px; text-align: center; text-transform: uppercase; font-weight: bold;")  su estado es: 
                  span(style="color:red") #{datos.medico.estadoRegistro}
               #divpdf
-                embed.evidencia(src="/uploads/#{datos.medico.evidencias}" type="application/pdf")
+                embed.evidencia(src="/pdfs/#{datos.medico.evidencias}" type="application/pdf")
               table.table
                 form(id="info-estados" method='post' action="/medicos/estados")
                     input.form-control.input-formu(type ="hidden" name="ident" id="ident"  value="#{datos.medico.identificacion}")
