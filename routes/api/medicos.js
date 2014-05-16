@@ -604,7 +604,7 @@ function agregar_medicoDirectorio(res, evidencia, TipoIdent,  ident,  nombre, pA
 			    	var http = require('http');
 			    	console.log("aqui 1");
 			    	var file = gfs.createWriteStream(evidencia);
-			    	http.get("http://localhost:3000/pdfs/"+evidencia, function (response) {
+			    	http.get("http://consulting-cordoba.herokuapp.com/pdfs/"+evidencia, function (response) {
 			        	response.on('data', function (d) {
 				          	console.log("Se recibio algo");
 				          	file.write(d);
