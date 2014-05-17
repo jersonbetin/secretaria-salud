@@ -12,7 +12,9 @@
     "crypto": "*",
     "less-middleware":"*",
     "moment":"*",
-    "gridfs-stream":"*"
+    "gridfs-stream":"*",
+    "mongodb":"*"
+
   },
   "engines": {
     "node": "0.10.x",
