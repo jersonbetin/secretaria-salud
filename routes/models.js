@@ -57,7 +57,7 @@ var medicoSchema = new Schema({
 		fijo: {type: String, required:true}
 	},
 	nacionalidad:{type:String, required:true, enum:['colombiano', 'extranjero', 'nacionalizado']},
-	estadoRegistro:{type:String, required:true, enum:['estudio', 'aprobado', 'desaprovado']},
+	estadoRegistro:{type:String, required:true, enum:['estudio', 'aprobado', 'desaprobado']},
 	observacionEstado:{type:String, default:''},
 	_tipoProfesional: {type:String, ref:'tipoProfesional'},
 	_lugarTrabajo: {type:Schema.Types.ObjectId, ref:'lugarTrabajo'},

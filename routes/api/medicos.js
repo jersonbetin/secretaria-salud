@@ -3,6 +3,8 @@ var helpers = require('../helpers');
 var models = require('../models');
 var fs = require('fs');
 var moment = require('moment');
+var mongoose = require('mongoose');
+
 
 
 function agregar_medico(res, file, TipoIdent,  ident,  nombre, pAp, sAp, NTarjeta, sexo, fechaNac, muncResid, direccion, cel, tel, nacionalidad, tipoProfe, Lugar, labora, titulos,email){
@@ -12,7 +14,7 @@ function agregar_medico(res, file, TipoIdent,  ident,  nombre, pAp, sAp, NTarjet
               var random = Math.floor((Math.random()*9999)+1);//Variable aleatoria
               var filename = random+"."+file.name;//nombre del archivo mas variable aleatoria
               
-              var mongo = require('mongodb');
+              var mongo = require('mongodbca');
               var Grid = require('gridfs-stream');
               var fs  = require("fs");
 
@@ -89,7 +91,7 @@ exports.createMedico = function (req, res){
 						if (err) {
 							if(err.code=="11000"){
 								 models.lugarTrabajo.findOne({nit:req.body.nit}, function (err, lugarT){
-								 	console.log('pasa por aqui');
+								 	console.log('pasa por aqui'); ///aqui se cae
 									 agregar_medico(res, req.files.archivo, req.body.tIdent,   req.body.identif,  req.body.nombre, req.body.pApell, req.body.sApell, req.body.nTarj, req.body.sexo, req.body.fechaNac, req.body.muncResid, req.body.direccion, req.body.cel, req.body.tel, req.body.nacionalidad, req.body.tipoProfe, lugarT, req.body.labora, req.body.titulos, req.body.correo);
 								 });
 							}else{
@@ -752,7 +754,7 @@ exports.consultaDeIdoneidad=function(req, res){
 	if(req.query.apellido){
 		criterio['apellidos.primero']=req.query.apellido;
 	}
-	models.medicos.find(criterio).where({"estadoRegistro":"aprovado"}).populate('_tipoProfesional').exec(function(error, medicos){
+	models.medicos.find(criterio).where({"estadoRegistro":"aprobado"}).populate('_tipoProfesional').exec(function(error, medicos){
 		if (error) {
 			res.send(error);
 		}else{
@@ -796,7 +798,7 @@ exports.cambiarExtado=function(req, res){
 							var conditions = {identificacion:req.params.id};
 							var	update = {
 									$set:{
-										estadoRegistro : 'desaprovado',
+										estadoRegistro : 'desaprobado',
 										observacionEstado : req.body.observaciones
 									}
 								};
@@ -821,7 +823,7 @@ exports.cambiarExtado=function(req, res){
 							var conditions = {identificacion:req.params.id};
 							var	update = {
 									$set:{
-										estadoRegistro : 'aprovado',
+										estadoRegistro : 'aprobado',
 										//observacionEstado : req.body.observaciones
 									}
 								};
@@ -864,12 +866,14 @@ exports.cambiarExtado=function(req, res){
 }
 
 function enviarDirectorio(datos, res){
+	console.log('se llega a la funcion');
 	var data = JSON.stringify({
     'registerState':datos.estado,
     'observation':datos.obs
   });
+	console.log(data);
   var options = {
-        host: 'http://consulting-cordoba.herokuapp.com',
+        host: 'consulting-cordoba.herokuapp.com',
         path: '/api/v1/doctors/'+datos.cedula+'/account_information/register_state',
         method: 'PUT',
         headers : {
@@ -879,6 +883,7 @@ function enviarDirectorio(datos, res){
       };
       var http = require("http");
       var httpreq = http.request(options, function (response) {
+      	console.log('todo bien');
         response.on('data', function (chunk) {
           console.log("body: " + chunk);
         });
