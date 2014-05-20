@@ -14,7 +14,7 @@ function agregar_medico(res, file, TipoIdent,  ident,  nombre, pAp, sAp, NTarjet
               var random = Math.floor((Math.random()*9999)+1);//Variable aleatoria
               var filename = random+"."+file.name;//nombre del archivo mas variable aleatoria
               
-              var mongo = require('mongodbca');
+              var mongo = require('mongodb');
               var Grid = require('gridfs-stream');
               var fs  = require("fs");
 
