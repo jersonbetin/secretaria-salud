@@ -738,7 +738,7 @@ exports.servicioMedico = function (req, res){
 						});
 					});
 				}else{
-					res.json({'estado':'no registrado'});
+					res.json({'registrado':'no'});
 				}
 			}
 		});
