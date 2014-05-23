@@ -193,6 +193,8 @@ block content
                             input.btn.btn-default.input-form(type="reset" id="borrar" value="Eliminar")
                           td
             #opcion5.tab-pane
+              #sancion-tribunal.alert-danger
+                p Usted esta sancionado en el tribunal de etica medica asi que no puede ejercer sus labores de medico
               p.estadoTitle(style="font-size: 20px; text-align: center; text-transform: uppercase; font-weight: bold;")  su estado es: 
                  span(style="color:red") #{datos.medico.estadoRegistro}
               #divpdf
@@ -207,7 +209,7 @@ block content
                         td
                           select.form-control.col-lg-12(id="estadoReg" name="estadoReg")
                             option(value="estudio") Estudio
-                            option(value="aprobado") Aprobado
+                            option(value="aprobado" id="aprovar") Aprobado
                             option(value="desaprobado") Desaprobado
                         td
                           textarea.form-control.col-lg-12(name="observaciones" style="width100%; height:100px;") observaciones
@@ -779,6 +781,25 @@ block js
               });
             }
           });
+
+      $(function(){
+          $.ajax({
+              type:'get',
+              dataType: 'json',
+              url:'http://localhost:3001/SWsancionMedica/'+#{datos.medico.identificacion},
+              //- url:'http://tribunal-etico.herokuapp.com/SWsancionMedica/'+#{datos.medico.identificacion},
+              success:function(data){
+                console.log(data);
+                if(data.resp=='si'){
+                  $('#sancion-tribunal').css('display', 'block');
+                  $('#aprovar').css('display', 'none');
+                }else{
+                  $('#sancion-tribunal').css('display', 'none');
+                  $('#aprovar').css('display', 'block');
+                }
+              }
+            });
+        });
 
         $('#session_Close').on('click', function(e){
           e.preventDefault();

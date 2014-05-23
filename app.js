@@ -29,7 +29,7 @@ app.configure(function(){
 	app.use(express.favicon());
 	app.use(express.logger('dev'));
 	app.use(express.bodyParser());
-	app.use(express.bodyParser({uploadDir:'./public/uploads'}));
+	app.use(express.bodyParser());
 	app.use(express.cookieParser('1q2w3e4r'));
 	app.use(express.session({secret:'1q2w3e4r'}));
 	app.use(allowCrossDomain);
@@ -81,7 +81,7 @@ app.patch('/medicos/inf-otros', medicos.updateInfOtros);
 app.patch('/medicos/info-laboral', medicos.updateInfLaboral);
 app.patch('/medicos/estados', medicos.updateEstadoRegistro);
 
-app.get('/municipios', test.municipios);
+// app.get('/municipios', test.municipios);
 // app.get('/universidad', test.universidades);
 // app.get('/profesional', test.tipoProfesional);
 app.get('/lugarTrabajo', test.addLugarTrabajo);
