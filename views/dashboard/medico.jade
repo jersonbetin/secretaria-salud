@@ -786,8 +786,8 @@ block js
           $.ajax({
               type:'get',
               dataType: 'json',
-              url:'http://localhost:3001/SWsancionMedica/'+#{datos.medico.identificacion},
-              //- url:'http://tribunal-etico.herokuapp.com/SWsancionMedica/'+#{datos.medico.identificacion},
+              //- url:'http://localhost:3001/SWsancionMedica/'+#{datos.medico.identificacion},
+              url:'http://tribunal-etico.herokuapp.com/SWsancionMedica/'+#{datos.medico.identificacion},
               success:function(data){
                 console.log(data);
                 if(data.resp=='si'){
