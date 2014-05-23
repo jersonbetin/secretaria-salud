@@ -624,7 +624,84 @@ function agregar_medicoDirectorio(res, evidencia, TipoIdent,  ident,  nombre, pA
 						}, function (err, medico){
 							if(err){
 								if(err.code=="11000"){
-									res.send('repeat');
+									var conditions = {identificacion:ident};
+									var	update = {
+											$set:{
+												correo:email,
+												nombres : nombre,
+												apellidos : {
+													primero : pAp,
+													segundo : sAp
+												},
+												NtarjetaProf: NTarjeta,
+												sexo: sexo,
+												fehaNaimiento: fechaNac,
+												residencia : {
+													municipio: muncResid,
+													direccion: direccion
+												},
+												telefono:{
+													celular : cel,
+													fijo: tel
+												},
+												nacionalidad: nacionalidad,
+												estadoRegistro:'estudio',
+												_tipoProfesional:tipoProfe,
+												_lugarTrabajo: Lugar,
+												labora: labora,
+												fechaRegistro:new Date() ,
+												evidencias: evidencia
+											}
+										}
+									var options = {upsert:false};
+									models.medicos.update(conditions, update, options, function (err){
+										if(err){
+											res.send({
+												code:500,
+												error:'actualizacionFallida',
+												info:'paso algun error al actualizar'
+											});
+										}else{
+											models.medicos.findOne({identificacion:ident},function(err, doctorID){
+												if(err){
+													res.send({
+														code:500,
+														error:'actualizacionFallida',
+														info:'paso algun error al buscar el doctor'
+													});
+												}else{
+													models.misTitulos.remove({_medico:doctorID._id}, function(err){
+														if(err){
+															res.send({
+																code:500,
+																error:'actualizacionFallida',
+																info:'paso algun error al borrarlos titulos del doctor'
+															});
+														}else{
+															var titulo = titulos;
+															console.log(titulo);
+															for (var i = 0; i < titulo.length; i++) {
+																models.misTitulos.create({
+																	_medico : doctorID._id,
+																	titulo : titulo[i].title,
+																	descripcion : titulo[i].description,
+																	_universidad : titulo[i].idUniversity,
+																	fechaObtenion : titulo[i].graduationDate,
+																}, function (err){
+																	if (err) {
+																		console.log('aqui esta el problema');
+																		res.send(err);
+																	}
+																});
+															};
+															console.log('no hay problema');
+															res.send(200);
+														}
+													});
+												}
+											});
+										}
+									});
 								}else{
 									console.log(err);
 									res.send(err);
