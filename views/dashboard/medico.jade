@@ -12,8 +12,34 @@ block nav
       span.icon-bar
     a.navbar-brand(href='/') Secretaria de salud
   #bs-example-navbar-collapse-1.collapse.navbar-collapse
-    a.navbar-brand.navbar-right#session_Close(href="/session/admin")
-      .btn.btn-info CERRAR SESION
+    ul.nav.navbar-nav
+      li
+        a(href="/") 
+          i.fa.fa-home
+          |  Inicio
+      li.dropdown
+        a(href="#", class="dropdown-toggle", data-toggle="dropdown") 
+          i.fa.fa-cogs
+          |   Operaciones
+          b.caret
+        ul.dropdown-menu
+          li
+            a(href="/medicos")
+              i.fa.fa-floppy-o
+              |  Guardar medico
+          li
+            a(href="/medicos/busqueda")
+              i.fa.fa-search
+              |  Buscar medico
+          li
+            a(href="/medicos/listado/estados")
+              i.fa.fa-list
+              |  Lista en estudio
+      li#session_Close
+        a(href="#") 
+          i.fa.fa-sign-out
+          |  Cerrar sesion
+    a.navbar-brand.navbar-right(style="font-size:14px") #{datos.medico.nombres} #{datos.medico.apellidos.primero} #{datos.medico.apellidos.segundo}
 
 block content
   .container.general
@@ -205,7 +231,7 @@ block content
                     .form-group
                       tr
                         td
-                            label.control-label.col-sm-10(for="Estado" style="float: right;") Cambiar estado:
+                            label.control-label.col-sm-10(for="Estado" style="float: right;") Estado:
                         td
                           select.form-control.col-lg-12(id="estadoReg" name="estadoReg")
                             option(value="estudio") Estudio
@@ -214,7 +240,7 @@ block content
                         td
                           textarea.form-control.col-lg-12(name="observaciones" style="width100%; height:100px;") observaciones
                         td
-                          input.btn-primary.btn(type="submit" value="Cambiar")
+                          input.btn-primary.btn(type="submit" value="Registrar")
 
           #myModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true")
             .modal-dialog.modal-lg( style="width: 60%;")
@@ -417,7 +443,6 @@ block content
                         button(type="button" class="btn btn-default" data-dismiss="modal") Cancelar
                         button(type="submit" id="form-otros" class="btn btn-primary") Guardar Cambios
 block js
-  script(src="/javascripts/bootstrap/bootstrap.js")
   script.
     //- $(function(){
     //-     var myDate = new Date('#{datos.medico.fehaNaimiento}');

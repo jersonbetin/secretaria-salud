@@ -5,16 +5,38 @@
   font-style: normal;
 }
 .container {
-  font-family: "ChelaOne-Regular", algerian, lucida, arial, lucida;
+  font-size: 16px;
 }
 .container .navbar-brand {
+  font-family: "ChelaOne-Regular", algerian, lucida, arial, lucida;
   font-size: 40px;
 }
 .container .navbar-brand span {
   color: #009cb2;
 }
-.navbar {
-  margin-bottom: 10px;
+.carousel {
+  height: 200px;
+}
+.carousel-caption {
+  z-index: 10;
+}
+.carousel .item {
+  height: 200px;
+}
+.carousel-inner > .item > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 200px;
+}
+.nav-tabs li {
+  font-size: 18px;
+  color: black;
+}
+.form-inline {
+  margin-top: 10px;
+  font-family: time new roman;
 }
 .container h2 {
   font-family: "ChelaOne-Regular";
@@ -25,18 +47,19 @@
   text-align: justify;
 }
 .contactos {
-  width: 60%;
   border: none;
+  font-family: arial !important;
 }
 .contactos tr {
   width: 100%;
 }
 .contactos tr td:nth-child(2n+1) {
-  font-size: 20px;
+  font-size: 16px;
+  font-weight: bolder;
 }
 .contactos tr td:nth-child(2n) {
   color: #009cb2;
-  font-size: 15px;
+  font-size: 16px;
 }
 .contactos tr td > a {
   font-family: "ChelaOne-Regular", algerian, lucida, arial, lucida;
@@ -44,4 +67,7 @@
 }
 .modal-footer p {
   font-weight: bold;
+}
+.info {
+  font-family: arial !important;
 }

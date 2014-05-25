@@ -16,10 +16,27 @@ html(lang="es")
 
   body
     block header
-      .navbar.navbar-default.navbar-fixed-top(role="navigation")
-        .container
-          block nav
-            .navbar-header
+      .container
+          .row
+            .col-lg-12
+              #myCarousel.carousel.slide(data-ride="carousel")
+
+                div.carousel-inner
+                  div.item.active
+                    img(src="/images/slider-3.png" alt="slider-3")
+                  div.item
+                    img(src="/images/slider-1.png" alt="slider-1")
+                  div.item
+                    img(src="/images/slider-2.jpg" alt="slider-2")
+                a.left.carousel-control(href="#myCarousel" data-slide="prev")
+                a.right.carousel-control(href="#myCarousel" data-slide="next")
+          .navbar.navbar-default(role="navigation")
+              .row
+                .col-lg-12
+                block nav
+                  .navbar-header
+                    .col-lg-12
+
 
 
     block content
@@ -31,5 +48,6 @@ html(lang="es")
           .text-center Copyright © 2013 Secretaria de Salud Todos los derechos reservados.
 
   script(src="/javascripts/bootstrap/jquery.js")
+  script(src="/javascripts/bootstrap/bootstrap.js")
 
   block js

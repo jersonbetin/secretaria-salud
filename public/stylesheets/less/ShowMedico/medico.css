@@ -3,6 +3,9 @@ ul.nav.nav-tabs {
   font-size: 14px;
   font-weight: bold;
 }
+ul.nav.nav-tabs li {
+  font-size: 14px;
+}
 .tab-content {
   padding: 1%;
   box-shadow: 8px 8px 3px #d3d3d3, -1px 0px 3px #d3d3d3;

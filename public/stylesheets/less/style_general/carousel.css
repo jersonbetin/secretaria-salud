@@ -4,18 +4,17 @@
 
   /* Carousel base class */
   .carousel {
-    height: 400px;
-    margin-bottom: 60px; 
-    box-shadow: 5px 6px 12px rgba(200, 200, 200, 1) , -5px -6px 12px rgba(200, 200, 200, 1);   
+    height: 200px;
   }
   /* Since positioning the image, we need to help out the caption */
   .carousel-caption {
     z-index: 10;
   }
+  
 
   /* Declare heights because of positioning of img element */
   .carousel .item {
-    height: 400px;
+    height: 200px;
   }
   .carousel-inner > .item > img {
     position: absolute;
