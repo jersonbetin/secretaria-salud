@@ -10,7 +10,7 @@ block nav
       span.icon-bar
       span.icon-bar
       span.icon-bar
-    a.navbar-brand(href='/') Secretaria de salud
+    a.navbar-brand(href='/') Secretaría de salud
   #bs-example-navbar-collapse-1.collapse.navbar-collapse
     ul.nav.navbar-nav
       li
@@ -26,11 +26,11 @@ block nav
           li
             a(href="/medicos")
               i.fa.fa-floppy-o
-              |  Guardar medico
+              |  Guardar medíco
           li
             a(href="/medicos/busqueda")
               i.fa.fa-search
-              |  Buscar medico
+              |  Buscar medíco
           li
             a(href="/medicos/listado/estados")
               i.fa.fa-list
@@ -38,7 +38,7 @@ block nav
       li#session_Close
         a(href="#") 
           i.fa.fa-sign-out
-          |  Cerrar sesion
+          |  Cerrar sesión
     a.navbar-brand.navbar-right(style="font-size:14px") #{datos.medico.nombres} #{datos.medico.apellidos.primero} #{datos.medico.apellidos.segundo}
 
 block content
@@ -135,9 +135,9 @@ block content
             #opcion2.tab-pane
               table.table.table-hover.table-title
                 tr
-                  th TITULO
+                  th TÍTULO
                   th UNIVERSIDAD
-                  th FECHA TITULO
+                  th FECHA TÍTULO
                   th
                 each val in datos.titulos
                   tr
@@ -181,7 +181,7 @@ block content
                             input.form-control.input-formu(type="text" name="telTrabajo" id="telTrabajo" value="#{datos.medico._lugarTrabajo.telefono.fijo}"  disabled="disabled")
                     else
                       p.alert-info#info-labora
-                        | El medico no esta laborando en estos momentos
+                        | El médico no esta laborando en estos momentos
                      .form-group
                         tr
                           td
@@ -220,7 +220,7 @@ block content
                           td
             #opcion5.tab-pane
               #sancion-tribunal.alert-danger
-                p Usted esta sancionado en el tribunal de etica medica asi que no puede ejercer sus labores de medico
+                p Usted presenta un registro de inhabilidad vigente ante El Tribunal de Ética Médica, su registro no puede ser aprobado.
               p.estadoTitle(style="font-size: 20px; text-align: center; text-transform: uppercase; font-weight: bold;")  su estado es: 
                  span(style="color:red") #{datos.medico.estadoRegistro}
               #divpdf
@@ -247,7 +247,7 @@ block content
               .modal-content
                 .modal-header
                   button(type="button" class="close" data-dismiss="modal" aria-hidden="true")&times;
-                  h4(class="modal-title" id="myModalLabel") Editar Informacion personal personal del medico #{datos.medico.identificacion}
+                  h4(class="modal-title" id="myModalLabel") Editar Información personal del médico #{datos.medico.identificacion}
                 .modal-body
                   form(id="inf-personal" method="get" action="/medicos/inf-personal")
                     table.table.table-edit-personal
@@ -287,7 +287,7 @@ block content
                           td
                             input.form-control(type="text" name="Celular" id="Celular" value="#{datos.medico.telefono.celular}")
                           td
-                            label.control-label.col-sm-12(for="telefono") Telefono:
+                            label.control-label.col-sm-12(for="telefono") Teléfono:
                           td
                             input.form-control(type="text" name="telefono" id="telefono" value="#{datos.medico.telefono.fijo}")
                       .form-group
@@ -310,7 +310,7 @@ block content
                           td
                             input.form-control(type="text" name="municipio" id="municipio" value="#{datos.medico.residencia.municipio}")
                           td
-                            label.control-label.col-sm-12(for="direccion") Direccion:
+                            label.control-label.col-sm-12(for="direccion") Dirección:
                           td
                             input.form-control(type="text" name="direccion" id="residencia" value="#{datos.medico.residencia.direccion}")
                     .modal-footer
@@ -321,7 +321,7 @@ block content
               .modal-content
                 .modal-header
                   button(type="button" class="close" data-dismiss="modal" aria-hidden="true")&times;
-                  h4(class="modal-title" id="myModalLabel") Editar titulos del medico #{datos.medico.identificacion}
+                  h4(class="modal-title" id="myModalLabel") Editar títulos del médico #{datos.medico.identificacion}
                 .modal-body
                    form(id="inf-titulos" method="post" action="/medicos/inf-titulos")
                     table.table
@@ -329,11 +329,11 @@ block content
                       .form-group
                         tr
                           td
-                            label.control-label.col-sm-12(for="titulo") Nombres titulo:
+                            label.control-label.col-sm-12(for="titulo") Nombre del título:
                           td
                             input.form-control(type="text" name="titulo" id="titulo")
                           td
-                            label.control-label.col-sm-12(for="fechaObtencion") fecha Obtencion:
+                            label.control-label.col-sm-12(for="fechaObtencion") fecha Obtención:
                           td
                             input.form-control(name="fechaObtencion" id="fechaObtencion")
                       .form-group
@@ -350,10 +350,10 @@ block content
               .modal-content
                 .modal-header
                   button(type="button" class="close" data-dismiss="modal" aria-hidden="true")&times;
-                  h4(class="modal-title" id="myModalLabel") Editar datos laborales del medico #{datos.medico.identificacion}
+                  h4(class="modal-title" id="myModalLabel") Editar datos laborales del médico #{datos.medico.identificacion}
                 .modal-body
                   form(id="form-inf-laboral" method="post" action="/medicos/inf-laboral")
-                    h6.title-datos-laborales El medico labora?
+                    h6.title-datos-laborales El médico labora?
                     table.table
                       .form-group(style="display: none;")
                          input.form-control.input-formu(type ="hidden" name="ident" id="ident"  value="#{datos.medico.identificacion}")
@@ -388,7 +388,7 @@ block content
                           td
                             label.control-label.col-sm-12(for="NombEmpres-edit") Nombre:
                           td
-                            input.form-control(type="text" name="NombEmpres_edit" id="NombEmpres-edit" Placeholder="Ingrese nombre del lugar")
+                            input.form-control(type="text" name="NombEmpres_edit" id="NombEmpres-edit" Placeholder="nombre del consultorio")
                       .form-group
                         tr
                           td
@@ -396,19 +396,19 @@ block content
                           td
                             #municipios-edit
                           td
-                            label.control-label.col-sm-12(for="dirEmpresa-edit") Direccion:
+                            label.control-label.col-sm-12(for="dirEmpresa-edit") Dirección:
                           td
-                            input.form-control(type="text" name="dirEmpresa_edit" id="dirEmpresa-edit" Placeholder="Ingrese direccion del lugar")
+                            input.form-control(type="text" name="dirEmpresa_edit" id="dirEmpresa-edit" Placeholder="direción del consultorio")
                       .form-group
                         tr
                           td
                             label.control-label.col-sm-12(for="celTrabajo-edit") Celular:
                           td
-                            input.form-control(type="text" name="celTrabajo_edit" id="celTrabajo-edit" Placeholder="Ingrese celular del lugar")
+                            input.form-control(type="text" name="celTrabajo_edit" id="celTrabajo-edit" Placeholder="No. Celular")
                           td
                             label.control-label.col-sm-12(for="telTrabajo-edit") Telefono:
                           td
-                            input.form-control(type="text" name="telTrabajo_edit" id="telTrabajo-edit" Placeholder="Ingrese telefono del lugar")
+                            input.form-control(type="text" name="telTrabajo_edit" id="telTrabajo-edit" Placeholder="teléfono fijo del Consultorio")
                     .modal-footer
                         button(type="button" class="btn btn-default" data-dismiss="modal") Cancelar
                         button(type="submit" id="inf-laboral-edit" class="btn btn-primary") Guardar Cambios
@@ -435,7 +435,7 @@ block content
                       .form-group
                         tr
                           td
-                            label.control-label.col-sm-12(for="tipoprof") Tipo de profesion:
+                            label.control-label.col-sm-12(for="tipoprof") Tipo de profesión:
                           td(colspan="2")
                             #profe
                           td
@@ -484,11 +484,11 @@ block js
       $('#inf-titulos').on('submit', function (e){
           if(validar('#titulo')){
             e.preventDefault();
-            alert('Imgrese nombre del titulo');
+            alert('Igrese nombre del título');
           }else if(validar('#fechaObtencion')){
             e.preventDefault();
-            alert('Imgrese nombre del titulo');
-          }else if(confirm('Actualizar datos de titulos obtenidos')){
+            alert('Ingrese nombre del título');
+          }else if(confirm('Actualizar datos de títulos obtenidos')){
           var datos = $(this).serialize();
             $.ajax({
               method:'patch',
@@ -496,7 +496,7 @@ block js
               data:datos,
               success: function (data){
                 if(data=='OK'){
-                alert('guardado con exito');
+                alert('datos guardados con exito');
                 document.location.reload();
                 }else{
                   alert('error al guardar');
@@ -520,28 +520,28 @@ block js
         $("#inf-personal").on('submit', function (e){
             if(validar('#nombres')){
               e.preventDefault();
-              alert('Imgrese nombres del medico');
+              alert('Ingrese nombres del médico');
             }else if(validar('#PApellido')){
                 e.preventDefault();
-                alert('Imgrese primer apellido');
+                alert('Ingrese primer apellido');
               }else if(validar('#SApellido')){
                   e.preventDefault();
-                  alert('Imgrese segundo apellido');
+                  alert('Ingrese segundo apellido');
                 }else if(validar('#municipio')){
                     e.preventDefault();
-                    alert('Imgrese municipio de recidencia');
+                    alert('Ingrese municipio de recidencia');
                   }else if(validar('#telefono')){
                       e.preventDefault();
-                      alert('Imgrese telefono fijo');
+                      alert('Ingrese teléfono fijo');
                     }else if(validar('#Celular')){
                         e.preventDefault();
-                        alert('Imgrese celular');
+                        alert('Ingrese celular');
                       }else if(validar('#fecNacim')){
                           e.preventDefault();
-                          alert('Imgrese Fecha de nacimiento');
+                          alert('Ingrese Fecha de nacimiento');
                         }else if(validar('#residencia')){
                             e.preventDefault();
-                            alert('Imgrese direccion de residencia');
+                            alert('Ingrese dirección de residencia');
                           }else if(confirm('Desea actualizar los datos')){
                               var datos = $('#inf-personal').serialize();
                               $.ajax({
@@ -699,7 +699,7 @@ block js
           });
 
         $('#info-estados').on('submit', function (e){
-          if(confirm('Seguro quiere Cambiar el estado del medico?')){
+          if(confirm('¿Seguro quiere Cambiar el estado del medico?')){
             var datos= $(this).serialize();
             $.ajax({
               method:'patch',
@@ -725,19 +725,19 @@ block js
             if(labora=='si'){
               if(validar('#nit-edit')){
                 e.preventDefault();
-                alert('falta nit de la empresa');
+                alert('falta nit del consultorio');
               }else if(validar('#NombEmpres-edit')){
                 e.preventDefault();
                 alert('falta nomre de la empresa');
               }else if(validar('#municTrabajo-edit')){
                 e.preventDefault();
-                alert('falta municipio de la empresa');
+                alert('falta municipio del consultorio');
               }else if(validar('#dirEmpresa-edit')){
                 e.preventDefault();
-                alert('falta direccion de la empresa');
+                alert('falta direccion del consultorio');
               }else if(validar('#telTrabajo-edit')){
                 e.preventDefault();
-                alert('falta telefono de la empresa');
+                alert('falta telefono del consultorio');
               }else if(confirm('¿Seguro quiere actualizar sus datos laborales?')){
                 var datos = $(this).serialize();
                 $.ajax({
