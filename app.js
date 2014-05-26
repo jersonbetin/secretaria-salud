@@ -81,6 +81,11 @@ app.patch('/medicos/inf-otros', medicos.updateInfOtros);
 app.patch('/medicos/info-laboral', medicos.updateInfLaboral);
 app.patch('/medicos/estados', medicos.updateEstadoRegistro);
 
+
+app.get('/denuncias/medicos', routes.renderDenunciaMedico);
+app.get('/denuncias/medicos/:id', routes.renderGetByIdDenunciaMedico);
+app.post('/denuncias/medicos', medicos.denunciasMedico);
+
 // app.get('/municipios', test.municipios);
 // app.get('/universidad', test.universidades);
 // app.get('/profesional', test.tipoProfesional);

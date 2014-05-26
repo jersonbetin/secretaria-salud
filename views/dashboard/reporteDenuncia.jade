@@ -1,0 +1,81 @@
+extends ../layout
+
+block css
+  link(rel='stylesheet', href='/stylesheets/less/error/error.css')
+  link(rel='stylesheet', href='/stylesheets/less/medicosEstudio/lista.css')
+
+block nav
+  .navbar-header
+    button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
+      span.sr-only toogle navigation
+      span.icon-bar
+      span.icon-bar
+      span.icon-bar
+    a.navbar-brand(href='/') Secretaria de salud
+  #bs-example-navbar-collapse-1.collapse.navbar-collapse
+    ul.nav.navbar-nav
+      li
+        a(href="/") 
+          i.fa.fa-home
+          |  Inicio
+      li.dropdown
+        a(href="#", class="dropdown-toggle", data-toggle="dropdown") 
+          i.fa.fa-cogs
+          |   Operaciones
+          b.caret
+        ul.dropdown-menu
+          li
+            a(href="/medicos")
+              i.fa.fa-floppy-o
+              |  Guardar medico
+          li
+            a(href="/medicos/busqueda")
+              i.fa.fa-search
+              |  Buscar medico
+          li
+            a(href="/medicos/listado/estados")
+              i.fa.fa-list
+              |  Lista en estudio
+          li.active
+            a(href='/denuncias/medicos')
+              i.fa.fa-gavel
+              |  Denuncias de medicos
+      li#session_Close
+        a(href="#") 
+          i.fa.fa-sign-out
+          |  Cerrar sesion
+
+block content
+  .container.general
+    .row
+      .col-lg-12
+        .col-lg-4
+          img.img-rounded(src="/images/dashboard/denuncie.png", alt="")
+        .col-lg-8
+          .panel.panel-primary
+            .panel-heading Denunciante
+            .panel-body
+              table.table
+                tr
+                  td #{reporte.denunciante.identificacion}
+                  td #{reporte.denunciante.nombres} #{reporte.denunciante.apellidos.primero} #{reporte.denunciante.apellidos.segundo}
+                  td #{reporte.denunciante.phone.fijo}
+                  td #{reporte.denunciante.phone.celular}
+          .panel.panel-primary
+            .panel-heading Medico denunciado
+            .panel-body
+              table.table
+                tr
+                  td #{reporte.profesionalDenunciado.identificacion}
+                  td #{reporte.profesionalDenunciado.nombres}
+                  td #{reporte.profesionalDenunciado.direccion}
+                  td #{reporte.profesionalDenunciado.establecimiento}
+          .panel.panel-primary
+            .panel-heading Mas informacion
+            .panel-body
+              table.table
+                tr
+                  td #{reporte.municipio}
+                  td #{moment(fechaDenuncia).format('DD-MM-YYYY')}
+                  td #{reporte.descripcion}
+

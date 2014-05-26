@@ -84,6 +84,30 @@ var AdminSchema = new Schema({
 	pass:{type : String, required:true}
 });
 
+var ReporteSchema = new Schema({
+	denunciante:{
+		identificacion:{type:String, required:true},
+		nombres:{type:String, required:true},
+		apellidos:{
+			primero:{type:String, required:true},
+			segundo:{type:String, required:true}
+		},
+		phone:{
+			celular:{type:String, default:''},
+			fijo:{type:String, default:''}
+		}
+	},
+	profesionalDenunciado:{
+		identificacion:{type:String, default:''},
+		nombres: {type:String, default:''},
+		direccion:{type:String, default:''},
+		establecimiento:{type:String, default:''}
+	},
+	descripcion:{type:String, default:''},
+	municipio:{type:String},
+	fechaDenuncia:{type:Date, required:true}
+});
+
 var lugarTrabajo= mongoose.model('lugarTrabajo', lugarTrabajoSchema);
 var municipios = mongoose.model('municipios', municipioSchema);
 var tipoProfesional = mongoose.model('tipoProfesional', tipoProfesionalSchema);
@@ -91,6 +115,7 @@ var misTitulos = mongoose.model('misTitulos', misTitulosSchema);
 var medicos = mongoose.model('medicos', medicoSchema);
 var admins = mongoose.model('admins', AdminSchema);
 var universidades = mongoose.model('universidades', universidadSchema);
+var reportes = mongoose.model('reportes', ReporteSchema);
 
 exports.universidades = universidades;
 exports.lugarTrabajo = lugarTrabajo;
@@ -99,3 +124,4 @@ exports.tipoProfesional = tipoProfesional;
 exports.misTitulos = misTitulos;
 exports.medicos = medicos;
 exports.admins = admins;
+exports.reportes = reportes;

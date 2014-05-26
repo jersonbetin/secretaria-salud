@@ -79,6 +79,7 @@ exports.registerAdmin = function(req, res){
 }
 
 exports.busqueda = function (req, res){
+	console.log('####### busqueda ####');
 	if (helpers.isDefined(req.signedCookies.id_session) || helpers.isDefined(req.session.id_session)) {
 		res.render('dashboard/search', {title: 'Search', error:req.query.error});
 	 }else{
@@ -114,3 +115,47 @@ exports.listaMedicosEstudio =  function (req, res){
 	 	res.redirect('/');
 	}
 }
+
+exports.renderDenunciaMedico=function(req, res){
+	console.log('####### renderDenunciaMedico ####');
+	if (helpers.isDefined(req.signedCookies.id_session) || helpers.isDefined(req.session.id_session)) {
+		models.reportes.find()
+		.select('_id denunciante.identificacion denunciante.nombres denunciante.apellidos.primero denunciante.apellidos.segundo descripcion fechaDenuncia')
+		.sort('fechaDenuncia fechaDenuncia')
+		.exec(function(err, denuncia){
+				if (err) {
+					res.send(err);
+				}else{
+					console.log(denuncia);
+					res.render('dashboard/denuncias', {
+						title:'Denuncias',
+						denuncia:denuncia,
+						moment:moment
+					});
+				}
+			});
+	}else{
+		res.redirect('/');
+	}
+}
+
+exports.renderGetByIdDenunciaMedico=function(req, res){
+	console.log('####### renderGetByIdDenunciaMedico ####');
+	if (helpers.isDefined(req.signedCookies.id_session) || helpers.isDefined(req.session.id_session)) {
+		models.reportes.findOne({_id:req.params.id}, function(err, reporte){
+			if(err){
+				console.log(err);
+				res.send({error:500});
+			}else{
+				if(reporte){
+					res.render('dashboard/reporteDenuncia', {title:'reporte', reporte:reporte, moment:moment});
+				}else{
+					res.render('404/404');
+				}
+			}
+		});
+	}else{
+		res.redirect('/');
+	}
+}
+

@@ -32,27 +32,28 @@ block nav
             a(href="/medicos/busqueda")
               i.fa.fa-search
               |  Buscar medico
-          li.active
-            a()
+          li
+            a(href="/medicos/listado/estados")
               i.fa.fa-list
               |  Lista en estudio
-          li
-            a(href="/denuncias/medicos")
+          li.active
+            a()
               i.fa.fa-gavel
               |  Denuncias de medicos
       li#session_Close
         a(href="#") 
           i.fa.fa-sign-out
           |  Cerrar sesion
+
 block content
   .container.general
     .row
       .col-lg-12
         .col-lg-4
-          img.img-rounded(src="/images/lista.png", alt="")
+          img.img-rounded(src="/images/dashboard/reportar.png", alt="")
         .col-lg-8
-          h4 Lista de medicos en estudio
-          if (medicos)
+          h4 Lista de denuncias 
+          if (denuncia)
             table.table.table-bordered.table-info
               thead
                 tr
@@ -60,13 +61,13 @@ block content
                   th Identificacion
                   th Nombre
                   th Fecha
-                  each val in medicos
+                  each val in denuncia
                     tr
                       td
-                        input(type="radio" name="ident" value="#{val.identificacion}")
-                      td #{val.identificacion}
-                      td #{val.nombres} #{val.apellidos.primero} #{val.apellidos.segundo}
-                      td #{moment(val.fechaRegistro).format('DD-MM-YYYY-HH:mm:ss')}
+                        input(type="radio" name="ident" value="#{val._id}")
+                      td #{val.denunciante.nombres} #{val.denunciante.apellidos.primero} #{val.denunciante.apellidos.segundo}
+                      td #{val.descripcion}
+                      td #{moment(val.fechaDenuncia).format('DD-MM-YYYY-HH:mm:ss')}
             table.table-botones
                 tr
                   td
@@ -79,7 +80,6 @@ block content
             .alert-info.info-estudio
               p No se ecuentran medicos en estado de estudio
 
-
 block js
   script.
     $(document).on('ready', function(){
@@ -91,7 +91,7 @@ block js
         $('#ver').click(function(){
           var ident=$("input[name='ident']:checked").val();
           if(ident!=undefined){
-            window.location.href='/medicos/'+ident;
+             window.location.href='/denuncias/medicos/'+ident;
           }else{
             alert('no se a seleccionado un medico');
           }

@@ -977,3 +977,16 @@ function enviarDirectorio(datos, res){
       httpreq.write(data);
       httpreq.end();
 }
+
+exports.denunciasMedico= function(req, res){
+	console.log('######## denuncia medico #####');
+	console.log(req.body);
+	models.reportes.create(req.body.reporte, function (err, denuncia){
+		if(err){
+			console.log(err);
+			res.send({error:500});
+		}else{
+			res.send({error:null});
+		}
+	});
+}
