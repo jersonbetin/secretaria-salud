@@ -11,7 +11,7 @@ block nav
       span.icon-bar
       span.icon-bar
       span.icon-bar
-    a.navbar-brand(href='/') Secretaria de salud
+    a.navbar-brand(href='/') Secretaría de salud
   #bs-example-navbar-collapse-1.collapse.navbar-collapse
     ul.nav.navbar-nav
       li
@@ -27,11 +27,11 @@ block nav
           li
             a(href="/medicos")
               i.fa.fa-floppy-o
-              |  Guardar medico
+              |  Guardar médico
           li
             a(href="/medicos/busqueda")
               i.fa.fa-search
-              |  Buscar medico
+              |  Buscar médico
           li.active
             a()
               i.fa.fa-list
@@ -40,10 +40,10 @@ block nav
             a(href="/denuncias/medicos")
               i.fa.fa-gavel
               |  Denuncias de medicos
-      li#session_Close
+       li#session_Close
         a(href="#") 
           i.fa.fa-sign-out
-          |  Cerrar sesion
+          |  Cerrar sesión
 block content
   .container.general
     .row
@@ -51,13 +51,13 @@ block content
         .col-lg-4
           img.img-rounded(src="/images/lista.png", alt="")
         .col-lg-8
-          h4 Lista de medicos en estudio
+          h4 Lista de médicos en estudio
           if (medicos)
             table.table.table-bordered.table-info
               thead
                 tr
                   th 
-                  th Identificacion
+                  th Identificación
                   th Nombre
                   th Fecha
                   each val in medicos
@@ -77,7 +77,7 @@ block content
                   td
           else
             .alert-info.info-estudio
-              p No se ecuentran medicos en estado de estudio
+              p No se ecuentran registros de médicos en estado de estudio
 
 
 block js
@@ -93,7 +93,7 @@ block js
           if(ident!=undefined){
             window.location.href='/medicos/'+ident;
           }else{
-            alert('no se a seleccionado un medico');
+            alert('Seleccione un médico de la lista');
           }
         });
 

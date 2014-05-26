@@ -20,7 +20,7 @@ block nav
 			span.icon-bar
 			span.icon-bar
 			span.icon-bar
-		a.navbar-brand(href='/') Secretaria de salud
+		a.navbar-brand(href='/') Secretaría de salud
 	#bs-example-navbar-collapse-1.collapse.navbar-collapse
 		ul.nav.navbar-nav
 			li
@@ -36,11 +36,11 @@ block nav
 					li.active
 						a()
 							i.fa.fa-floppy-o
-							|  Guardar medico
+							|  Guardar médico
 					li
 						a(href="/medicos/busqueda")
 							i.fa.fa-search
-							|  Buscar medico
+							|  Buscar médico
 					li
 						a(href="/medicos/listado/estados")
 							i.fa.fa-list
@@ -52,7 +52,7 @@ block nav
 			li#session_Close
 				a(href="#") 
 					i.fa.fa-sign-out
-					|  Cerrar sesion
+					|  Cerrar sesión
 
 block content
 	.container.general
@@ -64,39 +64,39 @@ block content
 					.col-md-12
 						form(role='form' class="stepMe" id="add_medico")
 							fieldset
-								legend Registrar Medico nuevo: Informacion personal
+								legend Registrar Médico nuevo: Informacion personal
 								.alert.alert-warning#alert-ident
-									p Numero de identificacion ya existe por favor verifiquelo.
+									p Número de identificación ya existe por favor verifíquelo.
 								table.table
 									.form-group
 										tr
 											td
-												label.control-label.col-sm-12(for="tIdent") Tipo Identificacion:
+												label.control-label.col-sm-12(for="tIdent") Tipo Identificación:
 											td
 												select.form-control(name="Ti" id="Ti")
-													option(value='cc') Cedula de ciudadania
+													option(value='cc') Cedula de ciudadanía
 													option(value='pasaporte') Pasaporte extranjero
 													option(value='ti') Tarjeta Identidad
 											td
-												label.control-label.col-sm-12(for="ident") Identificacion:
+												label.control-label.col-sm-12(for="ident") Identificación:
 											td
-												input.form-control(type ="number" name="ident" id="ident" Placeholder="Ingrese documento de identidad")
+												input.form-control(type ="number" name="ident" id="ident" Placeholder="Documento de identidad")
 									.form-group
 										tr
 											td
 												label.control-label.col-sm-12(for="nombres") Nombres:
 											td
-												input.form-control(type="text" name="nombres" id="nombres" Placeholder="Ingrese nombres")
+												input.form-control(type="text" name="nombres" id="nombres" Placeholder="Nombres")
 											td
 												label.control-label.col-sm-12(for="PApellido") Primer apellido:
 											td
-												input.form-control(type="text" name="PApellido" id="PApellido" Placeholder="Ingrese primer apellido")
+												input.form-control(type="text" name="PApellido" id="PApellido" Placeholder="Primer apellido")
 									.form-group
 										tr
 											td
 												label.control-label.col-sm-12(for="SApellido") Segundo apellido:
 											td
-												input.form-control(type="text" name="SApellido" id="SApellido" Placeholder="Ingrese segundo apellido")
+												input.form-control(type="text" name="SApellido" id="SApellido" Placeholder="Segundo apellido")
 											td
 												label.control-label.col-sm-12(for="sexo") Sexo:
 											td
@@ -108,17 +108,17 @@ block content
 											td
 												label.control-label.col-sm-12(for="Celular") Celular:
 											td
-												input.form-control(type="text" name="Celular" id="Celular" Placeholder="Ingrese Celular")
+												input.form-control(type="text" name="Celular" id="Celular" Placeholder="Celular personal")
 											td
 												label.control-label.col-sm-12(for="telefono") Telefono:
 											td
-												input.form-control(type="text" name="telefono" id="telefono" Placeholder="Ingrese Telefono")
+												input.form-control(type="text" name="telefono" id="telefono" Placeholder="Telefono de residencia")
 									.form-group
 										tr
 											td
 												label.control-label.col-sm-12(for="fecNacim") Fecha de nacimiento:
 											td
-												input.form-control(type="text" name="fecNacim" id="fecNacim" readonly="readonly" Placeholder="Ingrese fecha de nacimiento")
+												input.form-control(type="text" name="fecNacim" id="fecNacim" readonly="readonly" Placeholder="Fecha de nacimiento")
 											td
 												label.control-label.col-sm-12(for="nacionalidad") Nacionalidad:
 											td
@@ -129,13 +129,13 @@ block content
 									.form-group
 										tr
 											td
-												label.control-label.col-sm-12(for="municipio") Municipio:
+												label.control-label.col-sm-12(for="municipio") Municipio de residensia:
 											td
-												input.form-control(type="text" name="municipio" id="municipio" Placeholder="Ingrese municipio")
+												input.form-control(type="text" name="municipio" id="municipio" Placeholder="Municipio de residencia")
 											td
 												label.control-label.col-sm-12(for="direccion") Direccion:
 											td
-												input.form-control(type="text" name="direccion" id="direccion" Placeholder="Ingrese su direccion de resdencia")
+												input.form-control(type="text" name="direccion" id="direccion" Placeholder="Dirección de resdencia")
 							fieldset
 								legend Informacion titulos
 								table.table
@@ -144,11 +144,11 @@ block content
 											td
 												label.control-label.col-sm-12(for="titulo") Nombres titulo:
 											td
-												input.form-control(type="text" name="titulo" id="titulo" Placeholder="Ingrese nombre del titulo")
+												input.form-control(type="text" name="titulo" id="titulo" Placeholder="Título")
 											td
 												label.control-label.col-sm-12(for="fechaObtencion") fecha Obtencion:
 											td
-												input.form-control(name="fechaObtencion" id="fechaObtencion" Placeholder="Ingrese fecha de optencion" readonly="readonly")
+												input.form-control(name="fechaObtencion" id="fechaObtencion" Placeholder="Fecha de obtención" readonly="readonly")
 									.form-group
 										tr
 											td
@@ -174,7 +174,7 @@ block content
 												td
 								#datos-titulos
 							fieldset
-								legend Informacion lugar de trabajo:
+								legend Información lugar de trabajo:
 								p.infor El prestador individual de salud debe informar el lugar o establecimiento en que habitual y predominantemente ejerce sus funciones.
 								#container-labora.col-lg-12
 									.radio
@@ -198,15 +198,15 @@ block content
 												td
 													label.control-label.col-sm-12(for="nit") Nit:
 												td
-													input.form-control(type="text" name="nit" id="nit" Placeholder="Ingrese Nit del lugar" title="Numero de identificacion tributaria")
+													input.form-control(type="text" name="nit" id="nit" Placeholder="Nit del consultorio o clínica" title="Numero de identificacion tributaria")
 												td
 													label.control-label.col-sm-12(for="NombEmpres") Nombre:
 												td
-													input.form-control(type="text" name="NombEmpres" id="NombEmpres" Placeholder="Ingrese nombre del lugar")
+													input.form-control(type="text" name="NombEmpres" id="NombEmpres" Placeholder="consultorio o clínica")
 										.form-group
 											tr
 												td
-													label.control-label.col-sm-12(for="municTrabajo") Municipio:
+													label.control-label.col-sm-12(for="municTrabajo") Municipio: 	
 												td
 													select.form-control(name="municTrabajo" id="municTrabajo")
 														each municipio in municipios
@@ -215,30 +215,30 @@ block content
 												td
 													label.control-label.col-sm-12(for="dirEmpresa") Direccion:
 												td
-													input.form-control(type="text" name="dirEmpresa" id="dirEmpresa" Placeholder="Ingrese direccion del lugar")
+													input.form-control(type="text" name="dirEmpresa" id="dirEmpresa" Placeholder="Dirección de consultorio")
 										.form-group
 											tr
 												td
 													label.control-label.col-sm-12(for="celTrabajo") Celular:
 												td
-													input.form-control(type="text" name="celTrabajo" id="celTrabajo" Placeholder="Ingrese celular del lugar")
+													input.form-control(type="text" name="celTrabajo" id="celTrabajo" Placeholder="Celular")
 												td
 													label.control-label.col-sm-12(for="telTrabajo") Telefono:
 												td
-													input.form-control(type="text" name="telTrabajo" id="telTrabajo" Placeholder="Ingrese telefono del lugar")
+													input.form-control(type="text" name="telTrabajo" id="telTrabajo" Placeholder="Teléfono")
 							fieldset
 								legend Otros
 								.alert.alert-warning#alert-Ntarj
-									p Numero de tarjeta profesional ya existe por favor verifiquelo.
+									p Número de tarjeta profesional ya existe por favor verifíquelo.
 								table.table
 									.form-group
 										tr
 											td
 												label.control-label.col-sm-12(for="NTarjProf") N° profesional:
 											td
-												input.form-control(type="text" name="NTarjProf" id="NTarjProf" Placeholder="Ingrese numero de tarjeta profesional")
+												input.form-control(type="text" name="NTarjProf" id="NTarjProf" Placeholder="Número de T.P.")
 											td
-												label.control-label.col-sm-12(for="tip_prof") Tipo de profesion:
+												label.control-label.col-sm-12(for="tip_prof") Tipo de profesión:
 											td
 												select.form-control(name="tip_prof" id="tip_prof")
 													each tipoProfe in tipoProf
@@ -246,9 +246,9 @@ block content
 									.form-group
 										tr
 											td
-												label.control-label.col-sm-12(for="email") Correo Electronico:
+												label.control-label.col-sm-12(for="email") Correo Electrónico:
 											td
-												input.form-control(type="email" name="email" id="email" placeholder="Ingrese correo electronico" required)
+												input.form-control(type="email" name="email" id="email" placeholder="Correo eléctronico" required)
 											td
 											td
 									.form-group
@@ -333,50 +333,50 @@ block js
 				$('#add_medico').on('submit', function (e){
 						if($('#ident').val().trim()===''){
 							e.preventDefault();
-							alert('Imgrese numero de indentificacion');
+							alert('Ingrese número de indentificación');
 						}else{
 							if($('#nombres').val().trim()===''){
 								e.preventDefault();
-								alert('Imgrese nombres del medico');
+								alert('Ingrese nombres del médico');
 							}else{
 								if($('#PApellido').val().trim()===''){
 									e.preventDefault();
-									alert('Imgrese primer apellido');
+									alert('Ingrese primer apellido');
 								}else{
 									if($('#SApellido').val().trim()===''){
 										e.preventDefault();
-										alert('Imgrese segundo apellido');
+										alert('Ingrese segundo apellido');
 									}else{
 										if($('#municipio').val().trim()===''){
 											e.preventDefault();
-											alert('Imgrese municipio de recidencia');
+											alert('Ingrese municipio de recidencia');
 										}else{
 											if($('#telefono').val().trim()===''){
 												e.preventDefault();
-												alert('Imgrese telefono fijo');
+												alert('Ingrese teléfono fijo');
 											}else{
 												if($('#Celular').val().trim()===''){
 													e.preventDefault();
-													alert('Imgrese celular');
+													alert('Ingrese celular');
 												}else{
 													if($('#fecNacim').val().trim()===''){
 														e.preventDefault();
-														alert('Imgrese Fecha de nacimiento');
+														alert('Ingrese Fecha de nacimiento');
 													}else{
 														if($('#direccion').val().trim()===''){
 															e.preventDefault();
-															alert('Imgrese direccion de residencia');
+															alert('Ingrese direccion de residencia');
 														}else{
 																if($('#NTarjProf').val().trim()===''){
 																	e.preventDefault();
-																	alert('Imgrese numero de la tarjeta profesionl');
+																	alert('Ingrese número de la tarjeta profesionl');
 																}else{
 																	if(localStorage.titulos===undefined){
 																		e.preventDefault();
-																		alert('No tiene titulos registrados');
+																		alert('No tiene títulos registrados');
 																	}else{
 																		if($('input:radio[name=labora]:checked').val()==undefined){
-																			alert('Ingresa el estado laboral actual');
+																			alert('Ingrese el estado laboral actual');
 																			e.preventDefault();
 																		}else{
 																			var inputFileImage = document.getElementById("evidencias");
@@ -433,7 +433,7 @@ block js
 																						}
 																					}
 																				}
-																				if(confirm('Registrar nuevo medico?')==true){
+																				if(confirm('Se estan guardando los datos, espere un momento')==true){
 																					$.ajax({
 																								type:'POST',
 																								data:data,
@@ -444,12 +444,12 @@ block js
 																								cache:false,
 																								success: function(data){
 																										if(data=="OK"){
-																											alert('guardado con exito');
+																											alert('Datos del profesional guardados con exito');
 																											window.location.reload();
 																											localStorage.removeItem('titulos');
 																										}else{
 																											if(data=="repeat"){
-																												alert('repite identificacion o tarjeta de propiedad');
+																												alert('Repite identificación o tarjeta profesional');
 																											}else{
 																												if('no OK'){
 																													alert('Faltan datos');
@@ -480,10 +480,10 @@ block js
 
 				$('#add_titulo').on('click', function(e){
 					if($('#titulo').val().trim()===''){
-						alert('Imgrese ingrese Titulo');
+						alert('Ingrese Título');
 					}else{
 						if($('#fechaObtencion').val().trim()===''){
-							alert('Imgrese fecha de cuando obtuvo el titulo profesional');
+							alert('Ingrese fecha de obtención de su título');
 							}else{
 								if(localStorage.titulos===undefined){
 									var titulos = {"inf":[{

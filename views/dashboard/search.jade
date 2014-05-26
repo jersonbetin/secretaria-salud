@@ -15,7 +15,7 @@ block nav
       span.icon-bar
       span.icon-bar
       span.icon-bar
-    a.navbar-brand(href='/') Secretaria de salud
+    a.navbar-brand(href='/') Secretaría de salud
   #bs-example-navbar-collapse-1.collapse.navbar-collapse
     ul.nav.navbar-nav
       li
@@ -31,11 +31,11 @@ block nav
           li
             a(href="/medicos")
               i.fa.fa-floppy-o
-              |  Guardar medico
+              |  Guardar médico
           li.active
             a()
               i.fa.fa-search
-              |  Buscar medico
+              |  Buscar médico
           li
             a(href="/medicos/listado/estados")
               i.fa.fa-list
@@ -47,7 +47,7 @@ block nav
       li#session_Close
         a(href="#") 
           i.fa.fa-sign-out
-          |  Cerrar sesion
+          |  Cerrar sesión
 
 block content
   .container.general
@@ -55,15 +55,15 @@ block content
       .col-md-10.col-md-offset-2
         p.text-search
           i.fa.fa-search
-          |  Igrese numero de idenficacion del medico
+          |  Ingrese número de identificación del médico 
           form.form-inline(role="form" method="post" action="/medicos/busqueda")
             .col-sm-10
-              input.form-control(type="text" id="identificacion" name="identificacion" placeholder="Busqueda rapida")
+              input.form-control(type="text" id="identificacion" name="identificacion" placeholder="Busqueda rápida")
             input.btn.btn-primary(type="submit" id="buscar" value="Buscar")
           br
           if (error=='1')
             .alert.alert-warning#alert-ident
-                p La identificacion del medico que esta buscando no existe o esta errada.
+                p El número de identificación no está registrado,  o esta errado
 
 
 

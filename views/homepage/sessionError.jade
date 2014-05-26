@@ -10,7 +10,7 @@ block nav
 		span.icon-bar
 		span.icon-bar
 		span.icon-bar
-		a.navbar-brand(href='/') Secretaria de salud
+		a.navbar-brand(href='/') Secretaría de salud
 
 block content
 	.container.general
@@ -19,11 +19,11 @@ block content
 				.col-lg-4
 					img.img-rounded(src="/images/salud.png", alt="")
 				.col-lg-8
-					h6 Entrar a Secretaria de salud
+					h6 Entrar a Secretaría de salud
 					hr
 					if type === '1'
 						.alert.alert-warning
-							p Usuario y contraseña errados por favor intentar nuevamente
+							p Usuario y contraseña errados por favor intente nuevamente
 					form.form-horizontal(role="form" id="login_session" method="post" action="/session/admin")
 						.form-group
 							label.col-sm-2.control-label(for="user") Usuario:
